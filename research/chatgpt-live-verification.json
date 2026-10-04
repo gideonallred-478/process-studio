@@ -1,0 +1,15 @@
+{
+  "VerifiedAt": "2026-10-03T18:19:01.7564235-04:00",
+  "SyntheticSource": "First, open the local CSV file. Then copy the customer name and email into the follow-up CSV. Sort the rows by customer name. Finally, review the rows before exporting the CSV.",
+  "Method": "chatgpt-plan",
+  "Model": "gpt-6-astra",
+  "Title": "Prepare and review a customer follow-up CSV",
+  "Steps": 5,
+  "SourceQuotesMatched": 5,
+  "Issues": [
+    "Step 1: the proposed instruction could not be verified against its quote and was replaced with the exact source text.",
+    "Step 2: the proposed instruction could not be verified against its quote and was replaced with the exact source text.",
+    "Step 4: the proposed instruction could not be verified against its quote and was replaced with the exact source text.",
+    "Step 5: the proposed instruction could not be verified against its quote and was replaced with the exact source text."
+  ]
+}

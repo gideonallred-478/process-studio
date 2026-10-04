@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {assets} from '../worker/assets.generated.js';
+test('every browser module dependency is included in the hosted artifact',()=>{for(const [url,asset] of Object.entries(assets)){if(!url.endsWith('.js'))continue;for(const match of asset.body.matchAll(/(?:from\s*|import\s*)['"]([^'"]+)['"]/g)){if(!match[1].startsWith('/')&&!match[1].startsWith('.'))continue;const target=new URL(match[1],'https://studio.test'+url).pathname;assert.ok(assets[target],`${url} requires missing browser asset ${target}`)}}});

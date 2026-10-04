@@ -1,0 +1,79 @@
+{
+  "build": "hosted-sharing-2026-10-03",
+  "scope": "Local processing plus hosted sharing; item 5 acceptance deferred",
+  "status": "Built and verified locally; cloud activation pending required account access",
+  "previousFullSuite": {
+    "passed": 115,
+    "failed": 0
+  },
+  "targetedReviewFixes": {
+    "passed": 16,
+    "failed": 0,
+    "findings": [
+      "Local recording identity now scopes publication retries",
+      "Local mutation lock plus revision recheck guards publication",
+      "Expired browser permissions renew while preserving recording key",
+      "Expired cleanup respects the active upload permission"
+    ]
+  },
+  "browser": {
+    "fixture": "Disposable in-memory source only",
+    "settings": true,
+    "publicationDialog": true,
+    "videoDefault": "unchecked",
+    "consoleErrors": 0,
+    "screenshots": [
+      "hosted-sharing-settings-check.png",
+      "hosted-sharing-consent-check.png"
+    ]
+  },
+  "cloudflare": {
+    "wrangler": "4.147.0",
+    "whoami": "not authenticated",
+    "dryRun": "passed after review fixes; no deployment",
+    "provisioned": false,
+    "published": false
+  },
+  "vercel": {
+    "destination": "https://vercel-logged-out.vercel.app",
+    "updated": false,
+    "hostedChatGPT": "disabled and no author account included"
+  },
+  "localhost": {
+    "url": "http://127.0.0.1:4182",
+    "sharingRouteStatus": 200,
+    "connected": false
+  },
+  "virtualization": {
+    "hyperVTools": true,
+    "servicesRunning": true,
+    "inventory": "Windows permission denied",
+    "canStart": false,
+    "vmStarted": false
+  },
+  "item5": {
+    "started": false,
+    "cleanMachine": "not run",
+    "realRecordingHardware": "not run",
+    "crossDevice": "not run"
+  },
+  "fullSuite": {
+    "passed": 119,
+    "failed": 0
+  },
+  "artifactValidation": "passed",
+  "review": {
+    "freshReviewer": true,
+    "importantFindings": 3,
+    "addressed": 3,
+    "testsObservedFailThenPass": true
+  },
+  "packaging": {
+    "allowlistedLocalFiles": 127,
+    "credentialsIncluded": false,
+    "recordingsIncluded": false,
+    "modelsIncluded": false,
+    "cloudflareManifestVerified": true,
+    "vercelManifestVerified": true
+  }
+}

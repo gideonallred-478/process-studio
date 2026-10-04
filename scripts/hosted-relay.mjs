@@ -1,0 +1,16 @@
+const json=(data,status=200)=>Response.json(data,{status,headers:{'cache-control':'no-store'}});
+ const publicOrigin='https://vercel-logged-out.vercel.app';
+export async function hostedRelay(request,{env=process.env,fetchImpl=fetch}={}){
+ const url=new URL(request.url),path=url.pathname;if(!path.startsWith('/api/'))return null;
+ if(path==='/api/chatgpt/status')return json({available:false,ai:false,account:null,accounts:[],pending:false,notice:'ChatGPT is signed out. Processing runs in your local edition.'});
+ if(path==='/api/local/status')return json({available:false,ai:false,localSpeech:false});
+ if(/^\/api\/(?:chatgpt|local|desktop)\b/.test(path))return json({error:'This feature runs in the local edition on your computer.'},503);
+ if(path==='/api/analyze'||path.endsWith('/transcribe'))return json({error:'Open the local edition to transcribe and generate. No shared AI account is connected.'},403);
+ if(url.origin!==publicOrigin)return json({error:'Open the configured studio address.'},403);
+ if(!['GET','HEAD'].includes(request.method)&&request.headers.get('origin')!==publicOrigin)return json({error:'Open this request from the studio.'},403);
+ let backend;try{backend=new URL(env.STUDIO_BACKEND_URL);if(backend.protocol!=='https:'||!backend.hostname.endsWith('.workers.dev')||backend.username||backend.password||backend.pathname!=='/'||backend.search||backend.hash||!(env.STUDIO_RELAY_SECRET?.length>=32))throw Error();}catch{return json({storage:false,error:'Hosted storage is not connected yet. Your local source is preserved.'},503);}
+ try{const headers=new Headers({'x-studio-relay':env.STUDIO_RELAY_SECRET,'origin':publicOrigin});for(const key of ['content-type','range','x-recording-key'])if(request.headers.has(key))headers.set(key,request.headers.get(key));const token=/ps_owner=([a-f0-9]{32})(?:;|$)/.exec(request.headers.get('cookie')||'')?.[1];if(token)headers.set('cookie','ps_owner='+token);
+ let body;if(!['GET','HEAD'].includes(request.method)){const reader=request.body?.getReader(),chunks=[];let size=0;if(reader)while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>4*1024*1024){await reader.cancel();return json({error:'Metadata is too large. Upload media through the direct upload route.'},413);}chunks.push(value);}body=new Uint8Array(size);let offset=0;for(const part of chunks){body.set(part,offset);offset+=part.length;}}
+ const response=await fetchImpl(backend.origin+path+url.search,{method:request.method,headers,body,redirect:'manual',signal:AbortSignal.timeout(30000)});if(response.status===307&&/^\/api\/(recordings|shared)\/[a-f0-9]{32}\/video$/.test(path)&&response.headers.get('location')?.startsWith(backend.origin+'/transfer/video/'))return new Response(null,{status:307,headers:{location:response.headers.get('location'),'cache-control':'no-store'}});if(response.status>=300&&response.status<400)return json({error:'Unexpected storage redirect; no credentials were forwarded.'},502);const outgoing=new Headers(response.headers);outgoing.set('cache-control','no-store');return new Response(response.body,{status:response.status,headers:outgoing});
+ }catch{return json({error:'Hosted storage is temporarily unavailable. Your local source is preserved.'},502);}
+}

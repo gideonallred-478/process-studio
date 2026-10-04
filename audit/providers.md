@@ -1,0 +1,13 @@
+# Provider implementation and verification
+
+October 3, 2026. Implementation: Windows localhost OAuth with PKCE, one-time state and nonce; verified ID-token signature/issuer/audience/expiry/subject; distinct account registrations; serialized rotating refresh; revocation and local credential clearing; account model catalog; structured Responses streaming with completion checks; consent-gated online generation; local Whisper transcription; common source and automation validation.
+
+Browser verification: all three provider choices render; ChatGPT choice survives reload; local Qwen and transcription readiness remain visible; creator-code inputs are hidden outside the API choice; a connected account and eligible models appeared through the real sign-in callback; encrypted connection survived restarting the local server. The first-sign-in notice dismisses through the saved acknowledgment route. No passwords, account tokens or saved recording source were copied into diagnostics.
+
+Controlled tests cover PKCE exchange and issued client ID, state rejection, conflicting registration IDs, nonce/audience/signature/expiry/subject rejection, denied plan scope, token refresh serialization and rotation, scope-free status data, model selection, transcript consent, incomplete/refused streams, cross-origin rejection, revocation, actual Windows encryption/decryption, source-edit races, and preserving an existing process on failed regeneration.
+
+Live acceptance passed using the connected account and `gpt-6-astra`: a synthetic CSV walkthrough returned five process steps with five matching source quotes. Four proposed instructions triggered the existing conservative source replacement safeguard; the warnings were retained. This verifies provider inference and validation, not unrestricted semantic accuracy. The first live attempt exposed completion metadata without repeated output text; the parser now retains streamed text while requiring confirmed completion. A regression test covers that response shape.
+
+Final regression suite: 84 tests passed, zero failed. Browser imports/build and hosted artifact validation passed. Local Qwen readiness and local Whisper readiness were observed in Settings. Hardware recording acceptance and public deployment remain separate and unverified in this build.
+
+Evidence: `research/chatgpt-live-verification.json` contains only synthetic source and safe output metadata, without account identifiers or credentials. Account tokens are excluded from releases and media backups. ChatGPT requests require the tab to remain open; interrupted requests retain source for a retry.

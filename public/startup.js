@@ -1,0 +1,2 @@
+function showStartupError(event){const host=document.getElementById('processProgress');if(!host)return;host.textContent='The studio could not initialize. Reload this page to retry. '+(event.message||event.reason?.message||'A required component failed.');host.dataset.kind='error';host.classList.remove('hidden')}
+window.addEventListener('error',showStartupError);window.addEventListener('unhandledrejection',showStartupError);

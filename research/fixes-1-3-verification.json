@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-03",
+  "scope": "Fixes 1-3 only; plans for 4-5 remain unimplemented",
+  "automated": {"tests":100,"passed":100,"failed":0,"skipped":0,"build":"passed","clientModules":"passed","artifactValidation":"passed"},
+  "source": {"savedCharacters":200000,"savedPhrases":10000,"analysisCharacters":12000,"overLimit":"explicit rejection; previous saved source preserved"},
+  "browser": {"fixture":"separate loopback memory-only synthetic workspace","singlePhraseCorrection":"captions retained with original timing","crossPhraseCorrection":"explicit timed edits retain corrected transcript and restore captions","reload":"corrected transcript and timing retained","conditionalStep":"rule blocked; local configuration absent"},
+  "installer": {"platform":"Windows x64","runtime":"portable Node and CPU llama.cpp","modes":["LocalQwen","ChatGPT"],"checks":["pinned publisher download plan","corrupted cache rejected; previous file preserved","valid cached artifact installed","archive extraction; path traversal refused"]},
+  "currentLocalRuntime": {"storage":true,"localAi":true,"localSpeech":true},
+  "deferred": ["fresh-machine full install","real camera/microphone/monitor acceptance","second-user provider and share acceptance","new hosted storage","hosted processing","new deployment"]
+}

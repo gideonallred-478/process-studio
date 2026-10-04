@@ -1,0 +1,330 @@
+{
+  "at": "2026-10-03T20:51:45.582Z",
+  "scope": "Three authored local model integration checks; not an accuracy benchmark or external connection verification.",
+  "results": [
+    {
+      "name": "local calculation",
+      "passed": true,
+      "elapsedMs": 7652,
+      "result": {
+        "title": "Calculate quantity multiplied by unit_price into a new total column in the local CSV",
+        "summary": "Calculate quantity multiplied by unit_price into a new total column in the local CSV",
+        "owner": "",
+        "trigger": "",
+        "expectedOutcome": "",
+        "exceptionPath": "",
+        "outcome": "",
+        "exception": "",
+        "steps": [
+          {
+            "title": "Calculate quantity multiplied by unit_price into a new total column",
+            "instruction": "Calculate quantity multiplied by unit_price into a new total column in the local CSV.",
+            "proposedInstruction": "Calculate quantity multiplied by unit_price into a new total column in the local CSV.",
+            "evidence": "Calculate quantity multiplied by unit_price into a new total column in the local CSV.",
+            "automation": "candidate",
+            "integration": "none",
+            "approval": "not-required",
+            "tools": [
+              "CSV"
+            ],
+            "reason": "The instruction explicitly states the task to be performed.",
+            "uncertainties": [],
+            "modelDecision": {
+              "automation": "candidate",
+              "integration": "none",
+              "approval": "not-required"
+            },
+            "instructionValidation": "source-extractive",
+            "safeguards": [],
+            "policyOverrides": [],
+            "category": "automate",
+            "reviewRequired": true,
+            "executable": false
+          }
+        ],
+        "actions": [],
+        "issues": [
+          "The proposed expectedOutcome was not an exact source excerpt and remains unknown."
+        ],
+        "validation": {
+          "sourceQuotesChecked": true,
+          "instructionsSourceExtractive": true,
+          "semanticAccuracyVerified": false,
+          "rejectedItems": 0,
+          "sourceExtractiveReplacements": 0,
+          "coverage": {
+            "totalCharacters": 72,
+            "coveredCharacters": 72,
+            "omittedSegments": [],
+            "complete": true,
+            "semanticCompletenessVerified": false
+          }
+        },
+        "policyVersion": "2026-10-03-v2",
+        "reviewRequired": true,
+        "executable": false,
+        "method": "local-model",
+        "model": "Qwen3-8B Q4_K_M",
+        "modelVersion": "Qwen3-8B-Q4_K_M",
+        "modelSha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785"
+      },
+      "plans": [
+        {
+          "version": 1,
+          "source": "Calculate quantity multiplied by unit_price into a new total column in the local CSV.",
+          "operation": "calculate",
+          "feasibility": "supported-operation",
+          "status": "Local operation available",
+          "suggestedSettings": {},
+          "readiness": "not-verified",
+          "approval": "not-required",
+          "connection": {
+            "state": "local",
+            "connected": false,
+            "routes": []
+          },
+          "missing": [
+            "Choose the input file and confirm the fields and operation settings."
+          ],
+          "constraints": [],
+          "externalExecutionAvailable": false
+        }
+      ]
+    },
+    {
+      "name": "CRM details missing",
+      "passed": true,
+      "elapsedMs": 5133,
+      "result": {
+        "title": "Untitled process",
+        "summary": "",
+        "owner": "",
+        "trigger": "",
+        "expectedOutcome": "",
+        "exceptionPath": "",
+        "outcome": "",
+        "exception": "",
+        "steps": [
+          {
+            "title": "Copy Customer Name",
+            "instruction": "Copy the customer name from the CRM into the sheet.",
+            "proposedInstruction": "Copy the customer name from the CRM into the sheet.",
+            "evidence": "Copy the customer name from the CRM into the sheet.",
+            "automation": "candidate",
+            "integration": "required",
+            "approval": "not-required",
+            "tools": [
+              "CRM",
+              "sheet"
+            ],
+            "reason": "The instruction explicitly states the action to be performed.",
+            "uncertainties": [],
+            "modelDecision": {
+              "automation": "candidate",
+              "integration": "unknown",
+              "approval": "not-required"
+            },
+            "instructionValidation": "source-extractive",
+            "safeguards": [],
+            "policyOverrides": [
+              {
+                "field": "integration",
+                "from": "unknown",
+                "to": "required",
+                "reason": "The source names a tool boundary."
+              }
+            ],
+            "category": "integration",
+            "reviewRequired": true,
+            "executable": false
+          }
+        ],
+        "actions": [],
+        "issues": [],
+        "validation": {
+          "sourceQuotesChecked": true,
+          "instructionsSourceExtractive": true,
+          "semanticAccuracyVerified": false,
+          "rejectedItems": 0,
+          "sourceExtractiveReplacements": 0,
+          "coverage": {
+            "totalCharacters": 42,
+            "coveredCharacters": 42,
+            "omittedSegments": [],
+            "complete": true,
+            "semanticCompletenessVerified": false
+          }
+        },
+        "policyVersion": "2026-10-03-v2",
+        "reviewRequired": true,
+        "executable": false,
+        "method": "local-model",
+        "model": "Qwen3-8B Q4_K_M",
+        "modelVersion": "Qwen3-8B-Q4_K_M",
+        "modelSha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785"
+      },
+      "plans": [
+        {
+          "version": 1,
+          "source": "Copy the customer name from the CRM into the sheet.",
+          "operation": null,
+          "feasibility": "supported-operation",
+          "status": "App details needed",
+          "suggestedSettings": {},
+          "readiness": "not-verified",
+          "approval": "not-required",
+          "connection": {
+            "state": "unidentified",
+            "connected": false,
+            "routes": []
+          },
+          "missing": [
+            "Which CRM do you use? Its specific read/write action must be checked.",
+            "Identify the app and required action; no supported connection is verified."
+          ],
+          "constraints": [],
+          "externalExecutionAvailable": false
+        }
+      ]
+    },
+    {
+      "name": "local email drafts",
+      "passed": true,
+      "elapsedMs": 15007,
+      "result": {
+        "title": "Use First Name from CSV to Fill Email Template",
+        "summary": "Fill an approved email template with the first_name column from a local CSV file and save the drafts locally without sending them.",
+        "owner": "",
+        "trigger": "",
+        "expectedOutcome": "",
+        "exceptionPath": "",
+        "outcome": "",
+        "exception": "",
+        "steps": [
+          {
+            "title": "Fill Email Template with First Name Data",
+            "instruction": "Use the first_name column from the local CSV to fill the provided approved email template.",
+            "proposedInstruction": "Use the first_name column from the local CSV to fill the provided approved email template.",
+            "evidence": "Use the first_name column from the local CSV to fill the provided approved email template.",
+            "automation": "candidate",
+            "integration": "unknown",
+            "approval": "not-required",
+            "tools": [
+              "CSV",
+              "email template"
+            ],
+            "reason": "The instruction explicitly states that the first_name column from the CSV should be used to fill the email template.",
+            "uncertainties": [
+              "Confirm which tools, if any, this step uses."
+            ],
+            "modelDecision": {
+              "automation": "candidate",
+              "integration": "unknown",
+              "approval": "not-required"
+            },
+            "instructionValidation": "source-extractive",
+            "safeguards": [],
+            "policyOverrides": [],
+            "category": "automate",
+            "reviewRequired": true,
+            "executable": false
+          },
+          {
+            "title": "Save Drafts Locally",
+            "instruction": "Save the drafts locally; do not send them.",
+            "proposedInstruction": "Save the drafts locally; do not send them.",
+            "evidence": "Save the drafts locally; do not send them.",
+            "automation": "candidate",
+            "integration": "none",
+            "approval": "not-required",
+            "tools": [
+              "drafts"
+            ],
+            "reason": "The instruction explicitly states that the drafts should be saved locally and not sent.",
+            "uncertainties": [],
+            "modelDecision": {
+              "automation": "candidate",
+              "integration": "none",
+              "approval": "not-required"
+            },
+            "instructionValidation": "source-extractive",
+            "safeguards": [],
+            "policyOverrides": [],
+            "category": "automate",
+            "reviewRequired": true,
+            "executable": false
+          }
+        ],
+        "actions": [],
+        "issues": [
+          "The proposed expectedOutcome was not an exact source excerpt and remains unknown."
+        ],
+        "validation": {
+          "sourceQuotesChecked": true,
+          "instructionsSourceExtractive": true,
+          "semanticAccuracyVerified": false,
+          "rejectedItems": 0,
+          "sourceExtractiveReplacements": 0,
+          "coverage": {
+            "totalCharacters": 111,
+            "coveredCharacters": 111,
+            "omittedSegments": [],
+            "complete": true,
+            "semanticCompletenessVerified": false
+          }
+        },
+        "policyVersion": "2026-10-03-v2",
+        "reviewRequired": true,
+        "executable": false,
+        "method": "local-model",
+        "model": "Qwen3-8B Q4_K_M",
+        "modelVersion": "Qwen3-8B-Q4_K_M",
+        "modelSha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785"
+      },
+      "plans": [
+        {
+          "version": 1,
+          "source": "Use the first_name column from the local CSV to fill the provided approved email template.",
+          "operation": "template",
+          "feasibility": "supported-operation",
+          "status": "Local operation available",
+          "suggestedSettings": {},
+          "readiness": "not-verified",
+          "approval": "not-required",
+          "connection": {
+            "state": "local",
+            "connected": false,
+            "routes": []
+          },
+          "missing": [
+            "Choose the input file and confirm the fields and operation settings."
+          ],
+          "constraints": [],
+          "externalExecutionAvailable": false
+        },
+        {
+          "version": 1,
+          "source": "Save the drafts locally; do not send them.",
+          "operation": null,
+          "feasibility": "candidate",
+          "status": "Rule needed",
+          "suggestedSettings": {},
+          "readiness": "not-verified",
+          "approval": "not-required",
+          "connection": {
+            "state": "local",
+            "connected": false,
+            "routes": []
+          },
+          "missing": [
+            "Define an exact repeatable rule or choose a supported local operation."
+          ],
+          "constraints": [
+            "do not send them"
+          ],
+          "externalExecutionAvailable": false
+        }
+      ]
+    }
+  ]
+}

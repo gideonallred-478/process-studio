@@ -1,0 +1,629 @@
+{
+  "build": "local-sharing-2026-10-03",
+  "recordingsIncluded": false,
+  "credentialsIncluded": false,
+  "modelWeightsIncluded": false,
+  "compiledOutputIncluded": false,
+  "files": [
+    {
+      "file": ".env.example",
+      "size": 166,
+      "sha256": "9de8dc7fcff5cf99699b66c7fa921a7833c0306bf2f8f5a1643368c3a44512be"
+    },
+    {
+      "file": ".gitignore",
+      "size": 155,
+      "sha256": "230bc8be1f99cf1d8ae7dc206f20344f691324acd499d69c22b95536ef7c360d"
+    },
+    {
+      "file": ".openai/hosting.json",
+      "size": 98,
+      "sha256": "04dc4c3370d0375c4d834b1cb87d694d1fb81dda407d6876c3e6b9ef0d9489f2"
+    },
+    {
+      "file": "audit/design.md",
+      "size": 3884,
+      "sha256": "785f9299b88deae12bdc316c5a44b0d352d76d7f84b86f10273a821c41ea7b5c"
+    },
+    {
+      "file": "audit/fixes.md",
+      "size": 4780,
+      "sha256": "cab6da0bb7a24e53df77efbb4109b01928a665840ef03ee1f37e8f6a1cfbc75d"
+    },
+    {
+      "file": "audit/providers.md",
+      "size": 2616,
+      "sha256": "02f6bd5edff37fdc68af5e0e7707ad0230c00d58290e79dc8c3419be3ed9a960"
+    },
+    {
+      "file": "decision-policy.js",
+      "size": 4284,
+      "sha256": "ad9e5cfed350a58b8b29a6d2d4dff807ca1a3be2bc7a0d34d23445f1eba82623"
+    },
+    {
+      "file": "HOSTED_SHARING.md",
+      "size": 8284,
+      "sha256": "7f2d64e1c8ce9392284808a799c40b1cbdf21d91d7928231bfdbe339cedf77c9"
+    },
+    {
+      "file": "Install-Studio.ps1",
+      "size": 2837,
+      "sha256": "01e28ceed31d17d7f1f4b4947142f0d014e5875bc2e1d68dd94e30dc883e9eb7"
+    },
+    {
+      "file": "local-analysis.js",
+      "size": 12129,
+      "sha256": "d4de7f9852e89ec6261f9942093c9623df0c5e1d04c2ed25d40daadbd2c903ec"
+    },
+    {
+      "file": "local-engine/artifacts.json",
+      "size": 1213,
+      "sha256": "9b6da72166e41bb67e8bf6dfdd2b18d417e8e65e15ba7c1fd4230171756c3973"
+    },
+    {
+      "file": "local-engine/decision-policy.js",
+      "size": 4284,
+      "sha256": "ad9e5cfed350a58b8b29a6d2d4dff807ca1a3be2bc7a0d34d23445f1eba82623"
+    },
+    {
+      "file": "local-engine/local-analysis.js",
+      "size": 12129,
+      "sha256": "d4de7f9852e89ec6261f9942093c9623df0c5e1d04c2ed25d40daadbd2c903ec"
+    },
+    {
+      "file": "local-engine/local-runtime.js",
+      "size": 5227,
+      "sha256": "396387c7b4d26b71f794b823ec816934e541d22a2a4d923b87c76bd852353f7c"
+    },
+    {
+      "file": "local-engine/local-transcribe.ps1",
+      "size": 1027,
+      "sha256": "7837c276c2810566c3130485bd7f6ceacebbac049ba240a63e38c5ec4a4fe61d"
+    },
+    {
+      "file": "local-engine/package.json",
+      "size": 69,
+      "sha256": "1d8726517a212f5b452c93db68e597706f0ccb54ca989bcd50ad5bfba0371f8a"
+    },
+    {
+      "file": "local-engine/server.js",
+      "size": 7634,
+      "sha256": "df16544c7cf17a14615756d2a510190fc9667766b73a3654218a6540ba121631"
+    },
+    {
+      "file": "local-engine/shared.js",
+      "size": 6069,
+      "sha256": "1e4e7c86fa6756ebe433cdfb16d0623ef17d86e33661b62ce2dda11b1f159ad4"
+    },
+    {
+      "file": "LOCAL_AUTOMATION.md",
+      "size": 7685,
+      "sha256": "16397f9b31d5a85a61c1f736aa80d07b8cfa0ddd6a217eb79cef2d4d94e8eb27"
+    },
+    {
+      "file": "LOCAL_INSTALL.md",
+      "size": 2877,
+      "sha256": "39ec756c8a142ac784e0145fae6ebb8676afe654af52b8a4297bb74335996330"
+    },
+    {
+      "file": "package-lock.json",
+      "size": 14566,
+      "sha256": "764af5b1ca9d0093b72d3485b7bc77f0f87f7d0ed5715415b5717cd15e9b2f6a"
+    },
+    {
+      "file": "package.json",
+      "size": 502,
+      "sha256": "d2e64ae42dbc686fa2b5cfc2915511462530925dd316e13d2d6ae526a2cf1615"
+    },
+    {
+      "file": "public/app.js",
+      "size": 79007,
+      "sha256": "b3c8cfe1a7c78cbe99685873022338f19db001ae97454947492602c196e7697e"
+    },
+    {
+      "file": "public/automation-engine.js",
+      "size": 19117,
+      "sha256": "80a7615f7cf6f1f0d18be2f84a18e73bf3d045f89877fb23d7dcad4a3f6e9e32"
+    },
+    {
+      "file": "public/automation-ui.js",
+      "size": 15873,
+      "sha256": "81ae410e7346403331c343abfa0afc7e06fadfb0144ff607fe0d1bbd43f17018"
+    },
+    {
+      "file": "public/blueprint.js",
+      "size": 801,
+      "sha256": "b61eec4e621cbd846f1910b20426f3a566ec8cbdbb8aabf00baf86003b19196d"
+    },
+    {
+      "file": "public/camera-layout.js",
+      "size": 793,
+      "sha256": "bc7689422223bdb8ef70e4b62fadfb098415d6b9c5e5aa7a5a882102839352ef"
+    },
+    {
+      "file": "public/camera-placement.js",
+      "size": 4045,
+      "sha256": "a58238a9f83901bc795a7a6e8cf614498c2ac6b17a5761601109c782724606ae"
+    },
+    {
+      "file": "public/captions.js",
+      "size": 5519,
+      "sha256": "32a8490850f0dc3d34951d0a789dbcc1cb8d96957734eb39c9d73024c9c1c24d"
+    },
+    {
+      "file": "public/chatgpt-settings.js",
+      "size": 5271,
+      "sha256": "fb26148d3b516389292fc60cde21dab8c3277e0e22a12014cc720a70a5af8669"
+    },
+    {
+      "file": "public/cloud.js",
+      "size": 11746,
+      "sha256": "23949fe24b923f9b49fcf84d645ee707db6e0557ed93424f43eaec1727d79299"
+    },
+    {
+      "file": "public/connections-ui.js",
+      "size": 2344,
+      "sha256": "33c2e8c7117ec4ad3bff3f15bf03ff664f5e62565d0ca6c9318b5cf6dbe3c34d"
+    },
+    {
+      "file": "public/desktop-camera.js",
+      "size": 4274,
+      "sha256": "a2948aa0cdc0a659ea7cbca01c997dda494b8bdccc29f8c940fb511b98d4383b"
+    },
+    {
+      "file": "public/editor.html",
+      "size": 21350,
+      "sha256": "5655404b4d2527832a67b039d230bd9eae633392a9fd221537d469a6e4f200dc"
+    },
+    {
+      "file": "public/index.html",
+      "size": 21350,
+      "sha256": "5655404b4d2527832a67b039d230bd9eae633392a9fd221537d469a6e4f200dc"
+    },
+    {
+      "file": "public/library.html",
+      "size": 21350,
+      "sha256": "5655404b4d2527832a67b039d230bd9eae633392a9fd221537d469a6e4f200dc"
+    },
+    {
+      "file": "public/local.html",
+      "size": 1514,
+      "sha256": "77433cae4154504ea984a8daab08f1f97f4c4a6b808c0aca5535bac91c2b8b40"
+    },
+    {
+      "file": "public/navigation.js",
+      "size": 3986,
+      "sha256": "4aa0129335b41a3da96d91cbccccaf209fbaab62e07e43b38295cc56dc24397e"
+    },
+    {
+      "file": "public/pages.css",
+      "size": 14745,
+      "sha256": "5ecf9a7d5a408dbccd0d7b647842a90b790ed188033df10aedf86650c6071f5d"
+    },
+    {
+      "file": "public/preferences.js",
+      "size": 1059,
+      "sha256": "ccce7c03b54c31a6c689bfd5f8a8f4803d6860e75450710fb2f489712c8cb4f3"
+    },
+    {
+      "file": "public/recording.html",
+      "size": 21350,
+      "sha256": "5655404b4d2527832a67b039d230bd9eae633392a9fd221537d469a6e4f200dc"
+    },
+    {
+      "file": "public/recovery.js",
+      "size": 4162,
+      "sha256": "5789ab265e4e612a5638f67ce5dd3e39c06e7eb12c7e6930ffb78fec59a303e1"
+    },
+    {
+      "file": "public/result.css",
+      "size": 5127,
+      "sha256": "da46b38ac63be84ec90f5f42713957132119fa6a56a361872efb855931835a6a"
+    },
+    {
+      "file": "public/result.html",
+      "size": 4581,
+      "sha256": "2ad145a75663837b751091fddf25ee38a4150b035f40ad620ca3b5edbeffe0e0"
+    },
+    {
+      "file": "public/result.js",
+      "size": 8372,
+      "sha256": "683721e4110622e58546ff7bd4b4a9afa433e411fde6516922d96a454c122c50"
+    },
+    {
+      "file": "public/sample-walkthrough.wav",
+      "size": 516128,
+      "sha256": "18f9130a96a4ede62649775dec8a509bb149b611889f0f5bbd956991c00b3893"
+    },
+    {
+      "file": "public/settings.html",
+      "size": 21350,
+      "sha256": "5655404b4d2527832a67b039d230bd9eae633392a9fd221537d469a6e4f200dc"
+    },
+    {
+      "file": "public/settings.js",
+      "size": 2888,
+      "sha256": "8b089a4b38bf3c4ea61fc3537ed084e50d5b2a6bb9985200e8b5c91bdabc97a2"
+    },
+    {
+      "file": "public/sharing-ui.js",
+      "size": 6402,
+      "sha256": "9c8b157bd4c9564dcf17b6e1affd40b12d1a19959e48ee8f4b5893c0b730f5ec"
+    },
+    {
+      "file": "public/startup.js",
+      "size": 427,
+      "sha256": "4f335c682a307250ce02d6f0bb6bc481c74a7bec7adbe73134c1cd227184c94e"
+    },
+    {
+      "file": "public/studio-design.css",
+      "size": 23327,
+      "sha256": "09e2d503737211cba61df6153dd0d8713c471b6ae992f85f104eaa5263e1f53c"
+    },
+    {
+      "file": "public/studio-mark.svg",
+      "size": 241,
+      "sha256": "564f6530002951313e232f9c242a335829990ec8c4cc44ec4e2b48e560959341"
+    },
+    {
+      "file": "public/style.css",
+      "size": 25542,
+      "sha256": "630a3bc8ea460bf693c2ac289c697ae3f850113939575d88a7cce3e7be894bae"
+    },
+    {
+      "file": "public/uploads.js",
+      "size": 2380,
+      "sha256": "76dcfd48581b0f560f6310d61a110c0479212c43c2226aaa0aaf36073ae0701f"
+    },
+    {
+      "file": "public/workflow-illustration.svg",
+      "size": 662,
+      "sha256": "051e74d2f189248fdc90edcd4714dbcfc44c5b60b47d02d9493177fbbb63f1a1"
+    },
+    {
+      "file": "public/workspace-ui.js",
+      "size": 1729,
+      "sha256": "7c361e632d03befc3a0c860fa974a727c3ee17bc6d3e6cb6b442399e11915997"
+    },
+    {
+      "file": "README.md",
+      "size": 6265,
+      "sha256": "f8da8366667abebf0737274c186ba3c991838ed2cbadc3d095d4740d2d639f48"
+    },
+    {
+      "file": "RELEASE.md",
+      "size": 3946,
+      "sha256": "efcdedbdcbb576f1573c7eae03ab330c2b841015b82e4c268eebe651f50bc6d2"
+    },
+    {
+      "file": "research/automation-rules-check.png",
+      "size": 59500,
+      "sha256": "49bbcfff9d91af14a4eb6ed225d5e77a1fb66fe86d1bc0d577275cecaf3c1f5d"
+    },
+    {
+      "file": "research/chatgpt-live-verification.json",
+      "size": 944,
+      "sha256": "fc71f3f81de6c05eab100dcf6504ceb2c1d8674dab383d902a76ed400edea553"
+    },
+    {
+      "file": "research/chatgpt-plan-integration.md",
+      "size": 5276,
+      "sha256": "6ec6c2dbc850837d743d7a551b68754cf9238584692f2655577589068b009016"
+    },
+    {
+      "file": "research/design-home.jpg",
+      "size": 39494,
+      "sha256": "a10192fdd6daf860c3afbbf982bfb95b1526b3bd56cbb0d7ed1ccf5e2ec6bd50"
+    },
+    {
+      "file": "research/fixes-1-3-verification.json",
+      "size": 1300,
+      "sha256": "f9b915b2a47f55d5d5378f1482c18734ecc3f90575e4f6890c52d5844984102e"
+    },
+    {
+      "file": "research/hosted-sharing-consent-check.png",
+      "size": 51632,
+      "sha256": "5b838a34b6adf0c55030ac01ecf6eae196cef531953460d559e4b4f5086c3bdf"
+    },
+    {
+      "file": "research/hosted-sharing-settings-check.png",
+      "size": 58146,
+      "sha256": "9685debb0fe520f30e5e75703357bca298b35b1c735c2ac55cf6d96439d0a6f1"
+    },
+    {
+      "file": "research/hosted-sharing-verification.json",
+      "size": 2162,
+      "sha256": "ce0c111b4cf3681fbd32001f22386b9cb3cdbf866a1235deb6c6f298d9d7ded4"
+    },
+    {
+      "file": "research/hosting-and-acceptance-plan.md",
+      "size": 11339,
+      "sha256": "7555a74c412db80d51386f8b9c91f1ed792b6c4b45a20d22525e955717575470"
+    },
+    {
+      "file": "research/local-planner-verification.json",
+      "size": 11930,
+      "sha256": "4efcae532ae5e5446842ef89a6639850219931a9cccc0197556f22752193206f"
+    },
+    {
+      "file": "research/local-workflow.jpg",
+      "size": 40683,
+      "sha256": "5243b49bfd44115cede86750f1a97549b8d40082e7c3798f1b9b090924b30fa6"
+    },
+    {
+      "file": "research/product-review.md",
+      "size": 5065,
+      "sha256": "f6fc7143862239df1098efe3d943382564061aabc79cbab1e22da083b73cf31f"
+    },
+    {
+      "file": "research/source-corrections-check.png",
+      "size": 57684,
+      "sha256": "e21edb38812bdb94e3c771d6f4df7f49e9ff927414e33dbc4a84ded22f2ddce8"
+    },
+    {
+      "file": "scripts/build.mjs",
+      "size": 1915,
+      "sha256": "c760749d3d844aef06de6c675df9d7f5060aebcb5d009f656854adb6916cea42"
+    },
+    {
+      "file": "scripts/chatgpt-provider.mjs",
+      "size": 18621,
+      "sha256": "11ad870a58eae3e4af52f21a6b4fd2d30194c5085c4c7fd46ceaafb681d842d3"
+    },
+    {
+      "file": "scripts/chatgpt-vault.mjs",
+      "size": 2540,
+      "sha256": "450bed67dd8a8564a98d5177f2428f78c045252f3969baa9813dd336dad551be"
+    },
+    {
+      "file": "scripts/check-client.mjs",
+      "size": 498,
+      "sha256": "b9e7d2dffc35bfc3fd3771f91c1efb9aa17264a355bd5cf4a12117b28e953025"
+    },
+    {
+      "file": "scripts/connection-check.mjs",
+      "size": 3488,
+      "sha256": "19e05ed03174266d8e0a615625f5f954c39c892f7e5f9510bfc22f115aa9d476"
+    },
+    {
+      "file": "scripts/desktop-camera-bridge.mjs",
+      "size": 5770,
+      "sha256": "9a4a6f27e7c49a45975855b8bbfed875a82a1f4ef6e416cb2533ddf7071995e5"
+    },
+    {
+      "file": "scripts/desktop-camera.ps1",
+      "size": 7804,
+      "sha256": "497e95e881717b751b0b6efae2b5d1bbf7cf4c0b25375b88353279c305b8c384"
+    },
+    {
+      "file": "scripts/hosted-relay.mjs",
+      "size": 3252,
+      "sha256": "fab6a0bb9e7cccafdde5090241875dc2b4c818b035cc75dba60af8cdd01b8e9b"
+    },
+    {
+      "file": "scripts/install-support.ps1",
+      "size": 3075,
+      "sha256": "eb64f51a6c3321944d65eea3263468a7ca74ba39ca4818b8731682e31efa4d7f"
+    },
+    {
+      "file": "scripts/local-artifacts.json",
+      "size": 1213,
+      "sha256": "9b6da72166e41bb67e8bf6dfdd2b18d417e8e65e15ba7c1fd4230171756c3973"
+    },
+    {
+      "file": "scripts/local-bridge.mjs",
+      "size": 1798,
+      "sha256": "da924a8974525599769bc9bdd069717e1fc742b0db6b125264afc10fd82d99d1"
+    },
+    {
+      "file": "scripts/local-jobs.mjs",
+      "size": 4090,
+      "sha256": "9142cb430ad282be661388208233b09d5e92ec3c5f14b37d710361a3c67cb58e"
+    },
+    {
+      "file": "scripts/local-sharing.mjs",
+      "size": 9603,
+      "sha256": "401971ca9afdfb73c32d1f81d34786d79a05d6460a0c408d1123e810ef6e5f25"
+    },
+    {
+      "file": "scripts/package-release.mjs",
+      "size": 3200,
+      "sha256": "1bfb17e99a70f724ec626d905d3726dd7bd0950cd57bea6a0c931f53d7d8cd1d"
+    },
+    {
+      "file": "scripts/prepare-cloudflare.mjs",
+      "size": 2492,
+      "sha256": "134680f516814e390c4bed6b20cbb496433e1d41cc20961da6c6134172fbe31e"
+    },
+    {
+      "file": "scripts/prepare-vercel.mjs",
+      "size": 5532,
+      "sha256": "35cd081dc9d90164800a6d3962f0599b25e64c8e8f06248f53c2f6717fd4871d"
+    },
+    {
+      "file": "scripts/preview.mjs",
+      "size": 5039,
+      "sha256": "ceb3322bb21542c6ae20d6e492197c1b41780f36641a44e8fd9aa0c10fda08a0"
+    },
+    {
+      "file": "scripts/validate-artifact.mjs",
+      "size": 953,
+      "sha256": "39d9df53ac2461962466d5965c5f4d06f08024ceca40605952d8b753b88d41fd"
+    },
+    {
+      "file": "scripts/vercel-handler.mjs",
+      "size": 2857,
+      "sha256": "afd76132ca53abf2ec5ccc69d10f0e1b854d40badfd50a2246c535825991a80e"
+    },
+    {
+      "file": "shared.js",
+      "size": 6069,
+      "sha256": "1e4e7c86fa6756ebe433cdfb16d0623ef17d86e33661b62ce2dda11b1f159ad4"
+    },
+    {
+      "file": "Start-Studio.ps1",
+      "size": 1974,
+      "sha256": "abbdfa9be2e63e7bd1189d0da23e1f93e423cdadb02fe40ff88826d9dee0321c"
+    },
+    {
+      "file": "submission/demo-script.md",
+      "size": 1770,
+      "sha256": "6795f329a8c1e0c98ee4ec47123421ad08611fd11f391f1aef1ae59eecb62811"
+    },
+    {
+      "file": "submission/hardware-acceptance.md",
+      "size": 2132,
+      "sha256": "c2f24159b1a8cbb867f5837ddfbecaa16d857dc4e59f8f8cc1471aa5ba4056e6"
+    },
+    {
+      "file": "submission/product-description.md",
+      "size": 1724,
+      "sha256": "0a15f8308e8c0458d7f6c1bb3e6296bcd0b64d53de09eac14f49374c312d412b"
+    },
+    {
+      "file": "submission/screenshots/result.png",
+      "size": 60605,
+      "sha256": "32e7607a01cac760c99f9561fa2f32aa0cb8d84dde3dda4efaf42d8f0a0bbff8"
+    },
+    {
+      "file": "submission/screenshots/settings-fixed.png",
+      "size": 113142,
+      "sha256": "7626fbb5f1bc216f98e79eb67d045a2b7e38d926c61011524c344c7bd4c64059"
+    },
+    {
+      "file": "submission/screenshots/settings.png",
+      "size": 96020,
+      "sha256": "95e74db4d0f763d1e26cf840544e4f1befb696a91371a8ed7ad5808e1f45b68a"
+    },
+    {
+      "file": "submission/verification.md",
+      "size": 2461,
+      "sha256": "4b7e680182a634e791d6b7d91af2f2a35dd35d679ec13f7d1008d3337b9dd4e0"
+    },
+    {
+      "file": "tests/ai-regression.test.mjs",
+      "size": 6751,
+      "sha256": "ba1426de9048fa6229f14ee219d874dbfd064f401b1f81180eb300aabe3a6f0f"
+    },
+    {
+      "file": "tests/browser-assets.test.mjs",
+      "size": 578,
+      "sha256": "53575d6654358ad8cb34a84113aea86c826879fb80cc035ba28582cde1e9f95d"
+    },
+    {
+      "file": "tests/camera-desktop.mjs",
+      "size": 7099,
+      "sha256": "8ad2884686fd4394db965cecd101b506754e886650b7ead423599671319d801e"
+    },
+    {
+      "file": "tests/captions.test.mjs",
+      "size": 2385,
+      "sha256": "5f10f2fcb9a1ba3d3df43701a8dbd11c930211144d549407059e772b11b0543c"
+    },
+    {
+      "file": "tests/chatgpt.test.mjs",
+      "size": 13789,
+      "sha256": "472f9e299fa3aaa6bcbec806d3a0d9b1640c0fe01cc0ddfd8ffe5cf8b60ee5eb"
+    },
+    {
+      "file": "tests/connections.test.mjs",
+      "size": 3098,
+      "sha256": "c1fb2ed2c70abd7b1157e222e57ea9c2acf786b7941c06ef1fa100bc236e359a"
+    },
+    {
+      "file": "tests/fixtures/automation-late-error.csv",
+      "size": 199,
+      "sha256": "8f302c57ae34d15182dafee3008c775630d1fc97f0b90bb06e104342fcd3fb8a"
+    },
+    {
+      "file": "tests/fixtures/automation-valid.csv",
+      "size": 44,
+      "sha256": "0f645c731a081c4ed85b40ab9772da86c2c90db3ca4f66df2cd9c084d97bd405"
+    },
+    {
+      "file": "tests/fixtures/memory-r2.mjs",
+      "size": 1470,
+      "sha256": "5499676a5b341b1a140d8f75585db82a69e637680207f41c1c3128af0799e507"
+    },
+    {
+      "file": "tests/fixtures/source-ui-check.mjs",
+      "size": 2607,
+      "sha256": "cf728a730ba808cbf265d54aefbde716034848ea6c551589b2a422fa46b58411"
+    },
+    {
+      "file": "tests/hosting.test.mjs",
+      "size": 9856,
+      "sha256": "2787e76583858b5eba3e85755932773e328c66a1eafba4ae46f51ad66afcc838"
+    },
+    {
+      "file": "tests/install.test.mjs",
+      "size": 5537,
+      "sha256": "eb8b09f9df7f82e95003e56044248d9e97a6a3b70445b306aab44174757c22b7"
+    },
+    {
+      "file": "tests/local-sharing.test.mjs",
+      "size": 8988,
+      "sha256": "def5d27138266d38c1a0cba2163839fab6ebe9b596293c495ba1f306730c0a9f"
+    },
+    {
+      "file": "tests/planner.test.mjs",
+      "size": 12577,
+      "sha256": "51f68a2cd6b72f057e368673723d00a97b87db35326f58e15603967e75d5b6db"
+    },
+    {
+      "file": "tests/processing.test.mjs",
+      "size": 4901,
+      "sha256": "fac1961937878b3585620e26cbe4fa6ab261a7270ed0cc9872f91d6285f3cee8"
+    },
+    {
+      "file": "tests/recovery.test.mjs",
+      "size": 3612,
+      "sha256": "3d4973e9a5810641d0ba78a03993fac59ddf61956942a14715dd24942a73c468"
+    },
+    {
+      "file": "tests/relay.test.mjs",
+      "size": 3080,
+      "sha256": "c724545cecf3b502c4e6b8abc4560b347303b31dd34741000d1bc269d818d31b"
+    },
+    {
+      "file": "tests/settings.test.mjs",
+      "size": 2203,
+      "sha256": "c0e582578eca73fc0bb0b87fa86e08c1e99fd6205426b979468387a1ffeed3e6"
+    },
+    {
+      "file": "tests/uploads.test.mjs",
+      "size": 2662,
+      "sha256": "67eb8fde236ed5586fc61df2617f1f619fc84524c0469681ef30bc1c2d740fcc"
+    },
+    {
+      "file": "tests/worker.test.mjs",
+      "size": 20833,
+      "sha256": "7cdd6f15aa2b63725da989a3c589334136b6d784517f4344f6b99f938481307f"
+    },
+    {
+      "file": "worker/cloud-storage.js",
+      "size": 13345,
+      "sha256": "5031d260dc283e4b765cd0dcfd5ebb178802bfe05b9ff47ff23ff5bbe66542c4"
+    },
+    {
+      "file": "worker/hosted.js",
+      "size": 5389,
+      "sha256": "b86955d55e63e6e8abba28c32111b00dd30b2d320e9ecb6722c794d5a3b42f6a"
+    },
+    {
+      "file": "worker/index.js",
+      "size": 24529,
+      "sha256": "67c1aac38a588610602fb6eb35d0cb90cadfa5b900504dfc7d97e363f629056f"
+    },
+    {
+      "file": "worker/storage-controls.js",
+      "size": 3819,
+      "sha256": "b4ff71684994071ed343f80f74877d61071adedac50042846225da4e8551f08b"
+    },
+    {
+      "file": "wrangler.jsonc",
+      "size": 1186,
+      "sha256": "fdddc8e79255b11a4c725b289495827126cf1c6e91e2e961906101d5ea5c002e"
+    }
+  ]
+}

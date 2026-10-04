@@ -1,0 +1,54 @@
+{
+  "name": "process-studio-sharing",
+  "main": "dist/cloudflare/index.js",
+  "compatibility_date": "2026-10-03",
+  "workers_dev": true,
+  "r2_buckets": [
+    {
+      "binding": "RECORDINGS",
+      "bucket_name": "process-studio-recordings-private"
+    }
+  ],
+  "vars": {
+    "STUDIO_ORIGIN": "https://vercel-logged-out.vercel.app",
+    "MEDIA_ORIGIN": "REPLACE_WITH_WORKER_HTTPS_ORIGIN",
+    "MAX_STORAGE_BYTES": "524288000",
+    "MAX_TOTAL_RECORDINGS": "100",
+    "MAX_WORKSPACE_RECORDINGS": "20",
+    "MAX_DAILY_RECORDINGS": "100",
+    "MAX_DAILY_UPLOAD_BYTES": "104857600",
+    "MAX_DAILY_REQUESTS": "5000",
+    "UPLOADS_PAUSED": "true"
+  },
+  "ratelimits": [
+    {
+      "name": "PUBLIC_RATE_LIMITER",
+      "namespace_id": "418201",
+      "simple": {
+        "limit": 120,
+        "period": 60
+      }
+    },
+    {
+      "name": "GLOBAL_RATE_LIMITER",
+      "namespace_id": "418202",
+      "simple": {
+        "limit": 1000,
+        "period": 60
+      }
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "*/15 * * * *"
+    ]
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 0.1,
+    "logs": {
+      "enabled": true,
+      "invocation_logs": false
+    }
+  }
+}

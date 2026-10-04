@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "artifacts": [
+    {"name":"node-v22.23.3-win-x64.zip","kind":"node","source":"https://nodejs.org/dist/v22.23.3/node-v22.23.3-win-x64.zip","sha256":"2b0ff57b049cda1bbcea2240eec20467018713c1efe1f7360c2681859b90ed71"},
+    {"name":"llama-b11344-bin-win-cpu-x64.zip","kind":"llama","source":"https://github.com/ggml-org/llama.cpp/releases/download/b11344/llama-b11344-bin-win-cpu-x64.zip","sha256":"e604411ce3d01de6e5ba28241d7565f74eec83d3844e4ce8317b084d451e46ce"},
+    {"name":"whisper-bin-x64.zip","kind":"whisper","source":"https://github.com/ggml-org/whisper.cpp/releases/download/v1.9.2/whisper-bin-x64.zip","sha256":"49dcc16de826f20bd53d44f947a1ae49dfa81f86cad67a64d80820cb192d674a"},
+    {"name":"Qwen3-8B-Q4_K_M.gguf","kind":"qwen","source":"https://huggingface.co/Qwen/Qwen3-8B-GGUF/resolve/7c41481f57cb95916b40956ab2f0b139b296d974/Qwen3-8B-Q4_K_M.gguf","sha256":"d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785"},
+    {"name":"ggml-small.en.bin","kind":"speech","source":"https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-small.en.bin","sha256":"c6138d6d58ecc8322097e0f987c32f1be8bb0a18532a3f88f734d1bbf9c41e5d"}
+  ]
+}

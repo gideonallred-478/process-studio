@@ -1,0 +1,27 @@
+import worker from './index.js';
+import {allocateUpload,receiveUpload,finishUpload,mediaUrl,readMedia,cleanupUploads,ownerToken,digest,json,fail,capacity} from './cloud-storage.js';
+import {reserveQuota,limit} from './storage-controls.js';
+function configuredOrigin(value,media=false){try{const url=new URL(value);return url.protocol==='https:'&&url.origin===value&&(!media||url.hostname.endsWith('.workers.dev'));}catch{return false;}}
+export default {
+ async fetch(request,env){try{if(!env.RECORDINGS||!configuredOrigin(env.STUDIO_ORIGIN)||!configuredOrigin(env.MEDIA_ORIGIN,true)||!(env.STUDIO_RELAY_SECRET?.length>=32)||!(env.MEDIA_SIGNING_SECRET?.length>=32)||!env.PUBLIC_RATE_LIMITER)fail('Hosted storage setup is incomplete.',503);const url=new URL(request.url),transfer=url.pathname.startsWith('/transfer/');
+ if(transfer&&request.method==='OPTIONS'){if(request.headers.get('origin')!==env.STUDIO_ORIGIN)fail('Origin not permitted.',403);return new Response(null,{status:204,headers:{'access-control-allow-origin':env.STUDIO_ORIGIN,'access-control-allow-methods':'GET, HEAD, PUT, OPTIONS','access-control-allow-headers':'Content-Type, Range','access-control-max-age':'600','vary':'Origin'}});}
+ if(!transfer&&request.headers.get('x-studio-relay')!==env.STUDIO_RELAY_SECRET)fail('This API is available through the studio.',403);
+ if(transfer&&request.method==='PUT'&&request.headers.get('origin')!==env.STUDIO_ORIGIN)fail('Origin not permitted.',403);
+ const actor=transfer?'transfer:'+url.pathname.split('/').pop().slice(0,64):await digest(request.headers.get('cookie')||'anonymous');if(!(await env.PUBLIC_RATE_LIMITER.limit({key:actor})).success||env.GLOBAL_RATE_LIMITER&&!(await env.GLOBAL_RATE_LIMITER.limit({key:'deployment'})).success)fail('Too many requests. Retry shortly.',429);
+ await reserveQuota(env,'requests',1,limit(env,'MAX_DAILY_REQUESTS',5000),fail);
+ const oldVideo=/^\/api\/(recordings|shared)\/([a-f0-9]{32})\/video$/.exec(url.pathname);
+ if(oldVideo&&['GET','HEAD'].includes(request.method)){const descriptor=oldVideo[1]==='shared'?{shareId:oldVideo[2]}:{owner:await digest(ownerToken(request)),recordId:oldVideo[2]};return new Response(null,{status:307,headers:{location:await mediaUrl(env,descriptor),'cache-control':'no-store'}});}
+ let response;const input=new Request(env.STUDIO_ORIGIN+url.pathname+url.search,request),core=req=>worker.fetch(req,{...env,OPENAI_API_KEY:undefined,CREATOR_CODE:undefined});
+ const upload=/^\/transfer\/upload\/([a-f0-9]{32})$/.exec(url.pathname),video=/^\/transfer\/video\/([\w.-]+)$/.exec(url.pathname),complete=/^\/api\/uploads\/([a-f0-9]{32})\/complete$/.exec(url.pathname);
+ if(upload&&request.method==='PUT')response=await receiveUpload(request,env,upload[1]);else if(video&&['GET','HEAD'].includes(request.method))response=await readMedia(request,env,video[1]);
+ else if(url.pathname==='/api/uploads'&&request.method==='POST')response=await allocateUpload(input,env,core);
+ else if(complete&&request.method==='POST')response=await finishUpload(input,env,complete[1],core);
+ else if(/^\/api\/(?:analyze|chatgpt|local|desktop)\b/.test(url.pathname)||url.pathname.endsWith('/transcribe'))response=json({error:'AI processing runs in your local edition; no shared hosted account is connected.'},403);
+ else if(transfer)response=json({error:'Transfer not found.'},404);
+ else if(url.pathname==='/api/recordings'&&request.method==='POST'){if(env.UPLOADS_PAUSED==='true')fail('New hosted uploads are paused.',503);if(!(request.headers.get('content-type')||'').startsWith('application/json'))fail('Use direct media upload from the current studio.',413);await capacity(env,0,1);response=await core(input);if(response.status!==201)await capacity(env,0,-1);}
+ else {let purgeRecord;const purge=/^\/api\/recordings\/([a-f0-9]{32})\/purge$/.exec(url.pathname);if(purge&&request.method==='DELETE'){const owner=await digest(ownerToken(input)),object=await env.RECORDINGS.get(`owners/${owner}/${purge[1]}.json`);purgeRecord=object?await object.json():null;}response=await core(input);if(purgeRecord&&response.ok)await capacity(env,-(purgeRecord.size||0),-1);}
+ if(response.ok&&response.headers.get('content-type')?.includes('application/json')){const data=await response.json();if(url.pathname==='/api/status')Object.assign(data,{ai:false,directUploads:true,processing:'local',mediaOrigin:env.MEDIA_ORIGIN,uploadsPaused:env.UPLOADS_PAUSED==='true'});if(data.videoUrl){const share=/^\/api\/shared\/([a-f0-9]{32})$/.exec(url.pathname);data.videoUrl=await mediaUrl(env,share?{shareId:share[1]}:{owner:await digest(ownerToken(input)),recordId:data.id});}response=json(data,response.status,Object.fromEntries(response.headers));}
+ if(transfer){response.headers.set('access-control-allow-origin',env.STUDIO_ORIGIN);response.headers.set('access-control-expose-headers','Content-Range, Content-Length, Accept-Ranges');response.headers.set('vary','Origin');}return response;
+ }catch(error){const response=json({error:error.status?error.message:'Hosted storage could not complete this request. Your local source is preserved.'},error.status||500);if(new URL(request.url).pathname.startsWith('/transfer/')&&request.headers.get('origin')===env.STUDIO_ORIGIN){response.headers.set('access-control-allow-origin',env.STUDIO_ORIGIN);response.headers.set('vary','Origin');}return response;}},
+ async scheduled(event,env){await cleanupUploads(env);}
+};

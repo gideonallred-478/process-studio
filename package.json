@@ -1,0 +1,15 @@
+{
+  "name": "process-studio-cloud",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs && node scripts/check-client.mjs",
+    "validate": "node scripts/validate-artifact.mjs",
+    "check": "node --check public/app.js && node --check public/cloud.js && node --check public/result.js && node --check worker/index.js && node --test tests/*.mjs",
+    "dev": "node scripts/preview.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  }
+}
