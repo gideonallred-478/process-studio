@@ -1,5 +1,5 @@
 {
-  "build": "local-sharing-2026-10-03",
+  "build": "required-fixes-2026-10-03",
   "recordingsIncluded": false,
   "credentialsIncluded": false,
   "modelWeightsIncluded": false,
@@ -36,6 +36,11 @@
       "sha256": "02f6bd5edff37fdc68af5e0e7707ad0230c00d58290e79dc8c3419be3ed9a960"
     },
     {
+      "file": "audit/required-fixes-verification.md",
+      "size": 2928,
+      "sha256": "1e6de7b705a04639dbc75712d46de05e4208cd373199b02bb4fe2e28f2363f89"
+    },
+    {
       "file": "decision-policy.js",
       "size": 4284,
       "sha256": "ad9e5cfed350a58b8b29a6d2d4dff807ca1a3be2bc7a0d34d23445f1eba82623"
@@ -51,9 +56,19 @@
       "sha256": "01e28ceed31d17d7f1f4b4947142f0d014e5875bc2e1d68dd94e30dc883e9eb7"
     },
     {
+      "file": "LOCAL_AUTOMATION.md",
+      "size": 7685,
+      "sha256": "16397f9b31d5a85a61c1f736aa80d07b8cfa0ddd6a217eb79cef2d4d94e8eb27"
+    },
+    {
+      "file": "LOCAL_INSTALL.md",
+      "size": 2877,
+      "sha256": "39ec756c8a142ac784e0145fae6ebb8676afe654af52b8a4297bb74335996330"
+    },
+    {
       "file": "local-analysis.js",
-      "size": 12129,
-      "sha256": "d4de7f9852e89ec6261f9942093c9623df0c5e1d04c2ed25d40daadbd2c903ec"
+      "size": 12198,
+      "sha256": "8b4d75bc12c368139e72ad14d905e47d47dbae912da6190e1421b43a2ca0ea0d"
     },
     {
       "file": "local-engine/artifacts.json",
@@ -66,14 +81,19 @@
       "sha256": "ad9e5cfed350a58b8b29a6d2d4dff807ca1a3be2bc7a0d34d23445f1eba82623"
     },
     {
+      "file": "local-engine/engine-operations.js",
+      "size": 3652,
+      "sha256": "a78a66078b2e375d9bbc371cc8a59c3cf2a8c71e3ea5973f65e694e5555eb570"
+    },
+    {
       "file": "local-engine/local-analysis.js",
-      "size": 12129,
-      "sha256": "d4de7f9852e89ec6261f9942093c9623df0c5e1d04c2ed25d40daadbd2c903ec"
+      "size": 12198,
+      "sha256": "8b4d75bc12c368139e72ad14d905e47d47dbae912da6190e1421b43a2ca0ea0d"
     },
     {
       "file": "local-engine/local-runtime.js",
-      "size": 5227,
-      "sha256": "396387c7b4d26b71f794b823ec816934e541d22a2a4d923b87c76bd852353f7c"
+      "size": 5450,
+      "sha256": "600033935156fbf82da2f979a55bf41229994bbb606c18f2982a56d68ad54f14"
     },
     {
       "file": "local-engine/local-transcribe.ps1",
@@ -87,23 +107,13 @@
     },
     {
       "file": "local-engine/server.js",
-      "size": 7634,
-      "sha256": "df16544c7cf17a14615756d2a510190fc9667766b73a3654218a6540ba121631"
+      "size": 6030,
+      "sha256": "84795b55d548603ca62890c2af7ede5efff4091bacd751665a9c62d57f7b542d"
     },
     {
       "file": "local-engine/shared.js",
       "size": 6069,
       "sha256": "1e4e7c86fa6756ebe433cdfb16d0623ef17d86e33661b62ce2dda11b1f159ad4"
-    },
-    {
-      "file": "LOCAL_AUTOMATION.md",
-      "size": 7685,
-      "sha256": "16397f9b31d5a85a61c1f736aa80d07b8cfa0ddd6a217eb79cef2d4d94e8eb27"
-    },
-    {
-      "file": "LOCAL_INSTALL.md",
-      "size": 2877,
-      "sha256": "39ec756c8a142ac784e0145fae6ebb8676afe654af52b8a4297bb74335996330"
     },
     {
       "file": "package-lock.json",
@@ -117,8 +127,8 @@
     },
     {
       "file": "public/app.js",
-      "size": 79007,
-      "sha256": "b3c8cfe1a7c78cbe99685873022338f19db001ae97454947492602c196e7697e"
+      "size": 84457,
+      "sha256": "dfce0304950fb6ff0750de89bd1e8536d619dec2e714455116aa5cec908486ed"
     },
     {
       "file": "public/automation-engine.js",
@@ -134,6 +144,11 @@
       "file": "public/blueprint.js",
       "size": 801,
       "sha256": "b61eec4e621cbd846f1910b20426f3a566ec8cbdbb8aabf00baf86003b19196d"
+    },
+    {
+      "file": "public/browser-cache.js",
+      "size": 2774,
+      "sha256": "d912bbdb95671ec76dcdaa8f079849d29694a22a3bbff42b6ea5df7b40609902"
     },
     {
       "file": "public/camera-layout.js",
@@ -157,8 +172,8 @@
     },
     {
       "file": "public/cloud.js",
-      "size": 11746,
-      "sha256": "23949fe24b923f9b49fcf84d645ee707db6e0557ed93424f43eaec1727d79299"
+      "size": 14710,
+      "sha256": "231f248771e8943f0e10bd7df37c164b6d475623743326dda603e0a648f2fca8"
     },
     {
       "file": "public/connections-ui.js",
@@ -172,18 +187,18 @@
     },
     {
       "file": "public/editor.html",
-      "size": 21350,
-      "sha256": "5655404b4d2527832a67b039d230bd9eae633392a9fd221537d469a6e4f200dc"
+      "size": 21519,
+      "sha256": "f916e826265c6bf906cc3caa94e6bd2193a6813d18612447127b84cd08aadb68"
     },
     {
       "file": "public/index.html",
-      "size": 21350,
-      "sha256": "5655404b4d2527832a67b039d230bd9eae633392a9fd221537d469a6e4f200dc"
+      "size": 21519,
+      "sha256": "f916e826265c6bf906cc3caa94e6bd2193a6813d18612447127b84cd08aadb68"
     },
     {
       "file": "public/library.html",
-      "size": 21350,
-      "sha256": "5655404b4d2527832a67b039d230bd9eae633392a9fd221537d469a6e4f200dc"
+      "size": 21519,
+      "sha256": "f916e826265c6bf906cc3caa94e6bd2193a6813d18612447127b84cd08aadb68"
     },
     {
       "file": "public/local.html",
@@ -201,19 +216,24 @@
       "sha256": "5ecf9a7d5a408dbccd0d7b647842a90b790ed188033df10aedf86650c6071f5d"
     },
     {
+      "file": "public/playback.js",
+      "size": 3573,
+      "sha256": "64234abcd4756a26d19d8f5cb0a77c8912b758de114894b8824d3f5112ed903f"
+    },
+    {
       "file": "public/preferences.js",
       "size": 1059,
       "sha256": "ccce7c03b54c31a6c689bfd5f8a8f4803d6860e75450710fb2f489712c8cb4f3"
     },
     {
       "file": "public/recording.html",
-      "size": 21350,
-      "sha256": "5655404b4d2527832a67b039d230bd9eae633392a9fd221537d469a6e4f200dc"
+      "size": 21519,
+      "sha256": "f916e826265c6bf906cc3caa94e6bd2193a6813d18612447127b84cd08aadb68"
     },
     {
       "file": "public/recovery.js",
-      "size": 4162,
-      "sha256": "5789ab265e4e612a5638f67ce5dd3e39c06e7eb12c7e6930ffb78fec59a303e1"
+      "size": 5689,
+      "sha256": "8fbc4b419e4c1dab53a2a6bd30cf316e5531625107148d0f591c2777a4d9dc79"
     },
     {
       "file": "public/result.css",
@@ -227,8 +247,8 @@
     },
     {
       "file": "public/result.js",
-      "size": 8372,
-      "sha256": "683721e4110622e58546ff7bd4b4a9afa433e411fde6516922d96a454c122c50"
+      "size": 8916,
+      "sha256": "904d6ac69dd072ca4b84dcc2c75566fa1a73630bbe5aa62756a3c818eeb3ad71"
     },
     {
       "file": "public/sample-walkthrough.wav",
@@ -237,8 +257,8 @@
     },
     {
       "file": "public/settings.html",
-      "size": 21350,
-      "sha256": "5655404b4d2527832a67b039d230bd9eae633392a9fd221537d469a6e4f200dc"
+      "size": 21519,
+      "sha256": "f916e826265c6bf906cc3caa94e6bd2193a6813d18612447127b84cd08aadb68"
     },
     {
       "file": "public/settings.js",
@@ -292,8 +312,8 @@
     },
     {
       "file": "RELEASE.md",
-      "size": 3946,
-      "sha256": "efcdedbdcbb576f1573c7eae03ab330c2b841015b82e4c268eebe651f50bc6d2"
+      "size": 4175,
+      "sha256": "266bab6ed50195ae3eff293fd843850f68a0bfcc205eb06d2af29e6ec519d087"
     },
     {
       "file": "research/automation-rules-check.png",
@@ -356,6 +376,16 @@
       "sha256": "f6fc7143862239df1098efe3d943382564061aabc79cbab1e22da083b73cf31f"
     },
     {
+      "file": "research/required-fixes-browser.json",
+      "size": 606,
+      "sha256": "5f40a321a74c8756a7f06b548c31eab1bd066178ad56d6af00b3a9fe2da24496"
+    },
+    {
+      "file": "research/required-fixes-browser.png",
+      "size": 34785,
+      "sha256": "0f7ec44a519b19135c68f72781928ad150530d4e7fafee58551b48bf34856a06"
+    },
+    {
       "file": "research/source-corrections-check.png",
       "size": 57684,
       "sha256": "e21edb38812bdb94e3c771d6f4df7f49e9ff927414e33dbc4a84ded22f2ddce8"
@@ -416,19 +446,29 @@
       "sha256": "da924a8974525599769bc9bdd069717e1fc742b0db6b125264afc10fd82d99d1"
     },
     {
+      "file": "scripts/local-deletion.mjs",
+      "size": 1385,
+      "sha256": "df9542560a84d6bda045bcad78225faa3d658596e5124c5172c534998f4fdaa0"
+    },
+    {
       "file": "scripts/local-jobs.mjs",
-      "size": 4090,
-      "sha256": "9142cb430ad282be661388208233b09d5e92ec3c5f14b37d710361a3c67cb58e"
+      "size": 6555,
+      "sha256": "281a26cc211a734d236d5e7a3f4cd4b4abb84ae9b033bfaa79bf33e3091fd503"
     },
     {
       "file": "scripts/local-sharing.mjs",
-      "size": 9603,
-      "sha256": "401971ca9afdfb73c32d1f81d34786d79a05d6460a0c408d1123e810ef6e5f25"
+      "size": 12379,
+      "sha256": "90030c538fc2d7d9afcc7825e37ed8dfa548042c3e090c1688ef68ae2d523ede"
+    },
+    {
+      "file": "scripts/local-storage.mjs",
+      "size": 4520,
+      "sha256": "b602cae48ec5edcd67918b7753df11a495ddaebb56eaa41f4731b93e44d1ecca"
     },
     {
       "file": "scripts/package-release.mjs",
-      "size": 3200,
-      "sha256": "1bfb17e99a70f724ec626d905d3726dd7bd0950cd57bea6a0c931f53d7d8cd1d"
+      "size": 3542,
+      "sha256": "bd2454e88d3de316a35d457c1cdceb4f9cdb486c481e7cd1ee63717aa181ba61"
     },
     {
       "file": "scripts/prepare-cloudflare.mjs",
@@ -437,13 +477,13 @@
     },
     {
       "file": "scripts/prepare-vercel.mjs",
-      "size": 5532,
-      "sha256": "35cd081dc9d90164800a6d3962f0599b25e64c8e8f06248f53c2f6717fd4871d"
+      "size": 5729,
+      "sha256": "441791da9c9d363d3b7b29ee5b4d0a419dead40934e597e96421b963328fe7ad"
     },
     {
       "file": "scripts/preview.mjs",
-      "size": 5039,
-      "sha256": "ceb3322bb21542c6ae20d6e492197c1b41780f36641a44e8fd9aa0c10fda08a0"
+      "size": 4712,
+      "sha256": "75bb44a03d302247f612f01071c5a84235662f4a181e2a06df0277a87e3be062"
     },
     {
       "file": "scripts/validate-artifact.mjs",
@@ -531,6 +571,16 @@
       "sha256": "c1fb2ed2c70abd7b1157e222e57ea9c2acf786b7941c06ef1fa100bc236e359a"
     },
     {
+      "file": "tests/deletion.test.mjs",
+      "size": 9810,
+      "sha256": "e2f3abe8d56e2677f82584bdffcd4748c7f60dbd901354be3dc006f6f39821d8"
+    },
+    {
+      "file": "tests/engine-cancel.test.mjs",
+      "size": 5434,
+      "sha256": "22d64d50aac1e8421124e7eb478a08f746f576f60177e592e836d56a2284e366"
+    },
+    {
       "file": "tests/fixtures/automation-late-error.csv",
       "size": 199,
       "sha256": "8f302c57ae34d15182dafee3008c775630d1fc97f0b90bb06e104342fcd3fb8a"
@@ -544,6 +594,11 @@
       "file": "tests/fixtures/memory-r2.mjs",
       "size": 1470,
       "sha256": "5499676a5b341b1a140d8f75585db82a69e637680207f41c1c3128af0799e507"
+    },
+    {
+      "file": "tests/fixtures/required-ui-check.mjs",
+      "size": 9200,
+      "sha256": "14e5fdbd31c04a6ad16bbf6589e2ea6bf6f3ad0637e0185daa4883d166f01426"
     },
     {
       "file": "tests/fixtures/source-ui-check.mjs",
@@ -566,6 +621,11 @@
       "sha256": "def5d27138266d38c1a0cba2163839fab6ebe9b596293c495ba1f306730c0a9f"
     },
     {
+      "file": "tests/media-recovery.test.mjs",
+      "size": 3694,
+      "sha256": "75cd5b721cef0f63d86bbff7ff37cab8b6892120756935d0bba0395f738278cf"
+    },
+    {
       "file": "tests/planner.test.mjs",
       "size": 12577,
       "sha256": "51f68a2cd6b72f057e368673723d00a97b87db35326f58e15603967e75d5b6db"
@@ -586,6 +646,11 @@
       "sha256": "c724545cecf3b502c4e6b8abc4560b347303b31dd34741000d1bc269d818d31b"
     },
     {
+      "file": "tests/required-fixes.test.mjs",
+      "size": 11046,
+      "sha256": "d7caccc3a211dc97573e4ebc9345f23235bf53ecac279d653c0c9b358d42601e"
+    },
+    {
       "file": "tests/settings.test.mjs",
       "size": 2203,
       "sha256": "c0e582578eca73fc0bb0b87fa86e08c1e99fd6205426b979468387a1ffeed3e6"
@@ -602,18 +667,18 @@
     },
     {
       "file": "worker/cloud-storage.js",
-      "size": 13345,
-      "sha256": "5031d260dc283e4b765cd0dcfd5ebb178802bfe05b9ff47ff23ff5bbe66542c4"
+      "size": 13379,
+      "sha256": "aa82561f9d42efdb34db92bcc17e6ee105a389bf4bd880552be96460a3840d5f"
     },
     {
       "file": "worker/hosted.js",
-      "size": 5389,
-      "sha256": "b86955d55e63e6e8abba28c32111b00dd30b2d320e9ecb6722c794d5a3b42f6a"
+      "size": 5491,
+      "sha256": "138bed5098e53357601e112931b7c6a01816786d72ec68826cef7998efd2ef31"
     },
     {
       "file": "worker/index.js",
-      "size": 24529,
-      "sha256": "67c1aac38a588610602fb6eb35d0cb90cadfa5b900504dfc7d97e363f629056f"
+      "size": 27915,
+      "sha256": "64faa978c74426c0d19bb8596a64f476cf151eb4724c842a8d1c95532d795a83"
     },
     {
       "file": "worker/storage-controls.js",

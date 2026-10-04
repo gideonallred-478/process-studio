@@ -1,21 +1,22 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-const target=path.resolve('release/process-studio-0.2');
+const name=process.argv.find(value=>value.startsWith('--target='))?.slice(9)||'process-studio-0.2';if(!/^[a-zA-Z0-9._-]+$/.test(name)||name==='.'||name==='..')throw Error('Invalid release folder.');const target=path.resolve('release',name);
 await fs.mkdir(target,{recursive:true});
 for(const file of ['README.md','RELEASE.md','LOCAL_AUTOMATION.md','LOCAL_INSTALL.md','HOSTED_SHARING.md','Install-Studio.ps1','Start-Studio.ps1','package.json','package-lock.json','.gitignore','.env.example','wrangler.jsonc','shared.js','decision-policy.js','local-analysis.js'])await fs.copyFile(file,path.join(target,file));
 for(const folder of ['public','tests','submission','dist','.openai'])await fs.cp(folder,path.join(target,folder),{recursive:true});
 await fs.mkdir(path.join(target,'worker'),{recursive:true});for(const file of (await fs.readdir('worker')).filter(file=>!file.endsWith('.generated.js')))await fs.copyFile(path.join('worker',file),path.join(target,'worker',file));
 await fs.mkdir(path.join(target,'scripts'),{recursive:true});
-for(const file of ['build.mjs','check-client.mjs','install-support.ps1','local-artifacts.json','local-bridge.mjs','local-jobs.mjs','local-sharing.mjs','hosted-relay.mjs','prepare-cloudflare.mjs','prepare-vercel.mjs','vercel-handler.mjs','chatgpt-provider.mjs','chatgpt-vault.mjs','connection-check.mjs','desktop-camera-bridge.mjs','desktop-camera.ps1','preview.mjs','validate-artifact.mjs','package-release.mjs'])await fs.copyFile(path.join('scripts',file),path.join(target,'scripts',file));
+for(const file of ['build.mjs','check-client.mjs','install-support.ps1','local-artifacts.json','local-bridge.mjs','local-jobs.mjs','local-storage.mjs','local-deletion.mjs','local-sharing.mjs','hosted-relay.mjs','prepare-cloudflare.mjs','prepare-vercel.mjs','vercel-handler.mjs','chatgpt-provider.mjs','chatgpt-vault.mjs','connection-check.mjs','desktop-camera-bridge.mjs','desktop-camera.ps1','preview.mjs','validate-artifact.mjs','package-release.mjs'])await fs.copyFile(path.join('scripts',file),path.join(target,'scripts',file));
 await fs.mkdir(path.join(target,'local-engine'),{recursive:true});
 const engineSource=await fs.access('local-engine/server.js').then(()=> 'local-engine').catch(()=> '../process-studio');
-for(const file of ['server.js','local-runtime.js','local-transcribe.ps1'])await fs.copyFile(path.join(engineSource,file),path.join(target,'local-engine',file));
+for(const file of ['server.js','local-runtime.js','local-transcribe.ps1','engine-operations.js'])await fs.copyFile(path.join(engineSource,file),path.join(target,'local-engine',file));
 for(const file of ['local-analysis.js','decision-policy.js','shared.js'])await fs.copyFile(file,path.join(target,'local-engine',file));
 await fs.copyFile('scripts/local-artifacts.json',path.join(target,'local-engine','artifacts.json'));
 await fs.writeFile(path.join(target,'local-engine','package.json'),JSON.stringify({name:'process-studio-local-engine',private:true,type:'module'}));
 const engineRuntime=path.join(target,'local-engine','local-runtime.js');
 await fs.writeFile(engineRuntime,(await fs.readFile(engineRuntime,'utf8')).replace("'--n-gpu-layers', '99'", "'--n-gpu-layers', '0'"));
-await fs.mkdir(path.join(target,'audit'),{recursive:true});for(const file of ['fixes.md','design.md','providers.md'])await fs.copyFile('audit/'+file,path.join(target,'audit',file));
+await fs.mkdir(path.join(target,'audit'),{recursive:true});for(const file of ['fixes.md','design.md','providers.md','required-fixes-verification.md'])await fs.copyFile('audit/'+file,path.join(target,'audit',file));
 await fs.mkdir(path.join(target,'research'),{recursive:true});
-for(const file of ['local-planner-verification.json','local-workflow.jpg','design-home.jpg','product-review.md','chatgpt-plan-integration.md','chatgpt-live-verification.json','hosting-and-acceptance-plan.md','fixes-1-3-verification.json','hosted-sharing-verification.json','hosted-sharing-settings-check.png','hosted-sharing-consent-check.png','source-corrections-check.png','automation-rules-check.png'])await fs.copyFile(path.join('research',file),path.join(target,'research',file));
+for(const file of ['local-planner-verification.json','local-workflow.jpg','design-home.jpg','product-review.md','chatgpt-plan-integration.md','chatgpt-live-verification.json','hosting-and-acceptance-plan.md','fixes-1-3-verification.json','hosted-sharing-verification.json','hosted-sharing-settings-check.png','hosted-sharing-consent-check.png','source-corrections-check.png','automation-rules-check.png','required-fixes-browser.json','required-fixes-browser.png'])await fs.copyFile(path.join('research',file),path.join(target,'research',file));
 console.log('Release staged with explicit allowlist: source, compiled worker, tests, setup and submission materials.');
+

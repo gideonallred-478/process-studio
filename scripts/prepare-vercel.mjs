@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
+const archive=process.argv.find(value=>value.startsWith('--local-release='))?.slice(16)||'process-studio-local-sharing-2026-10-03.zip';if(!/^[a-zA-Z0-9._-]+\.zip$/.test(archive))throw Error('Use a release ZIP filename.');
 const destination = path.resolve('release/vercel-logged-out');
 const backendArgument=process.argv.find(value=>value.startsWith('--backend='))?.slice(10);
 let mediaOrigin='';if(backendArgument){const backend=new URL(backendArgument);if(backend.protocol!=='https:'||!backend.hostname.endsWith('.workers.dev')||backend.username||backend.password||backend.pathname!=='/'||backend.search||backend.hash)throw Error('Use the exact HTTPS workers.dev backend origin.');mediaOrigin=backend.origin;}
@@ -16,7 +17,7 @@ const files = [
   ['dist/server/index.js','lib/studio-worker.mjs'],
   ['scripts/vercel-handler.mjs','api/index.mjs'],
   ['scripts/hosted-relay.mjs','lib/hosted-relay.mjs'],
-  ['release/process-studio-local-sharing-2026-10-03.zip','public/local-release.zip'],
+  [path.join('release',archive),'public/local-release.zip'],
   ['public/index.html','public/index.html']
 ];
 for (const [source, target] of files) await fs.copyFile(source,path.join(destination,target));

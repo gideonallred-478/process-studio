@@ -4,7 +4,7 @@ Record a task and turn its explanation into a transcript, summary, editable SOP,
 
 ## Status
 
-Prepared locally, October 3, 2026. **Not uploaded or published**, as requested. The original local edition remains in `../process-studio`.
+Local reliability release prepared October 3, 2026. Private source and release copies are maintained in GitHub and Dropbox. The Vercel landing page is logged out; hosted recording storage is not activated. The original local engine remains in `../process-studio`. See `audit/required-fixes-verification.md` for the seven reliability fixes and verification boundaries.
 
 Implemented: screen/camera controls, upload, persistence, hosted AI adapters, editable outputs, dedicated result pages, JSON export, consent-based snapshot sharing and revocation. A labelled prepared demo works without AI credentials. Live hosted AI and real recording hardware remain unverified.
 

@@ -38,7 +38,8 @@ export async function createLocalRuntime(root) {
   return { endpoint, apiKey, speechReady, modelSha256,
     async status() { const ai = await health(); return { ai, localSpeech: speechReady, speechEngine: speechReady ? 'whisper.cpp small.en' : null, model: ai ? 'Qwen3-8B Q4_K_M' : null, localOnly: true, modelState: ai ? 'ready' : error ? 'error' : starting ? 'starting' : 'not-installed', modelError: error, trust: 'review-required' }; },
     stop() { child?.kill(); },
-    async transcribe(wav) {
+    async transcribe(wav,{signal}={}) {
+      signal?.throwIfAborted();
       if (!speechReady) throw new Error('Local Whisper files are not installed. Run setup-local.ps1.');
       if (wav.length < 44 || wav.toString('ascii', 0, 4) !== 'RIFF' || wav.toString('ascii', 8, 12) !== 'WAVE') throw new Error('The audio is not a valid WAV file.');
       const folder = path.join(root, 'runtime', 'temporary'); await fs.mkdir(folder, { recursive: true });
@@ -48,10 +49,10 @@ export async function createLocalRuntime(root) {
         await new Promise((resolve, reject) => {
           const process = spawn(whisper, ['-m', speechModel, '-f', audio, '-oj', '-of', base, '-l', 'en', '-t', '8', '-ng', '-nt'], { cwd: path.dirname(whisper), windowsHide: true });
           let stderr = '', settled = false;
-          const finish = (error) => { if (settled) return; settled = true; clearTimeout(timer); error ? reject(error) : resolve(); };
-          const timer = setTimeout(() => { process.kill(); finish(new Error('Local transcription timed out.')); }, 360000);
+          const finish = (error) => { if (settled) return; settled = true; clearTimeout(timer);signal?.removeEventListener('abort',abort); error ? reject(error) : resolve(); };
+          let timedOut=false;const abort=()=>process.kill();signal?.addEventListener('abort',abort,{once:true});if(signal?.aborted)abort();const timer=setTimeout(()=>{timedOut=true;process.kill()},360000);
           process.stdout.resume(); process.stderr.on('data', part => { stderr = (stderr + part).slice(-4000); });
-          process.on('error', finish); process.on('close', code => finish(code === 0 ? null : new Error(stderr || `Whisper exited (${code}).`)));
+          process.on('error', finish); process.on('close',code=>finish(signal?.aborted?signal.reason:timedOut?Error('Local transcription timed out.'):code===0?null:Error(stderr||'Whisper exited.')));
         });
         const json = JSON.parse(await fs.readFile(`${base}.json`, 'utf8'));
         const segments = (json.transcription || []).map(item => ({ text: String(item.text || '').trim(), time: Number(item.offsets?.from || 0) / 1000, end: Number.isFinite(item.offsets?.to) ? item.offsets.to / 1000 : null })).filter(item => item.text);

@@ -115,11 +115,11 @@ export function assertLoopbackEndpoint(value) {
   if (url.protocol !== 'http:' || !['127.0.0.1', '[::1]'].includes(url.hostname) || url.username || url.password) throw new Error('Local AI must use an HTTP endpoint on the numeric loopback address.');
   return url;
 }
-export async function analyzeLocally(transcript, { endpoint = 'http://127.0.0.1:4174', apiKey, fetchImpl = fetch } = {}) {
+export async function analyzeLocally(transcript, { endpoint = 'http://127.0.0.1:4174', apiKey, fetchImpl = fetch, signal } = {}) {
   const base = assertLoopbackEndpoint(endpoint);
   if (transcript.length > 12000) throw new Error('Split this walkthrough into sections under 12,000 characters so no source text is silently omitted.');
   const response = await fetchImpl(new URL('/v1/chat/completions', base), {
-    method: 'POST', redirect: 'error', signal: AbortSignal.timeout(180000), headers: { 'Content-Type': 'application/json', ...(apiKey ? { Authorization: `Bearer ${apiKey}` } : {}) },
+    method: 'POST', redirect: 'error', signal: signal?AbortSignal.any([signal,AbortSignal.timeout(180000)]):AbortSignal.timeout(180000), headers: { 'Content-Type': 'application/json', ...(apiKey ? { Authorization: `Bearer ${apiKey}` } : {}) },
     body: JSON.stringify({ model: 'process-local', temperature: 0, max_tokens: 4000, stream: false,
       chat_template_kwargs: { enable_thinking: false }, response_format: { type: 'json_schema', json_schema: { name: 'workflow', strict: true, schema: analysisSchema } },
       messages: [{ role: 'system', content: analysisPrompt }, { role: 'user', content: `SOURCE TRANSCRIPT:\n${transcript}` }] })
