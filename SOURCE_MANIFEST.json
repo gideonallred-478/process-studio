@@ -1,5 +1,5 @@
 {
-  "build": "required-fixes-2026-10-03",
+  "build": "required-fixes-final-2026-10-03",
   "recordingsIncluded": false,
   "credentialsIncluded": false,
   "modelWeightsIncluded": false,
@@ -38,7 +38,7 @@
     {
       "file": "audit/required-fixes-verification.md",
       "size": 2928,
-      "sha256": "1e6de7b705a04639dbc75712d46de05e4208cd373199b02bb4fe2e28f2363f89"
+      "sha256": "e49c1ad29bb43507e0034f36afb8ee6c16bcf8764e5b7096e73a8090f48fd986"
     },
     {
       "file": "decision-policy.js",
@@ -147,8 +147,8 @@
     },
     {
       "file": "public/browser-cache.js",
-      "size": 2774,
-      "sha256": "d912bbdb95671ec76dcdaa8f079849d29694a22a3bbff42b6ea5df7b40609902"
+      "size": 3144,
+      "sha256": "b7e0502686b3239159f4a51637352b20c3e9806944513d68ab1c5592a4aa3f1c"
     },
     {
       "file": "public/camera-layout.js",
@@ -172,8 +172,8 @@
     },
     {
       "file": "public/cloud.js",
-      "size": 14710,
-      "sha256": "231f248771e8943f0e10bd7df37c164b6d475623743326dda603e0a648f2fca8"
+      "size": 14746,
+      "sha256": "2056d2262534b33f526ce5406ed01ee6fe716ed7fb27144f1d3b4897df59450a"
     },
     {
       "file": "public/connections-ui.js",
@@ -378,7 +378,7 @@
     {
       "file": "research/required-fixes-browser.json",
       "size": 606,
-      "sha256": "5f40a321a74c8756a7f06b548c31eab1bd066178ad56d6af00b3a9fe2da24496"
+      "sha256": "903b9755fc0caa470f53926d1b1e6649428c333f78b6527702c41e27e9c10928"
     },
     {
       "file": "research/required-fixes-browser.png",
@@ -572,8 +572,8 @@
     },
     {
       "file": "tests/deletion.test.mjs",
-      "size": 9810,
-      "sha256": "e2f3abe8d56e2677f82584bdffcd4748c7f60dbd901354be3dc006f6f39821d8"
+      "size": 10698,
+      "sha256": "f0e40d25c47404bf21145f77216f1a7dca8353093001cd2f5e67c8c3a3553c4a"
     },
     {
       "file": "tests/engine-cancel.test.mjs",
@@ -677,8 +677,8 @@
     },
     {
       "file": "worker/index.js",
-      "size": 27915,
-      "sha256": "64faa978c74426c0d19bb8596a64f476cf151eb4724c842a8d1c95532d795a83"
+      "size": 27939,
+      "sha256": "5cb40e763a82f688e3443b8ccaa4eeb1b6be44c0d33afc6b6c694450e94dd446"
     },
     {
       "file": "worker/storage-controls.js",

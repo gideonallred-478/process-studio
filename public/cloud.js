@@ -53,7 +53,7 @@ export async function refreshHistory(){
  try{
   let data={items:[]},cursor;
   do{const page=await api('/api/recordings?includeDeleted=true'+(cursor?'&cursor='+encodeURIComponent(cursor):''));data.items.push(...page.items);cursor=page.cursor||page.nextCursor}while(cursor);
-  try{const deleted=await api('/api/workspace/deletions');for(const item of deleted.records||deleted.ids?.map(id=>({id}))||[]){await discardRecordingCopies(item.id,{cacheKeys:[...(item.cacheKeys||[]),...(workspace.id===item.id?[workspace.key]:[])]});window.dispatchEvent(new CustomEvent('recording-deleted',{detail:{id:item.id,synced:true}}));}}catch(error){progress('Browser copy cleanup needs retry: '+error.message,'error')}
+  try{const deleted=await api('/api/workspace/deletions');for(const item of deleted.records||deleted.ids?.map(id=>({id}))||[]){await discardRecordingCopies(item.id,{workspaceHash:deleted.workspaceHash,cacheKeys:[...(item.cacheKeys||[]),...(workspace.id===item.id?[workspace.key]:[])]});window.dispatchEvent(new CustomEvent('recording-deleted',{detail:{id:item.id,synced:true}}));}}catch(error){progress('Browser copy cleanup needs retry: '+error.message,'error')}
   const host=$('recentRecordings');host.replaceChildren();
   for(const item of data.items){
    const row=document.createElement('div');row.className='recent-item'+(item.deletedAt?' is-deleted':'');

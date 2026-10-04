@@ -12,7 +12,7 @@
 
 ## Evidence
 
-- 142 automated checks pass on native Windows, including interruption, corruption, conflict, cancellation, deletion and signed-media tests.
+- 143 automated checks pass on native Windows, including interruption, corruption, conflict, cancellation, deletion and signed-media tests.
 - Isolated headless Edge passes six scenarios: conflict preservation/recovery, quota autosave, combined failures/current-draft export, native IndexedDB cleanup and deletion in another open tab. Zero page errors. Only synthetic data and disposable profiles were used.
 - Client imports and compiled module export validation pass.
 - One fresh-context whole-change reviewer completed; every reported Important finding was fixed and covered by regressions. No Critical finding.
