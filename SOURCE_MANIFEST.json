@@ -1,5 +1,5 @@
 {
-  "build": "blue-themes-and-film-2026-10-04",
+  "build": "hosted-startup-fix-2026-10-04",
   "recordingsIncluded": false,
   "credentialsIncluded": false,
   "modelWeightsIncluded": false,
@@ -173,8 +173,8 @@
     },
     {
       "file": "public/app.js",
-      "size": 90205,
-      "sha256": "255886957c80180690d41d6297bb4b3e295ed3c97bedd9e527b396bf1c341d3f"
+      "size": 90444,
+      "sha256": "cffaa5097f2c46a54a39c95deebba8a8b537d7e94c95271a0175c9daa76f7e55"
     },
     {
       "file": "public/automation-engine.js",
@@ -223,8 +223,8 @@
     },
     {
       "file": "public/cloud.js",
-      "size": 18999,
-      "sha256": "600a7c81cb50f3acabc974065c6dee24674cafc5868c7affdf22e63043739111"
+      "size": 19854,
+      "sha256": "d5f183acc305771ebbe0e4199f2de225973a83bd3459d2ed57555b2040c1da65"
     },
     {
       "file": "public/connections-ui.js",
@@ -238,18 +238,18 @@
     },
     {
       "file": "public/editor.html",
-      "size": 23889,
-      "sha256": "3a1a3afa48da024af7acb45303d9ca777fee1a9e768ef012131c8f2a34d436ae"
+      "size": 24384,
+      "sha256": "7b1fe28d82087cb98678dd0baa126a7614744fd94c7084d4368586b6023b0f51"
     },
     {
       "file": "public/index.html",
-      "size": 23889,
-      "sha256": "3a1a3afa48da024af7acb45303d9ca777fee1a9e768ef012131c8f2a34d436ae"
+      "size": 24384,
+      "sha256": "7b1fe28d82087cb98678dd0baa126a7614744fd94c7084d4368586b6023b0f51"
     },
     {
       "file": "public/library.html",
-      "size": 23889,
-      "sha256": "3a1a3afa48da024af7acb45303d9ca777fee1a9e768ef012131c8f2a34d436ae"
+      "size": 24384,
+      "sha256": "7b1fe28d82087cb98678dd0baa126a7614744fd94c7084d4368586b6023b0f51"
     },
     {
       "file": "public/local.html",
@@ -293,8 +293,8 @@
     },
     {
       "file": "public/recording.html",
-      "size": 23889,
-      "sha256": "3a1a3afa48da024af7acb45303d9ca777fee1a9e768ef012131c8f2a34d436ae"
+      "size": 24384,
+      "sha256": "7b1fe28d82087cb98678dd0baa126a7614744fd94c7084d4368586b6023b0f51"
     },
     {
       "file": "public/recovery.js",
@@ -323,13 +323,13 @@
     },
     {
       "file": "public/settings.html",
-      "size": 23889,
-      "sha256": "3a1a3afa48da024af7acb45303d9ca777fee1a9e768ef012131c8f2a34d436ae"
+      "size": 24384,
+      "sha256": "7b1fe28d82087cb98678dd0baa126a7614744fd94c7084d4368586b6023b0f51"
     },
     {
       "file": "public/settings.js",
-      "size": 3230,
-      "sha256": "072759ef779f1b98e3ca2d391e357b1b4c551a8b2b011b3f5609c60b19fa5bc1"
+      "size": 3400,
+      "sha256": "74f8176fc08aac1c9e88b02e661acfbd3c490c3e074acd8c41d74fbef7835e72"
     },
     {
       "file": "public/sharing-ui.js",
@@ -358,8 +358,8 @@
     },
     {
       "file": "public/theme.css",
-      "size": 16990,
-      "sha256": "5d013a5dc80a826f0ed623054cc854103efce7f733133f78227c211559595995"
+      "size": 17365,
+      "sha256": "c12299bfb2dc2e1714dccf7630b826899522a9bee67d0381b7c73c36a18dbf63"
     },
     {
       "file": "public/theme.js",
@@ -378,8 +378,8 @@
     },
     {
       "file": "public/workspace-ui.js",
-      "size": 1729,
-      "sha256": "7c361e632d03befc3a0c860fa974a727c3ee17bc6d3e6cb6b442399e11915997"
+      "size": 1872,
+      "sha256": "2593c7ade37811e9021a090a18569c5967357df89768a832df5f93d0633154c4"
     },
     {
       "file": "README.md",
@@ -388,8 +388,8 @@
     },
     {
       "file": "RELEASE.md",
-      "size": 4832,
-      "sha256": "52a0507d77a6fa76b7e030dfd52f878670573ddc05ce86962450612152f4f246"
+      "size": 5150,
+      "sha256": "3239a72edf736e77e54b1406490a5e5eee9f3a477a29194066b5379cd888ac43"
     },
     {
       "file": "research/automation-rules-check.png",
@@ -503,8 +503,8 @@
     },
     {
       "file": "scripts/hosted-relay.mjs",
-      "size": 3252,
-      "sha256": "fab6a0bb9e7cccafdde5090241875dc2b4c818b035cc75dba60af8cdd01b8e9b"
+      "size": 3549,
+      "sha256": "1f806750ea630f83878442225ba14d0fccc02096fc7fb718b47eca73eaf7f678"
     },
     {
       "file": "scripts/install-support.ps1",
@@ -663,8 +663,8 @@
     },
     {
       "file": "tests/completion-repairs.test.mjs",
-      "size": 13474,
-      "sha256": "939261632f395c992c369174c093a3acd4fc9c526fe124b8021995e17954aa66"
+      "size": 13607,
+      "sha256": "1088c6b03030a7af813323b4de2ed14fedd3df9097eeaaf60ca1d9c73b2f4016"
     },
     {
       "file": "tests/connections.test.mjs",
@@ -748,8 +748,8 @@
     },
     {
       "file": "tests/pre-polish-repairs.test.mjs",
-      "size": 7207,
-      "sha256": "dcb7914c4ce55a29c605d6f7bee2caf65ded5289f2b0276766c399b1f9d04ecb"
+      "size": 7332,
+      "sha256": "37cf59d42b54753d10a4fc1ea0da30ef4b53329fe60f0cd45d622ef8d1cc7b7a"
     },
     {
       "file": "tests/processing.test.mjs",
@@ -758,13 +758,13 @@
     },
     {
       "file": "tests/recovery.test.mjs",
-      "size": 3676,
-      "sha256": "f732a8248c7b76ac2710bb3603754ca042e366f42c89d2b8f6b2504632b45643"
+      "size": 3809,
+      "sha256": "70b4da3ccd85ccc5a9dc5714559613d0bfbda518a95d5d55621eb277ede72866"
     },
     {
       "file": "tests/relay.test.mjs",
-      "size": 3080,
-      "sha256": "c724545cecf3b502c4e6b8abc4560b347303b31dd34741000d1bc269d818d31b"
+      "size": 4222,
+      "sha256": "532c061eddb8d139d83683d3484cc75d7fefd2e182683b684b17e91f80a91ea6"
     },
     {
       "file": "tests/required-fixes.test.mjs",
@@ -815,6 +815,31 @@
       "file": "wrangler.jsonc",
       "size": 1186,
       "sha256": "fdddc8e79255b11a4c725b289495827126cf1c6e91e2e961906101d5ea5c002e"
+    },
+    {
+      "file": "public/availability.js",
+      "size": 2115,
+      "sha256": "59ccf4846af5732363c2d8a2dc8bf90dc754eb0d27ad726a2bc0e9fc110da4ef"
+    },
+    {
+      "file": "tests/hosted-availability.test.mjs",
+      "size": 850,
+      "sha256": "1643ea64f703c32ce83c5f674173bdd43a792d45ba873b0fcd16151d0379d4d8"
+    },
+    {
+      "file": "audit/hosted-startup-verification.md",
+      "size": 864,
+      "sha256": "f562b58dc172000410bd597c22e49a5f7bc86eb9a1ff7bc51495acc58b296892"
+    },
+    {
+      "file": "audit/hosted-preview-browser.json",
+      "size": 3842,
+      "sha256": "788ca42d91f05e133778106b892c8e70c28fb07fed78cd08a16eede89ad8dab9"
+    },
+    {
+      "file": "audit/verify-hosted-preview.mjs",
+      "size": 4919,
+      "sha256": "13d08273528e5ed17f4e6993c7ed54bc029c5cb35d32274ea31afcf8c4868230"
     }
   ]
 }

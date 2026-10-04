@@ -19,5 +19,15 @@ test('relay rejects foreign write origins, oversized metadata, redirects and uns
  assert.equal((await hostedRelay(new Request(origin+'/api/uploads',{method:'POST',headers:{origin:'https://foreign.test'},body:'{}'}),{env,fetchImpl})).status,403);
  assert.equal((await hostedRelay(new Request(origin+'/api/uploads',{method:'POST',headers:{origin},body:'x'.repeat(4*1024*1024+1)}),{env,fetchImpl})).status,413);assert.equal(calls,0);
  assert.equal((await hostedRelay(new Request(origin+'/api/status'),{env,fetchImpl})).status,502);
- assert.equal((await hostedRelay(new Request(origin+'/api/status'),{env:{...env,STUDIO_BACKEND_URL:'http://127.0.0.1:4173'},fetchImpl})).status,503);
+ assert.equal((await hostedRelay(new Request(origin+'/api/session'),{env:{...env,STUDIO_BACKEND_URL:'http://127.0.0.1:4173'},fetchImpl})).status,503);
+});
+test('unconfigured hosting reports preview capabilities without creating a workspace',async()=>{
+ let calls=0;const options={env:{},fetchImpl:async()=>{calls++;throw Error('Must not forward')}};
+ const response=await hostedRelay(new Request(origin+'/api/status'),options);
+ assert.equal(response.status,200);assert.deepEqual(await response.json(),{edition:'hosted',storage:false,ai:false,processing:'local',code:'HOSTED_STORAGE_NOT_CONFIGURED'});
+ const session=await hostedRelay(new Request(origin+'/api/session'),options);assert.equal(session.status,503);assert.equal((await session.json()).code,'HOSTED_STORAGE_NOT_CONFIGURED');assert.equal(session.headers.get('set-cookie'),null);assert.equal(calls,0);
+});
+test('a configured storage outage remains an error, never an unconfigured preview',async()=>{
+ const env={STUDIO_BACKEND_URL:'https://process-studio-sharing.test.workers.dev',STUDIO_RELAY_SECRET:'r'.repeat(40)};
+ const response=await hostedRelay(new Request(origin+'/api/status'),{env,fetchImpl:async()=>{throw Error('Network outage')}});assert.equal(response.status,502);assert.equal((await response.json()).code,undefined);
 });

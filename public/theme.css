@@ -1,4 +1,8 @@
 /* Both appearances are deliberate palettes; the browser does not recolor them. */
+.hosted-setup { padding: 24px; margin-bottom: 28px; background: var(--accent-soft); border: 1px solid var(--border); border-radius: 18px; color: var(--ink); }
+.hosted-setup p { color: var(--muted); margin: 10px 0 18px; line-height: 1.6; }
+.hosted-setup .dialog-actions { flex-wrap: wrap; }
+body[data-hosted-preview=true] #openResultBtn { pointer-events: none; opacity: .5; }
 .appearance-card { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
 .appearance-card h2 { margin-bottom: 7px; }
 .appearance-card p { margin: 0; }

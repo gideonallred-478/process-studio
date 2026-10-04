@@ -1,6 +1,7 @@
 import {discardRecordingCopies} from '/browser-cache.js';
 import {getPreferences} from '/preferences.js';
 import {uploadRecording} from '/uploads.js';
+import {readWorkspaceSession} from '/availability.js';
 const $=id=>document.getElementById(id);
 const fresh=()=>({key:crypto.randomUUID(),id:null,blob:undefined,upload:null,queue:Promise.resolve(),revision:null});
 let workspace=fresh(),dirty=false,changeVersion=0,autosaveTimer,snapshotProvider;
@@ -10,13 +11,14 @@ function checkOperation(context,signal){
  signal?.throwIfAborted();
  if(context.removed||context!==workspace)throw Error('The recording changed or was removed. Processing stopped.');
 }
-const ready=fetch('/api/session').then(r=>{if(!r.ok)throw Error('Workspace could not open.');return r.json()});
+let storageUnavailable=false;
+const ready=readWorkspaceSession().then(session=>{storageUnavailable=session.storage===false&&session.code==='HOSTED_STORAGE_NOT_CONFIGURED';return session});
 function sessionGet(key){try{return sessionStorage.getItem(key)}catch{return null}}
 function sessionSet(key,value){try{sessionStorage.setItem(key,value)}catch{}}
 function sessionRemove(key){try{sessionStorage.removeItem(key)}catch{}}
 let creatorCode=sessionGet('studio-creator-code')||'';
 export function progress(message,kind='working'){const el=$('processProgress');if(el){el.textContent=message;el.dataset.kind=kind;el.classList.remove('hidden')}}
-export async function api(path,options={}){await ready;const response=await fetch(path,{...options,headers:{...(creatorCode?{'x-studio-code':creatorCode}:{}),...options.headers}});const data=await response.json();if(!response.ok){const error=Error(data.error||'The request did not complete.');error.status=response.status;throw error}return data}
+export async function api(path,options={}){const session=await ready;if(session.storage===false&&session.code==='HOSTED_STORAGE_NOT_CONFIGURED')throw Error('Online storage is not connected. Open the local edition to record, process and save.');const response=await fetch(path,{...options,headers:{...(creatorCode?{'x-studio-code':creatorCode}:{}),...options.headers}});const data=await response.json();if(!response.ok){const error=Error(data.error||'The request did not complete.');error.status=response.status;throw error}return data}
 export function recordingContext(){return workspace}
 export function recordingIdentity(){return {id:workspace.id,key:workspace.key,revision:workspace.revision}}
 export function hasPendingLocalJob(){try{const job=JSON.parse(sessionGet('studio-active-job')||'null');return Boolean(job&&job.recordId===workspace.id&&job.key===workspace.key)}catch{return false;}}
@@ -37,7 +39,7 @@ export async function saveProcess(state,transcript,reviewed){
  const save=async()=>{const id=await ensureRecording(blob,kind,name,context);const data=await api('/api/recordings/'+id,{method:'PUT',headers:{'content-type':'application/json'},body:JSON.stringify({...snapshot,...(context.revision?{expectedRevision:context.revision}:{})})});context.revision=data.revision??context.revision;if(context===workspace&&version===changeVersion){dirty=false;progress('All changes saved.','done');window.dispatchEvent(new Event('recording-saved'))}return id};
  const pending=context.queue.then(save,save);context.queue=pending.catch(()=>{});return pending;
 }
-export function queueAutosave(){changeVersion++;dirty=true;clearTimeout(autosaveTimer);progress('Changes saved in this browser. Saving to your workspace…');autosaveTimer=setTimeout(async()=>{if(!snapshotProvider)return;const snapshot=snapshotProvider();if(snapshot.state.recorder&&['recording','paused'].includes(snapshot.state.recorder.state))return;try{await saveProcess(snapshot.state,snapshot.transcript,snapshot.reviewed)}catch(error){dirty=true;progress((snapshot.state.browserCacheUnavailable?'Workspace save failed and browser recovery storage is unavailable. Keep this tab open and export the current text and process. ':'Workspace save failed. Your browser draft is retained. ')+'Use Save changes to retry. '+error.message,'error')}},900)}
+export function queueAutosave(){changeVersion++;dirty=true;clearTimeout(autosaveTimer);if(storageUnavailable){progress('Online saving is unavailable. Export your current text and process to keep a copy.','done');return;}progress('Changes saved in this browser. Saving to your workspace…');autosaveTimer=setTimeout(async()=>{if(!snapshotProvider)return;const snapshot=snapshotProvider();if(snapshot.state.recorder&&['recording','paused'].includes(snapshot.state.recorder.state))return;try{await saveProcess(snapshot.state,snapshot.transcript,snapshot.reviewed)}catch(error){dirty=true;progress((snapshot.state.browserCacheUnavailable?'Workspace save failed and browser recovery storage is unavailable. Keep this tab open and export the current text and process. ':'Workspace save failed. Your browser draft is retained. ')+'Use Save changes to retry. '+error.message,'error')}},900)}
 async function localJob(stage,input,body,context,signal,processSnapshot=null){
  checkOperation(context,signal);
  const previousTranscript=$('transcript').value,jobKey=context.key+':'+stage+':'+await fingerprint(input);
@@ -96,6 +98,7 @@ export async function analyzeSaved(state,transcript){
 export async function refreshHistory(){
  const version=++historyVersion;
  try{
+  const session=await ready;if(session.storage===false&&session.code==='HOSTED_STORAGE_NOT_CONFIGURED'){if(version!==historyVersion)return;const empty=document.createElement('p');empty.id='libraryEmpty';empty.className='library-empty';empty.textContent='Online recording storage is not connected yet. Your recordings remain in the local edition.';$('recentRecordings').replaceChildren(empty);return;}
   let data={items:[]},cursor;
   do{const page=await api('/api/recordings?includeDeleted=true'+(cursor?'&cursor='+encodeURIComponent(cursor):''));if(version!==historyVersion)return;data.items.push(...page.items);cursor=page.cursor||page.nextCursor}while(cursor);
   try{const deleted=await api('/api/workspace/deletions');if(version!==historyVersion)return;for(const item of deleted.records||deleted.ids?.map(id=>({id}))||[]){await discardRecordingCopies(item.id,{workspaceHash:deleted.workspaceHash,cacheKeys:[...(item.cacheKeys||[]),...(workspace.id===item.id?[workspace.key]:[])]});if(version!==historyVersion)return;window.dispatchEvent(new CustomEvent('recording-deleted',{detail:{id:item.id,synced:true}}));}}catch(error){if(version===historyVersion)progress('Browser copy cleanup needs retry: '+error.message,'error')}

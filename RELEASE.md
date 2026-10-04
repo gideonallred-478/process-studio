@@ -54,3 +54,7 @@ The 70-second 1080p product movie and its editable native project are attached t
 ## Submission
 
 See `submission/product-description.md`, `demo-script.md`, `verification.md` and screenshots. Screenshots depict a labelled prepared example. No competition submission or published demo video has occurred.
+
+## Hosted startup correction
+
+The live preview now explicitly explains missing storage and local-only AI, offers the prepared example, and prevents unavailable recording and saving actions. Configured backend outages still report errors. See audit/hosted-startup-verification.md. Online storage remains unconfigured.

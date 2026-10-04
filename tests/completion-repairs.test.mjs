@@ -1,3 +1,4 @@
+import {readWorkspaceSession} from '../public/availability.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
@@ -21,7 +22,7 @@ async function harness({jobHandler}={}){
  const elements=ui(),env={RECORDINGS:new MemoryR2()},session=new Map(),requests=[];
  const fetchImpl=async(url,options={})=>{if(url.startsWith('/api/local/jobs')){requests.push({url,method:options.method||'GET',recordId:options.headers?.['x-recording-id']});return jobHandler?jobHandler(url,options):Response.json({id:'synthetic-job',status:'complete',result:{transcript:'Synthetic speech result.'}})}return worker.fetch(new Request(origin+url,{...options,headers:{...options.headers,origin,cookie}}),env)};
  const context=vm.createContext({...elements,crypto:crypto.webcrypto,fetch:fetchImpl,uploadRecording,getPreferences:()=>({aiMode:'local'}),discardRecordingCopies:async()=>{},Blob,URL,JSON,Date,TextEncoder,Uint8Array,AbortController,DOMException,setTimeout,clearTimeout,Event,CustomEvent,sessionStorage:{getItem:key=>session.get(key)||null,setItem:(key,value)=>session.set(key,value),removeItem:key=>session.delete(key)}});
- vm.runInContext(cloud.replace(/^import .*\r?\n/gm,'').replace(/^export /gm,''),context);
+ context.readWorkspaceSession=()=>readWorkspaceSession(context.fetch);vm.runInContext(cloud.replace(/^import .*\r?\n/gm,'').replace(/^export /gm,''),context);
  const call=(code)=>vm.runInContext(code,context);return {context,call,requests,env,session,elements,fetchImpl};
 }
 async function savedPendingAudio(options){const h=await harness(options),audio=deferred();h.context.state={blob:new Blob(['synthetic video'],{type:'video/webm'}),recordingKind:'import',fileName:'synthetic.webm',processingAbort:new AbortController()};h.context.wavFromMedia=()=>audio.promise;h.context.getPreferences=()=>({aiMode:'local'});vm.runInContext(app.slice(app.indexOf('async function transcribeLocally('),app.indexOf('async function importRecording(')),h.context);await h.call('ensureRecording(state.blob,state.recordingKind,state.fileName)');return {...h,audio};}

@@ -12,7 +12,7 @@ function filterLibrary() {
   const empty = document.getElementById('libraryEmpty');
   if (empty) {
     empty.classList.toggle('hidden', visible > 0);
-    empty.textContent = query ? 'No walkthroughs match your search.' : 'Your walkthroughs will appear here. Record or upload your first one above.';
+    empty.textContent = document.body.dataset.hostedPreview==='true' ? 'Online recording storage is not connected yet. Your recordings remain in the local edition.' : query ? 'No walkthroughs match your search.' : 'Your walkthroughs will appear here. Record or upload your first one above.';
   }
 }
 search?.addEventListener('input', filterLibrary);

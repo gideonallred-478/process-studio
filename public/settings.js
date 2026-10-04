@@ -25,6 +25,6 @@ export function setupSettings({refreshStatus,isBusy}) {
 export function showEngineStatus({local,hosted,chatgpt}){
  showChatGPTStatus(chatgpt);
  $('localEngineStatus').textContent=local?.ai?`Ready · ${local.model||'Local model'} · ${local.localSpeech?'transcription ready':'transcription unavailable'}`:local?.available?`Local model ${local.modelState||'not ready'}. ${local.error||''}`:'Unavailable here. On localhost, start the installed local edition on port 4173.';
- $('hostedEngineStatus').textContent=hosted?.ai?'Configured. Creator access code required.':'Not configured. Add the server API key and creator code to use hosted AI.';
- $('hostedAccess').classList.toggle('hidden',getPreferences().aiMode!=='hosted');
+ $('hostedEngineStatus').textContent=hosted?.edition==='hosted'?'Processing runs in the local edition. Choose Local Qwen, your own ChatGPT connection, or your own API key there.':hosted?.ai?'Configured. Creator access code required.':'Not configured. Add the server API key and creator code to use hosted AI.';
+ $('hostedAccess').classList.toggle('hidden',hosted?.edition==='hosted'||getPreferences().aiMode!=='hosted');
 }

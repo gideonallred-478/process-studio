@@ -1,3 +1,4 @@
+import {readWorkspaceSession} from '../public/availability.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
@@ -41,7 +42,7 @@ test('generation replaces an unchanged process normally',async()=>{
  assert.equal(state.result.title,'Updated AI process');assert.equal(h.saves(),1);assert.equal(state.generatedDraftUrl,undefined);
 });
 async function cloudHarness(){const ui=elements(),env={RECORDINGS:new MemoryR2()},origin='https://synthetic.test',cookie='ps_owner='+'c'.repeat(32);const fetchImpl=(path,options={})=>worker.fetch(new Request(origin+path,{...options,headers:{origin,cookie,...options.headers}}),env);
- const ctx=vm.createContext({...ui,crypto:crypto.webcrypto,fetch:fetchImpl,uploadRecording,discardRecordingCopies:async()=>{},getPreferences:()=>({aiMode:'local'}),sessionStorage:{getItem(){return null},setItem(){},removeItem(){}},Blob,URL,JSON,Date,TextEncoder,Uint8Array,Event,CustomEvent,setTimeout,clearTimeout});vm.runInContext(cloud.replace(/^import .*\r?\n/gm,'').replace(/^export /gm,''),ctx);return {ctx,env,fetchImpl};}
+ const ctx=vm.createContext({...ui,crypto:crypto.webcrypto,fetch:fetchImpl,uploadRecording,discardRecordingCopies:async()=>{},getPreferences:()=>({aiMode:'local'}),sessionStorage:{getItem(){return null},setItem(){},removeItem(){}},Blob,URL,JSON,Date,TextEncoder,Uint8Array,Event,CustomEvent,setTimeout,clearTimeout});ctx.readWorkspaceSession=()=>readWorkspaceSession(ctx.fetch);vm.runInContext(cloud.replace(/^import .*\r?\n/gm,'').replace(/^export /gm,''),ctx);return {ctx,env,fetchImpl};}
 test('saving an active capture cannot create a text-only recording under its media identity',async()=>{
  for(const status of ['recording','paused']){const h=await cloudHarness();h.ctx.state={recorder:{state:status},blob:null,recordingKind:'screen-camera',fileName:'synthetic.webm',segments:[],result:null};await assert.rejects(vm.runInContext('saveProcess(state,"",false)',h.ctx),/record|stop|capture/i);assert.equal((await(await h.fetchImpl('/api/recordings')).json()).items.length,0);}
 });
