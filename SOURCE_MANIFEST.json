@@ -1,10 +1,10 @@
 {
-  "build": "hosted-startup-fix-2026-10-04",
+  "build": "local-submission-0.2.4-2026-10-04",
   "recordingsIncluded": false,
   "credentialsIncluded": false,
   "modelWeightsIncluded": false,
   "compiledOutputIncluded": false,
-  "filmAssets": "GitHub release assets; poster and edit script in source",
+  "filmAssets": "Revised no-URL movie and editable project attached to GitHub release",
   "files": [
     {
       "file": ".env.example",
@@ -13,13 +13,48 @@
     },
     {
       "file": ".gitignore",
-      "size": 155,
-      "sha256": "230bc8be1f99cf1d8ae7dc206f20344f691324acd499d69c22b95536ef7c360d"
+      "size": 333,
+      "sha256": "6de38a1a9f7462270da3b9097c2838ffad9eef0fd077df0e392bcf98f17790e8"
     },
     {
       "file": ".openai/hosting.json",
       "size": 98,
       "sha256": "04dc4c3370d0375c4d834b1cb87d694d1fb81dda407d6876c3e6b9ef0d9489f2"
+    },
+    {
+      "file": "HOSTED_SHARING.md",
+      "size": 8284,
+      "sha256": "7f2d64e1c8ce9392284808a799c40b1cbdf21d91d7928231bfdbe339cedf77c9"
+    },
+    {
+      "file": "Install-Studio.ps1",
+      "size": 2837,
+      "sha256": "01e28ceed31d17d7f1f4b4947142f0d014e5875bc2e1d68dd94e30dc883e9eb7"
+    },
+    {
+      "file": "LOCAL_AUTOMATION.md",
+      "size": 7685,
+      "sha256": "16397f9b31d5a85a61c1f736aa80d07b8cfa0ddd6a217eb79cef2d4d94e8eb27"
+    },
+    {
+      "file": "LOCAL_INSTALL.md",
+      "size": 2877,
+      "sha256": "39ec756c8a142ac784e0145fae6ebb8676afe654af52b8a4297bb74335996330"
+    },
+    {
+      "file": "README.md",
+      "size": 5432,
+      "sha256": "8b421971d878dd204a1b1eda68055b989deed61002484896219dfe73508c5667"
+    },
+    {
+      "file": "RELEASE.md",
+      "size": 1879,
+      "sha256": "67b42f4f9c63f296ccd54bda56f6becc550580383d903948f176f9a5681e6c52"
+    },
+    {
+      "file": "Start-Studio.ps1",
+      "size": 1974,
+      "sha256": "abbdfa9be2e63e7bd1189d0da23e1f93e423cdadb02fe40ff88826d9dee0321c"
     },
     {
       "file": "audit/completion-repairs-verification.md",
@@ -37,9 +72,19 @@
       "sha256": "cab6da0bb7a24e53df77efbb4109b01928a665840ef03ee1f37e8f6a1cfbc75d"
     },
     {
+      "file": "audit/hosted-preview-browser.json",
+      "size": 3842,
+      "sha256": "ea9b7189133ea33b7970e945495569e5a28ce07922d84874473d11de4456f988"
+    },
+    {
+      "file": "audit/hosted-startup-verification.md",
+      "size": 864,
+      "sha256": "f562b58dc172000410bd597c22e49a5f7bc86eb9a1ff7bc51495acc58b296892"
+    },
+    {
       "file": "audit/pre-polish-repairs-browser.json",
-      "size": 2808,
-      "sha256": "9e6a20fa1e013524534e0b57b171d2aefd0bcedac190e7a03870ace5fc8ba617"
+      "size": 2809,
+      "sha256": "a6bc1f2cfbe45048d6099d1dc4560433a11a1747e0b78e9cae3dc364a4c7107e"
     },
     {
       "file": "audit/pre-polish-repairs-verification.md",
@@ -48,13 +93,18 @@
     },
     {
       "file": "audit/product-film-verification.json",
-      "size": 1190,
-      "sha256": "535d31c4b51d195d8f206bb4ba3da22720fb5d66a04d7077e3e5524a1ac0d7be"
+      "size": 640,
+      "sha256": "e1706c3e1be9faf77ed04e3fac11a8f2cf3ec44cd953bc168e5df6f5f1d10b11"
     },
     {
       "file": "audit/providers.md",
       "size": 2616,
       "sha256": "02f6bd5edff37fdc68af5e0e7707ad0230c00d58290e79dc8c3419be3ed9a960"
+    },
+    {
+      "file": "audit/publication-verification.json",
+      "size": 845,
+      "sha256": "1657306eff80d0eb3faa05a32062e995d0d608eba6e555165af6188aba96e73e"
     },
     {
       "file": "audit/required-fixes-verification.md",
@@ -82,6 +132,11 @@
       "sha256": "bc19630737d4ffb90eb4eea96c46a989652796083a22c4bfa9ce55258e2d831a"
     },
     {
+      "file": "audit/verify-hosted-preview.mjs",
+      "size": 4919,
+      "sha256": "13d08273528e5ed17f4e6993c7ed54bc029c5cb35d32274ea31afcf8c4868230"
+    },
+    {
       "file": "audit/visual-polish-verification.md",
       "size": 3253,
       "sha256": "82facc241e38b4a2bff1395670d0047577c4fb3272cfb063c1d4b721f4a2f088"
@@ -90,16 +145,6 @@
       "file": "decision-policy.js",
       "size": 4284,
       "sha256": "ad9e5cfed350a58b8b29a6d2d4dff807ca1a3be2bc7a0d34d23445f1eba82623"
-    },
-    {
-      "file": "HOSTED_SHARING.md",
-      "size": 8284,
-      "sha256": "7f2d64e1c8ce9392284808a799c40b1cbdf21d91d7928231bfdbe339cedf77c9"
-    },
-    {
-      "file": "Install-Studio.ps1",
-      "size": 2837,
-      "sha256": "01e28ceed31d17d7f1f4b4947142f0d014e5875bc2e1d68dd94e30dc883e9eb7"
     },
     {
       "file": "local-analysis.js",
@@ -152,24 +197,14 @@
       "sha256": "1e4e7c86fa6756ebe433cdfb16d0623ef17d86e33661b62ce2dda11b1f159ad4"
     },
     {
-      "file": "LOCAL_AUTOMATION.md",
-      "size": 7685,
-      "sha256": "16397f9b31d5a85a61c1f736aa80d07b8cfa0ddd6a217eb79cef2d4d94e8eb27"
-    },
-    {
-      "file": "LOCAL_INSTALL.md",
-      "size": 2877,
-      "sha256": "39ec756c8a142ac784e0145fae6ebb8676afe654af52b8a4297bb74335996330"
-    },
-    {
       "file": "package-lock.json",
       "size": 14566,
-      "sha256": "764af5b1ca9d0093b72d3485b7bc77f0f87f7d0ed5715415b5717cd15e9b2f6a"
+      "sha256": "b2e582f2f39e868b20974ffb82da357527403523e537da4a04a085c0693414e3"
     },
     {
       "file": "package.json",
       "size": 502,
-      "sha256": "d2e64ae42dbc686fa2b5cfc2915511462530925dd316e13d2d6ae526a2cf1615"
+      "sha256": "ebc72c6df2ef3c06ccac298185f07f850a10f566df437c64586824a225c27809"
     },
     {
       "file": "public/app.js",
@@ -185,6 +220,11 @@
       "file": "public/automation-ui.js",
       "size": 15873,
       "sha256": "81ae410e7346403331c343abfa0afc7e06fadfb0144ff607fe0d1bbd43f17018"
+    },
+    {
+      "file": "public/availability.js",
+      "size": 2115,
+      "sha256": "59ccf4846af5732363c2d8a2dc8bf90dc754eb0d27ad726a2bc0e9fc110da4ef"
     },
     {
       "file": "public/blueprint.js",
@@ -382,16 +422,6 @@
       "sha256": "2593c7ade37811e9021a090a18569c5967357df89768a832df5f93d0633154c4"
     },
     {
-      "file": "README.md",
-      "size": 6997,
-      "sha256": "53df3559ae4b9de7ce318e53b51e775aaba1d1b2f75d0610a150db8ebbc78d53"
-    },
-    {
-      "file": "RELEASE.md",
-      "size": 5150,
-      "sha256": "3239a72edf736e77e54b1406490a5e5eee9f3a477a29194066b5379cd888ac43"
-    },
-    {
       "file": "research/automation-rules-check.png",
       "size": 59500,
       "sha256": "49bbcfff9d91af14a4eb6ed225d5e77a1fb66fe86d1bc0d577275cecaf3c1f5d"
@@ -577,34 +607,29 @@
       "sha256": "1e4e7c86fa6756ebe433cdfb16d0623ef17d86e33661b62ce2dda11b1f159ad4"
     },
     {
-      "file": "Start-Studio.ps1",
-      "size": 1974,
-      "sha256": "abbdfa9be2e63e7bd1189d0da23e1f93e423cdadb02fe40ff88826d9dee0321c"
-    },
-    {
       "file": "submission/demo-script.md",
       "size": 1770,
       "sha256": "6795f329a8c1e0c98ee4ec47123421ad08611fd11f391f1aef1ae59eecb62811"
     },
     {
       "file": "submission/film/ASSETS.json",
-      "size": 827,
-      "sha256": "c4acdca052596af81d03be972adf661e78de23642e25264b4aa6e5d2b2b72af8"
+      "size": 837,
+      "sha256": "dd29b90195496e12e37c32765b7f7116f9a61f667eb0f3221811ef5c3825c181"
+    },
+    {
+      "file": "submission/film/README.md",
+      "size": 1229,
+      "sha256": "4b566db09af0334a251dca02d80fe8eeda7267f0ba1b01d88dc51bd2de3573c5"
     },
     {
       "file": "submission/film/edit.mjs",
-      "size": 6196,
-      "sha256": "fd7f33a81f26b4b5ebc0c6aede4dd133d9717c7ee952b39b9540a1615e245d6e"
+      "size": 6182,
+      "sha256": "84833fb02f5fa1c59e310816727627299f324e8766bf7c169aeae48cb5467b28"
     },
     {
       "file": "submission/film/poster.jpg",
       "size": 146129,
       "sha256": "768357503e06ca6a83f7b7f54941ba4da5533901f4dda7acc9345fb21d4b9cfe"
-    },
-    {
-      "file": "submission/film/README.md",
-      "size": 807,
-      "sha256": "951c5f3c6a879b1c1367704d6980c9d26d8fe8744e6de43a64336a8c236220b9"
     },
     {
       "file": "submission/hardware-acceptance.md",
@@ -613,8 +638,8 @@
     },
     {
       "file": "submission/product-description.md",
-      "size": 1724,
-      "sha256": "0a15f8308e8c0458d7f6c1bb3e6296bcd0b64d53de09eac14f49374c312d412b"
+      "size": 1855,
+      "sha256": "01f93ad2c3933afe47e5f459f168c1bf73aee189dbc043421e762b935d110d6a"
     },
     {
       "file": "submission/screenshots/result.png",
@@ -633,8 +658,8 @@
     },
     {
       "file": "submission/verification.md",
-      "size": 2461,
-      "sha256": "4b7e680182a634e791d6b7d91af2f2a35dd35d679ec13f7d1008d3337b9dd4e0"
+      "size": 2445,
+      "sha256": "a39edadfa95f536c1f9b6734798c1283a523979b8611423518f2f3e0597b506e"
     },
     {
       "file": "tests/ai-regression.test.mjs",
@@ -720,6 +745,11 @@
       "file": "tests/fixtures/visual-polish-ui.mjs",
       "size": 9487,
       "sha256": "ec979a663b1402c9a54de39d2c60ba39759e459e14278e7e159a972e78429e24"
+    },
+    {
+      "file": "tests/hosted-availability.test.mjs",
+      "size": 850,
+      "sha256": "1643ea64f703c32ce83c5f674173bdd43a792d45ba873b0fcd16151d0379d4d8"
     },
     {
       "file": "tests/hosting.test.mjs",
@@ -815,31 +845,6 @@
       "file": "wrangler.jsonc",
       "size": 1186,
       "sha256": "fdddc8e79255b11a4c725b289495827126cf1c6e91e2e961906101d5ea5c002e"
-    },
-    {
-      "file": "public/availability.js",
-      "size": 2115,
-      "sha256": "59ccf4846af5732363c2d8a2dc8bf90dc754eb0d27ad726a2bc0e9fc110da4ef"
-    },
-    {
-      "file": "tests/hosted-availability.test.mjs",
-      "size": 850,
-      "sha256": "1643ea64f703c32ce83c5f674173bdd43a792d45ba873b0fcd16151d0379d4d8"
-    },
-    {
-      "file": "audit/hosted-startup-verification.md",
-      "size": 864,
-      "sha256": "f562b58dc172000410bd597c22e49a5f7bc86eb9a1ff7bc51495acc58b296892"
-    },
-    {
-      "file": "audit/hosted-preview-browser.json",
-      "size": 3842,
-      "sha256": "788ca42d91f05e133778106b892c8e70c28fb07fed78cd08a16eede89ad8dab9"
-    },
-    {
-      "file": "audit/verify-hosted-preview.mjs",
-      "size": 4919,
-      "sha256": "13d08273528e5ed17f4e6993c7ed54bc029c5cb35d32274ea31afcf8c4868230"
     }
   ]
 }

@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-04T04:55:42.262594+00:00",
+  "release": "v0.2.4-local-submission",
+  "baseline": "ee61c023193be9b906199de90c64435d76c64368",
+  "tests": {
+    "passed": 174,
+    "failed": 0
+  },
+  "browserChecks": {
+    "compiled": 10,
+    "hostedPreview": 6
+  },
+  "scan": {
+    "tool": "Gitleaks 8.30.1",
+    "historyCommitsBeforePublication": 5,
+    "historyPaths": 260,
+    "releaseArchives": 7,
+    "unresolvedFindings": 0,
+    "reviewedFalsePositives": "exact synthetic upload idempotency identifier in tests/hosting.test.mjs",
+    "sensitivePathsFound": 0,
+    "distinctImagesReviewed": 31
+  },
+  "exclusions": [
+    "private recordings",
+    "API keys and credential vaults",
+    "workspace recovery keys",
+    "browser data",
+    "models and installed runtimes",
+    "unfinished hosting adapter"
+  ],
+  "deploymentChanged": false
+}

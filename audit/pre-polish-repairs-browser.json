@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-04T04:01:13.116Z",
+  "at": "2026-10-04T04:54:21.177Z",
   "synthetic": true,
   "artifact": "compiled",
   "checks": [
@@ -70,9 +70,9 @@
       "generationAllowedWhileRecording": false,
       "playableInCurrentTab": true,
       "videoMissingAfterReload": false,
-      "savedVideoUrl": "/api/recordings/9d4a748471b3aaf09c45832f57333baa/video",
+      "savedVideoUrl": "/api/recordings/1a1f85853d64baccf1aa4391c420fa94/video",
       "savedKind": "import",
-      "savedBytes": 7596,
+      "savedBytes": 11969,
       "scope": "Actual browser recording and generation controls with synthetic streams and mocked AI; real storage creation/idempotency"
     }
   ],

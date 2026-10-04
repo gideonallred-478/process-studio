@@ -1,15 +1,15 @@
 {
-  "release": "https://github.com/gideonallred-478/process-studio/releases/tag/v0.2.3-blue-themes-and-film",
+  "release": "https://github.com/gideonallred-478/process-studio/releases/tag/v0.2.4-local-submission",
   "assets": [
     {
-      "filename": "Process-Studio-70-second-film.mp4",
-      "bytes": 36852510,
-      "sha256": "cfbead64be837375f14ebff03eb31d8e2e537218b95d93e7ccf3e95f53a5b3c1"
+      "filename": "Process-Studio-70-second-film-no-URL.mp4",
+      "bytes": 27230958,
+      "sha256": "5f15bd0dc128a0dd10cc588da1987d4a3703b54ed1796dc42cf71101788173e4"
     },
     {
-      "filename": "Process-Studio-editable-project.zip",
-      "bytes": 23287330,
-      "sha256": "0d592b1ffad27fb012a537cde4da7c48bf6c5a31893e7ed54925b3f480280aa6"
+      "filename": "Process-Studio-editable-project-no-URL.zip",
+      "bytes": 23287773,
+      "sha256": "f3a3a4f42036c8724f275bb28164e3b9db14cde58c5cad21a4630f37f0b5136e"
     },
     {
       "filename": "Process-Studio-poster.jpg",

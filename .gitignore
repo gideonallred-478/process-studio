@@ -11,3 +11,15 @@ release/
 .chatgpt-auth/
 .sharing-auth/
 .dev.vars*
+
+# Private runtime data and deployment credentials
+.vercel/
+.vercel-private/
+local-engine/runtime/
+local-engine/models/
+local-engine/recordings/
+*.dpapi
+*.pem
+*.pfx
+*.gguf
+*.ggml

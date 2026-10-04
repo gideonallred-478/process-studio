@@ -1,5 +1,5 @@
 {
-  "origin": "http://127.0.0.1:55147",
+  "origin": "http://127.0.0.1:59045",
   "checks": [
     {
       "name": "Fresh root has a truthful preview notice and no workspace error",
@@ -34,8 +34,8 @@
     "/studio-design.css",
     "/pages.css",
     "/polish.css",
-    "/studio-mark.svg",
     "/theme.css",
+    "/studio-mark.svg",
     "/recording-scene.svg",
     "/app.js",
     "/workspace-ui.js",
@@ -61,8 +61,8 @@
     "/chatgpt-settings.js",
     "/sharing-ui.js",
     "/connections-ui.js",
-    "/uploads.js",
     "/local-analysis.js",
+    "/uploads.js",
     "/api/session",
     "/api/local/sharing/status",
     "/api/status",
@@ -104,10 +104,10 @@
     "/camera-placement.js",
     "/navigation.js",
     "/caption-data.js",
-    "/connections-ui.js",
     "/automation-engine.js",
     "/chatgpt-settings.js",
     "/sharing-ui.js",
+    "/connections-ui.js",
     "/uploads.js",
     "/local-analysis.js",
     "/api/session",

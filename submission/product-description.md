@@ -24,4 +24,4 @@ A customer inquiry arrives. Log the requested details, prepare a routine respons
 
 ## Current status
 
-Prepared release, not published. Hosted AI needs private provider credentials and creator access. Screenshots use a labelled prepared example. Live hosted processing and a hardware recording run remain acceptance checks.
+Public source and Windows local installer package, version 0.2.4. Local Qwen needs no API key; optional ChatGPT uses each user's own account. The movie and screenshots show the labelled prepared example. Hosted storage remains unconfigured; fresh-machine, second-user and actual recording-hardware acceptance remain separate from the automated checks.

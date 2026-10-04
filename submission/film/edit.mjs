@@ -53,7 +53,7 @@ export default async ({project,text,rect,media,frame,path})=>{
   label('Make it repeatable.',100,472,1712,104,'#8bb9ff',700,intro(7,.2)),
   label('Recording becomes usable work.',108,647,1600,40,'#c2d5ef',400,intro(7,.3)),
   rect({x:108,y:780,width:840,height:75,fill:'#1b4783',radius:16,animate:intro(7,.4)}),
-  label('vercel-logged-out.vercel.app',138,795,795,33,'#eef5ff',600,intro(7,.4)),
+  label('Process Studio',138,795,795,33,'#eef5ff',600,intro(7,.4)),
   label('Explore the site. Get the local edition.',109,887,1600,27,'#b0c8e7',400,intro(7,.5))
  ],{at:63,dur:7,name:'Product closing card'});
  for(const t of [3,9,17,25,34,41,46,53,59,61.5,66.5])await p.frame(t,'renders/review-'+t+'.png');

@@ -1,9 +1,11 @@
 # Process Studio product film
 
-70 seconds, 1920 × 1080, 24 fps. Real site captures, blue native motion graphics, original instrumental music, and on-screen storytelling. There is no spoken voiceover. The process shown is the clearly labelled built-in prepared example, not a live recording or live AI run. No private recordings or author accounts were used.
+70 seconds, 1920 × 1080, 24 fps, H.264/AAC. Real site captures, blue motion graphics, original instrumental music and on-screen storytelling. There is no spoken voiceover. The process shown is the labelled prepared example, not a live recording or live AI run. No private recordings or author accounts were used.
 
-[Movie, complete editable native project and source screenshots](https://github.com/gideonallred-478/process-studio/releases/tag/v0.2.3-blue-themes-and-film). The editable project includes its imported media, original score and portable edit.mjs; the MP4 uses H.264/AAC.
+The revised closing card says **Process Studio**, with no URL. Footage, timing, animation and music are preserved; the original compressed audio stream was reused.
 
-[Watch the hosted movie](https://d2ol7oe51mr4n9.cloudfront.net/user_3J3UApXZGqJW0zEhxSv3OTYNwcO/65c2228d-6dbb-4d21-81f3-a8406015a2d6.mp4).
+[Watch or download the movie](https://github.com/gideonallred-478/process-studio/releases/download/v0.2.4-local-submission/Process-Studio-70-second-film-no-URL.mp4) · [Download the editable project](https://github.com/gideonallred-478/process-studio/releases/download/v0.2.4-local-submission/Process-Studio-editable-project-no-URL.zip) · [All release assets](https://github.com/gideonallred-478/process-studio/releases/tag/v0.2.4-local-submission).
+
+The editable project includes imported media, the original score and portable `edit.mjs`. The repository contains its edit script and poster; large movie assets are attached to the release. `ASSETS.json` contains their checksums.
 
 ![Product film poster](poster.jpg)

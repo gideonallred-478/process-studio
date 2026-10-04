@@ -1,27 +1,22 @@
-# Verification — October 3, 2026
+# Verification — October 4, 2026
 
-## Verified locally
+## Fresh checks for version 0.2.4
 
-- Browser and worker JavaScript syntax checks.
-- Nine automated tests cover persistence and owner isolation, cross-origin writes, consent/snapshot/revocation with an in-memory bucket, missing AI configuration, strict mocked provider handling and quote/tool filtering, creator-code gating, stale source handling, automatic transcription-to-analysis advancement, and transcription failure recovery.
-- Worker bundle build and artifact validation.
-- Browser: prepared example, saving to local object-storage preview, dedicated result page and source/procedure/action/blueprint sections.
-- Sharing dialog opened and cancelled. Automatic approval review blocked publication following the user's no-publishing choice. No actual share link was published.
+- Installed the exact locked source dependencies: npm reports zero known dependency vulnerabilities.
+- All 174 automated source tests passed, with zero failures, skips or cancellations.
+- Browser module imports, bundle compilation and worker artifact validation passed.
+- Ten fresh Edge checks passed against the compiled app with disposable storage. They cover dedicated pages, preferences, results, bounded automation and downloads, owner isolation, sharing/revocation, edit races, and recording recovery/playback through real MediaRecorder with synthetic video/audio streams.
+- Six fresh Edge checks passed for the configured-as-unavailable hosted preview, example exports, settings and dark persistence, library messaging, no account and no fake storage session.
+- Full Git history and all existing release ZIP payloads were scanned with Gitleaks 8.30.1. One exact synthetic upload idempotency test identifier was reviewed and allowlisted; no actual credentials were found. Archive/history paths contained no private recording, credential, browser profile, installed runtime or model folders.
+- Reviewed 31 distinct screenshot images across history and archives; they depict example or synthetic test content, without private camera recordings or visible author accounts.
+- Updated film source differs only in its closing label: the URL becomes Process Studio. Movie and editable archive checksums are in submission/film/ASSETS.json.
 
-## Acceptance checks still needed
+These checks used the release source, not the unfinished experimental hosting adapter. Screenshots and the film show the labelled prepared example.
 
-- Private server AI credentials, creator code and production storage binding.
-- Live provider transcription and output quality.
-- Hardware: screen picker, microphone, camera, moving camera window, pause/resume, stop, upload, playback and review.
-- Authorized deployment and production check from a second device.
-- Global quotas, retention and account recovery for unrestricted public use.
+## Earlier checks
 
-Local and mocked checks are not evidence of a live deployment. No source upload, site publication, live provider call, competition submission or demo video publication occurred.
+Earlier audit notes record successful real local Whisper/Qwen generation and a real optional ChatGPT inference using synthetic source. They are historical evidence from that environment, not fresh provider calls made for this publication. Connection probes and hosted transfer logic were tested with fixtures; no live third-party account integration is claimed.
 
-## Settings update
+## Acceptance boundaries
 
-13 automated tests now pass. Verified real local Whisper transcription (31 words) and Qwen generation (3 source-backed steps) through the new preview bridge. Browser checks verified Local/Hosted selection, engine readiness messages, movement toggle, and preferences retained across reloads. Also verified browser audio extraction, Local Whisper transcription, and locally generated notes saved to the dedicated result page. Browser error logs were empty. Hosted live processing is still unverified. Nothing was published.
-
-October 3: audit fixes are implemented. Browser startup, a real local Qwen generation from synthetic notes, saving and the result page were verified. Hardware acceptance and live hosted verification remain pending. See hardware-acceptance.md.
-
-Final verification: hosted-app suite 46/46; installed local-edition suite 23/23; browser imports and worker artifact validation pass. Real local notes generation, result saving, autosave and same-ID reload recovery passed. Native camera hardware remains pending.
+A new-computer installation, second-user run, actual screen/microphone/camera hardware test and live online sharing still need their separate acceptance checks. Vercel storage is unconfigured. Automated synthetic streams do not verify hardware permissions or recording quality. Source matching and a successful sample do not guarantee semantic accuracy or business correctness.
