@@ -71,3 +71,9 @@ Account registrations and rotating tokens are encrypted for the current Windows 
 Keep the tab open during ChatGPT generation. Saved source is retained for retries, but ChatGPT requests are not durable browser-recoverable jobs. Local Whisper/Qwen jobs retain their existing recovery behavior. Provider changes are blocked during recording or processing, and no fallback to another online provider occurs.
 
 This implements the official **local** plan-usage flow. A paid or remotely hosted subscription integration requires separate OpenAI eligibility. No deployment or publication is included. See `research/product-review.md` for remaining product-wide work and `research/chatgpt-plan-integration.md` for the source documentation.
+
+## October 4 blue appearance and product film release
+
+Light, Dark and System modes are in Settings → Appearance. The original blue design covers studio, library, source review, editing, automation, settings and results. The source suite passes 171 tests, with 29 isolated appearance checks, 10 recording/editing checks and 20 live deployment checks.
+
+[Live site](https://vercel-logged-out.vercel.app/) · [Release downloads](https://github.com/gideonallred-478/process-studio/releases/tag/v0.2.3-blue-themes-and-film) · [Product film](submission/film/README.md). Hosted ChatGPT remains signed out and hosted storage remains unconfigured. Local recording/AI use the local edition; the movie shows the labelled prepared example.

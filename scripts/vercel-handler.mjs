@@ -14,7 +14,7 @@ export async function hostedResponse(request) {
   const response = await worker.fetch(request, {});
   if(response.headers.get('content-type')?.startsWith('text/html')&&process.env.STUDIO_BACKEND_URL){try{const backend=new URL(process.env.STUDIO_BACKEND_URL);if(backend.protocol==='https:'&&backend.hostname.endsWith('.workers.dev'))response.headers.set('content-security-policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' "+backend.origin+"; media-src 'self' blob: "+backend.origin+"; img-src 'self' data: blob:; font-src 'self'; object-src 'none'; frame-ancestors 'none'");}catch{}}
   if (request.method !== 'HEAD' && response.headers.get('content-type')?.startsWith('text/html')) {
-    const html = (await response.text()).replace('<body>', '<body><aside role="status" style="padding:10px 18px;background:#eaf2ff;color:#1746a2;font:13px system-ui;text-align:center">Record and process locally, share online. ChatGPT is signed out here. <a href="/local.html">Get the local edition</a>.</aside>');
+    const html = (await response.text()).replace('<body>', '<body><aside class="hosted-notice" role="status" style="padding:10px 18px;background:#eaf2ff;color:#1746a2;font:13px system-ui;text-align:center">Record and process locally, share online. ChatGPT is signed out here. <a href="/local.html">Get the local edition</a>.</aside>');
     return new Response(html,{status:response.status,headers:response.headers});
   }
   return response;

@@ -1,0 +1,80 @@
+{
+  "at": "2026-10-04T04:01:13.116Z",
+  "synthetic": true,
+  "artifact": "compiled",
+  "checks": [
+    {
+      "name": "Compiled root and all dedicated app pages initialize",
+      "passed": true
+    },
+    {
+      "name": "Provider, movement and example preferences survive reload",
+      "passed": true
+    },
+    {
+      "name": "Private result sections and source-to-editor navigation work",
+      "passed": true
+    },
+    {
+      "name": "Local automation sample and full run produce a downloadable copy",
+      "passed": true
+    },
+    {
+      "name": "Cross-owner access, explicit snapshot and revocation remain enforced",
+      "passed": true
+    },
+    {
+      "name": "AI generation preserves process edits already saved during the request",
+      "passed": true
+    },
+    {
+      "name": "Screen ending while matching leaves controls idle and the recording saved",
+      "passed": true
+    },
+    {
+      "name": "Generation is blocked during capture even if a click is dispatched",
+      "passed": true
+    },
+    {
+      "name": "Capture remains durably playable after attempted premature generation and reload",
+      "passed": true
+    },
+    {
+      "name": "No uncaught errors during broad browser journey",
+      "passed": true,
+      "pageErrors": []
+    }
+  ],
+  "findings": [
+    {
+      "name": "Process edits made during local AI generation are overwritten by the late result",
+      "reproduced": false,
+      "savedDuring": "Manual title entered while generation runs",
+      "titleAfter": "Manual title entered while generation runs",
+      "savedAfter": "Manual title entered while generation runs",
+      "scope": "Synthetic local job result through the compiled client and real in-memory storage"
+    },
+    {
+      "name": "Screen ending during camera-surface matching leaves recording controls active after saving",
+      "reproduced": false,
+      "recordingControlsVisible": false,
+      "recordButton": "● Record a walkthrough",
+      "cameraToggleDisabled": false,
+      "videoStatus": "Saved screen + camera recording · 0.0 MB",
+      "tracksEnded": true,
+      "scope": "Synthetic canvas video and oscillator audio; real browser MediaRecorder; no hardware access"
+    },
+    {
+      "name": "Generating from edited transcript during active recording saves a text identity and drops the eventual saved video",
+      "reproduced": false,
+      "generationAllowedWhileRecording": false,
+      "playableInCurrentTab": true,
+      "videoMissingAfterReload": false,
+      "savedVideoUrl": "/api/recordings/9d4a748471b3aaf09c45832f57333baa/video",
+      "savedKind": "import",
+      "savedBytes": 7596,
+      "scope": "Actual browser recording and generation controls with synthetic streams and mocked AI; real storage creation/idempotency"
+    }
+  ],
+  "pageErrors": []
+}

@@ -21,6 +21,7 @@ function renderPage(page=currentPage()){
  document.title=names[page]+' · Process Studio';
  document.body.dataset.page=page;
  renderEditorSection();
+ window.dispatchEvent(new CustomEvent('studio-page-changed',{detail:{page}}));
  window.scrollTo({top:0,behavior:'instant'});
 }
 function renderEditorSection(){

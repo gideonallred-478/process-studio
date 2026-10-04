@@ -4,7 +4,7 @@ Record a task and turn its explanation into a transcript, summary, editable SOP,
 
 ## Status
 
-Local reliability release prepared October 3, 2026. Private source and release copies are maintained in GitHub and Dropbox. The Vercel landing page is logged out; hosted recording storage is not activated. The original local engine remains in `../process-studio`. See `audit/required-fixes-verification.md` for the seven reliability fixes and verification boundaries.
+Blue appearance release prepared October 4, 2026. Light, Dark and System modes are available in Settings and persist across pages and reloads. Studio, library, recording review, process editor, automation, settings and results share an original blue visual system with matching artwork and responsive layouts. The source suite passes 171 tests and 29 visual/browser checks pass. This package retains the recording and editing repairs. Hosted recording storage is not activated; AI processing uses the local edition. The GitHub blue-themes-and-film release includes this source and the movie materials. Dropbox retains the earlier release. See audit/theme-verification.md and audit/pre-polish-repairs-verification.md for evidence and boundaries.
 
 Implemented: screen/camera controls, upload, persistence, hosted AI adapters, editable outputs, dedicated result pages, JSON export, consent-based snapshot sharing and revocation. A labelled prepared demo works without AI credentials. Live hosted AI and real recording hardware remain unverified.
 
@@ -46,6 +46,10 @@ Files: WebM, MP4, MP3, WAV and OGG, up to 25 MiB. Recording stops near 22 MiB. T
 Localhost ownership persists on this computer. Hosted ownership uses a renewed HttpOnly cookie and a private downloadable recovery key. Workspace backups include source, results and available media; keep them private. Anyone possessing a published snapshot URL can view it. Storage and AI can incur charges.
 
 Creator access gates AI but is not a complete billing/rate-limit system. There is a 50-recording browser-workspace cap. Global daily upload and AI quotas use conditional storage writes. Trash is retained until explicitly purged. Before unrestricted public launch, configure platform request-rate controls, operational monitoring, production credentials/storage and verify live ownership recovery. Quote matching confirms textual evidence, not semantic accuracy, integration authorization or execution readiness.
+
+## Product film
+
+The 70-second 1080p product movie and its editable native project are attached to the GitHub release. See `submission/film/README.md`. The movie uses real captures of the labelled prepared example and original music; it does not claim live hosted AI processing.
 
 ## Submission
 

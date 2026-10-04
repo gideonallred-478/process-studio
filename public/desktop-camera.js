@@ -23,7 +23,7 @@ export function createDesktopCamera({ fetcher = fetch, selectCapture, readyTimeo
     const settings=options.track?.getSettings?.()||{};
     if(!['monitor','window'].includes(settings.displaySurface)){onStatus('Desktop camera movement is available for monitor or window captures. Drag the circle in the recording preview.');return false;}
     try{
-      const response=await fetcher('/api/local/camera');if(!response.ok)return false;const inventory=await response.json();if(!inventory.available)return false;
+      const response=await fetcher('/api/local/camera');if(generation!==token||!response.ok)return false;const inventory=await response.json();if(generation!==token||!inventory.available)return false;
       const surfaces=inventory.surfaces.filter(s=>s.kind===settings.displaySurface);
       // Native ids and getDisplayMedia sources cannot be matched reliably by size/title.
       // Ask explicitly unless there is exactly one monitor in the system.

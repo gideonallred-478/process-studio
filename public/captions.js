@@ -1,6 +1,9 @@
+import {safeCaptionSegments} from './caption-data.js';
+export {validCaptionSegments,safeCaptionSegments} from './caption-data.js';
 const normalize = value => String(value || '').replace(/\s+/g, ' ').trim();
 
 export function reconcileCaptionText(segments, previousTranscript, editedTranscript) {
+  segments=safeCaptionSegments(segments);
   const copy=segments.map(part=>({...part}));
   if(normalize(segments.map(part=>part.text).join(' '))!==normalize(previousTranscript))return copy;
   const before=normalize(previousTranscript).split(' ').filter(Boolean),after=normalize(editedTranscript).split(' ').filter(Boolean);
@@ -24,7 +27,7 @@ export function reconcileCaptionText(segments, previousTranscript, editedTranscr
 // Only existing phrase timestamps are used; an untimed transcript is never
 // spread across the recording and presented as synchronized speech.
 export function captionCues(segments = [], transcript = '', duration = Infinity) {
-  const phrases = segments.filter(part => normalize(part.text));
+  const phrases = safeCaptionSegments(segments).filter(part => normalize(part.text));
   if (!phrases.length) return {cues: [], reason: 'Transcribe the recording to create captions.'};
   if (normalize(phrases.map(part => part.text).join(' ')) !== normalize(transcript))
     return {cues: [], reason: 'Transcript changed. Correct the timed phrases below to match; your transcript and timing are kept.'};

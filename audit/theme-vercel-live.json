@@ -1,0 +1,114 @@
+{
+  "origin": "https://vercel-logged-out.vercel.app",
+  "checks": [
+    {
+      "name": "Public route /",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "Root works without index.html",
+      "passed": true
+    },
+    {
+      "name": "Public route /settings.html",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "Public route /library.html",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "Public route /local.html",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "Public route /theme.js",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "Deployed asset matches release /theme.js",
+      "passed": true
+    },
+    {
+      "name": "Public route /theme.css",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "Deployed asset matches release /theme.css",
+      "passed": true
+    },
+    {
+      "name": "Public route /recording-scene-dark.svg",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "Deployed asset matches release /recording-scene-dark.svg",
+      "passed": true
+    },
+    {
+      "name": "Hosted ChatGPT is signed out",
+      "passed": true
+    },
+    {
+      "name": "Hosted configuration boundary is accurate",
+      "passed": true
+    },
+    {
+      "name": "Local download matches clean archive",
+      "passed": true
+    },
+    {
+      "name": "Live dark mode persists after reload",
+      "passed": true
+    },
+    {
+      "name": "Dark mode carries to root",
+      "passed": true
+    },
+    {
+      "name": "Live desktop artwork and dark banner render",
+      "passed": true,
+      "detail": {
+        "width": 1440,
+        "scroll": 1440,
+        "background": "rgb(12, 23, 40)",
+        "banner": "rgb(23, 44, 72)"
+      }
+    },
+    {
+      "name": "Live dark settings fits mobile",
+      "passed": true
+    },
+    {
+      "name": "Live System mode follows device appearance",
+      "passed": true
+    },
+    {
+      "name": "Live pages have no uncaught errors",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "pageErrors": []
+}

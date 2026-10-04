@@ -8,6 +8,7 @@ import crypto from 'node:crypto';
 import worker from '../worker/index.js';
 import {MemoryR2} from './fixtures/memory-r2.mjs';
 import {uploadRecording} from '../public/uploads.js';
+import {validCaptionSegments} from '../public/caption-data.js';
 
 const app=await fs.readFile(new URL('../public/app.js',import.meta.url),'utf8');
 const origin='https://studio.example',cookie='ps_owner='+'8'.repeat(32);
@@ -21,7 +22,7 @@ test('caption-only edits from an older draft are offered separately',()=>{
 });
 
 test('large supported video backups validate without exhausting the JavaScript stack',async()=>{
- const source=(await fs.readFile(new URL('../public/recovery.js',import.meta.url),'utf8'));const validation=source.slice(source.indexOf('function validateBackup('),source.indexOf('export function setupRecovery'));const backup={format:'process-studio-backup',version:1,records:[{transcript:'Synthetic backup source',segments:[],mime:'video/webm',media:'A'.repeat(4000000)}]};assert.equal(vm.runInNewContext(validation+';validateBackup(backup)',{backup,atob}),backup);
+ const source=(await fs.readFile(new URL('../public/recovery.js',import.meta.url),'utf8'));const validation=source.slice(source.indexOf('function validateBackup('),source.indexOf('export function setupRecovery'));const backup={format:'process-studio-backup',version:1,records:[{transcript:'Synthetic backup source',segments:[],mime:'video/webm',media:'A'.repeat(4000000)}]};assert.equal(vm.runInNewContext(validation+';validateBackup(backup)',{backup,atob,validCaptionSegments}),backup);
 });
 
 test('saved-version recovery cannot revert a healthy record or resurrect a purged one',()=>temporary(async directory=>{
@@ -48,7 +49,7 @@ test('a damaged record does not hide healthy records from the library',()=>tempo
 test('reimporting an old backup cannot overwrite a restored recording that was edited',async()=>{
  const env={RECORDINGS:new MemoryR2()},ui=elements();const api=async(url,options={})=>{const response=await worker.fetch(request(url,options),env),data=await response.json();if(!response.ok)throw Error(data.error);return data};
  const source=(await fs.readFile(new URL('../public/recovery.js',import.meta.url),'utf8')).replace(/^import .*\r?\n/gm,'').replace('export function setupRecovery','function setupRecovery');
- const ctx=vm.createContext({...ui,crypto:crypto.webcrypto,api,uploadRecording,refreshHistory:async()=>{},progress(){},Blob,Uint8Array,JSON,URL,setTimeout,btoa,atob,validateBackup:value=>value,restoreBackupCopies:undefined});vm.runInContext(source+';setupRecovery()',ctx);
+ const ctx=vm.createContext({...ui,crypto:crypto.webcrypto,api,uploadRecording,refreshHistory:async()=>{},progress(){},Blob,Uint8Array,JSON,URL,setTimeout,btoa,atob,validCaptionSegments});vm.runInContext(source+';setupRecovery()',ctx);
  const entry={id:'9'.repeat(32),kind:'notes',filename:'Synthetic backup',transcript:'Original backup source with sufficient words.',transcriptSource:'Manual',reviewed:false,result:null,method:null,segments:[]};const event={target:{files:[{size:1000,text:async()=>JSON.stringify({format:'process-studio-backup',version:1,records:[entry]})}],value:''}};
  await ui.get('backupFile').listeners.change(event);const first=(await api('/api/recordings')).items[0];assert.ok(first);
  await api('/api/recordings/'+first.id,{method:'PUT',headers:{'content-type':'application/json'},body:JSON.stringify({transcript:'Keep these newer edits after the first restoration.'})});
@@ -62,7 +63,7 @@ test('browser storage exhaustion does not prevent workspace autosave',()=>{
 
 test('an invalid later backup entry is rejected before creating any restored records',async()=>{
  const env={RECORDINGS:new MemoryR2()},ui=elements();const api=async(url,options={})=>{const response=await worker.fetch(request(url,options),env),data=await response.json();if(!response.ok)throw Error(data.error);return data};
- const source=(await fs.readFile(new URL('../public/recovery.js',import.meta.url),'utf8')).replace(/^import .*\r?\n/gm,'').replace('export function setupRecovery','function setupRecovery');vm.runInNewContext(source+';setupRecovery()',{...ui,crypto:crypto.webcrypto,api,uploadRecording,refreshHistory:async()=>{},progress(){},Blob,Uint8Array,JSON,URL,setTimeout,btoa,atob});
+ const source=(await fs.readFile(new URL('../public/recovery.js',import.meta.url),'utf8')).replace(/^import .*\r?\n/gm,'').replace('export function setupRecovery','function setupRecovery');vm.runInNewContext(source+';setupRecovery()',{...ui,crypto:crypto.webcrypto,api,uploadRecording,refreshHistory:async()=>{},progress(){},Blob,Uint8Array,JSON,URL,setTimeout,btoa,atob,validCaptionSegments});
  const record={id:'9'.repeat(32),kind:'notes',filename:'Synthetic backup',transcript:'Valid first entry with enough words.',segments:[]};const event={target:{files:[{size:1000,text:async()=>JSON.stringify({format:'process-studio-backup',version:1,records:[record,{...record,id:'7'.repeat(32),transcript:'x'.repeat(200001)}]})}],value:''}};await ui.get('backupFile').listeners.change(event);assert.equal((await api('/api/recordings')).items.length,0);
 });
 

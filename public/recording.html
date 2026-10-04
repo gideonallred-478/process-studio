@@ -4,8 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#1868db">
+  <meta name="color-scheme" content="light dark">
+  <script src="/theme.js"></script>
   <meta name="description" content="Turn a walkthrough into a clear procedure, action items and an evidence-led automation blueprint."><title>Process Studio — from walkthrough to workflow</title>
-  <link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/studio-design.css"><link rel="stylesheet" href="/pages.css"><link rel="icon" href="/studio-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/studio-design.css"><link rel="stylesheet" href="/pages.css"><link rel="stylesheet" href="/polish.css"><link rel="stylesheet" href="/theme.css"><link rel="icon" href="/studio-mark.svg" type="image/svg+xml">
 </head>
 <body>
   <div class="app-shell">
@@ -15,11 +17,11 @@
       <nav aria-label="Main navigation">
         <button class="nav-item active" data-page="studio" id="navStudio" type="button"><span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg></span> Studio <span class="nav-arrow">↗</span></button>
         <a class="nav-item" data-page="library" id="navLibrary" href="/library.html"><span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M7 2h10m-7 8 6 3-6 3z"/></svg></span> My library</a><button id="navExample" class="hidden" type="button">Example workflow</button>
-        <button class="nav-item" data-page="source" id="navSource" disabled><span>◉</span> Review recording</button><button class="nav-item" data-page="editor" id="navEditor" disabled><span>▤</span> Process editor</button><button class="nav-item" data-page="settings" id="navSettings" type="button"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 3-1 3-3 1v4l-2 1 2 1v4l3 1 1 3h6l1-3 3-1v-4l2-1-2-1V7l-3-1-1-3z"/><circle cx="12" cy="12" r="3"/></svg></span> Settings</button>
+        <button class="nav-item" data-page="source" id="navSource" disabled><span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="3"/><path d="M8 21h8m-4-4v4m-2-13 5 3-5 3z"/></svg></span> Review recording</button><button class="nav-item" data-page="editor" id="navEditor" disabled><span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M9 8h6m-6 4h6m-6 4h4"/></svg></span> Process editor</button><button class="nav-item" data-page="settings" id="navSettings" type="button"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 3-1 3-3 1v4l-2 1 2 1v4l3 1 1 3h6l1-3 3-1v-4l2-1-2-1V7l-3-1-1-3z"/><circle cx="12" cy="12" r="3"/></svg></span> Settings</button>
       </nav>
       <div class="side-bottom">
         
-        <div class="side-foot">RECORD → PROCESS <span class="foot-dot"></span> v0.2</div>
+        <div class="workspace-signature"><span class="signature-icon" aria-hidden="true">↗</span><strong>Show it once.<br>Make it repeatable.</strong><p>Your recordings become usable work.</p></div><div class="side-foot">PROCESS STUDIO <span class="foot-dot"></span> v0.2</div>
       </div>
     </aside>
 
@@ -27,15 +29,17 @@
       <header class="topbar"><div class="crumb">Workspace <span>/</span> <strong id="currentView">Studio</strong></div><div class="top-right"><span class="status-dot"></span><span id="providerStatus">Checking capabilities</span><button id="quickSettings" class="text-button" type="button" aria-label="Open settings">Settings</button><span class="avatar">PS</span></div></header><nav class="mobile-pages" aria-label="Workspace pages"><button data-page="studio" type="button">Studio</button><button data-page="library" type="button">Library</button><button data-page="source" type="button" disabled>Review recording</button><button data-page="editor" type="button" disabled>Process</button><button data-page="settings" type="button">Settings</button></nav>
       <div class="content"><div id="processProgress" class="process-progress hidden" role="status"></div><a id="exportCurrentDraft" class="outline-btn hidden" href="#">Export current text and process</a><div id="studioPanel">
         
-        <header class="workspace-heading"><div><h1>Studio</h1><p>Record a walkthrough. Turn it into a workflow.</p></div><span class="workspace-label">PRIVATE WORKSPACE</span></header>
+        <header class="workspace-heading"><div><span class="heading-eyebrow">YOUR WORK, EXPLAINED</span><h1>Show it. Make it happen.</h1><p>A walkthrough today. A repeatable workflow tomorrow.</p></div><span class="workspace-label"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> Private workspace</span></header>
 
         
         <section class="capture-grid">
           <div class="capture-card">
+            <div class="capture-copy">
             <div class="card-top"><div class="record-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3z"/></svg></div><span class="pill">SCREEN RECORDING</span></div>
-            <h3>Record a walkthrough</h3><p>Share a screen or window and talk through the process as you go.</p><p class="panel-help">Local transcription: under six minutes. Recording stops near 22 MB; imports allow up to 25 MB.</p>
+            <h3>Great processes<br> start with <em>showing.</em></h3><p>Share your screen. Talk through the task.<br>Let Studio help turn it into the next steps.</p>
             <div class="camera-controls"><label><input id="cameraToggle" type="checkbox" checked> Include camera automatically</label><div id="cameraPreviewWrap" class="camera-preview-wrap hidden"><video id="cameraPreview" autoplay muted playsinline aria-label="Live camera preview"></video><span>Camera ready</span><button id="floatCameraBtn" class="quiet-btn" type="button">Show camera on screen ↗</button></div><span id="cameraHelp">Your camera will appear when recording starts. Uncheck for screen only.</span></div>
             <div class="capture-footer"><button id="recordBtn" class="primary-btn" type="button"><span class="button-icon">●</span> Record a walkthrough</button><button id="cameraOnlyBtn" class="quiet-btn" type="button">Record camera only</button><button id="importBtn" class="quiet-btn" type="button">Upload recording</button><input id="importFile" class="hidden" type="file" accept="video/webm,video/mp4,audio/webm,audio/mp4,audio/mpeg,audio/wav,audio/x-wav,audio/ogg" aria-label="Choose a recording"></div>
+            <p class="capture-limit">Under 6 min for local transcription · stops near 22 MB · imports up to 25 MB</p></div><div class="capture-art" aria-hidden="true"><img class="scene-light" src="/recording-scene.svg" alt=""><img class="scene-dark" src="/recording-scene-dark.svg" alt=""><div class="art-caption"><span class="art-check">✓</span> From explanation to action</div></div>
           </div>
           <div class="example-card hidden" id="exampleCard">
             <div class="card-top"><div class="example-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M9 8h6m-6 4h6m-6 4h4"/></svg></div><span class="pill pale">TAKE A LOOK</span></div>
@@ -45,6 +49,7 @@
         </section>
 
         <div class="capture-options"><label><input id="autoProcess" type="checkbox" checked> Create a process automatically after recording</label><details class="advanced-capture"><summary>Processing options</summary><div><button id="retryProcessing" class="text-button" type="button">Retry unfinished processing</button><button id="cancelProcessing" class="text-button" type="button">Cancel local processing</button></div></details></div>
+        <section class="workflow-journey" aria-label="How Studio works"><div class="journey-heading"><h2>More than a recording.</h2><span>A clear path from “here’s how” to “here’s what’s next.”</span></div><div class="journey-grid"><article><span class="journey-number">01</span><h3>Capture the context</h3><p>Screen, camera and narration. The details stay with the explanation.</p></article><article><span class="journey-number">02</span><h3>Turn it into a process</h3><p>Review the transcript, refine the steps, and give every action a source.</p></article><article><span class="journey-number">03</span><h3>Find what can flow</h3><p>Identify automation opportunities, connections and human decisions.</p></article></div></section>
 <details class="notes-disclosure"><summary>Start from written notes<span>Have a transcript already? Use it here.</span></summary><section class="paste-card" aria-labelledby="pasteTitle">
           <div><span class="section-kicker">NO RECORDING NEEDED</span><h3 id="pasteTitle">Paste a walkthrough</h3><p>Drop in notes to create a procedure, action list, and workflow blueprint.</p></div>
           <label for="pasteInput">Your notes or transcript</label>
@@ -56,7 +61,7 @@
 
         
         </div>
-<section id="libraryPanel" class="hidden"><section id="historySection" class="history-section"><div class="library-heading"><div><span class="section-kicker">YOUR LIBRARY</span><h2>My library</h2></div><input id="librarySearch" class="library-search" type="search" placeholder="Find a walkthrough…" aria-label="Find a walkthrough"></div><div id="recentRecordings" class="recent-recordings"></div><p>On localhost, your workspace stays on this computer. Back up important recordings in Settings.</p></section></section>
+<section id="libraryPanel" class="hidden"><section id="historySection" class="history-section"><div class="library-heading"><div><span class="section-kicker">YOUR LIBRARY</span><h2>My library</h2><p class="library-description">Your walkthroughs. Your processes. All in one place.</p></div><input id="librarySearch" class="library-search" type="search" placeholder="Find a walkthrough…" aria-label="Find a walkthrough"></div><div id="recentRecordings" class="recent-recordings"></div><p>On localhost, your workspace stays on this computer. Back up important recordings in Settings.</p></section></section>
 <section id="sourcePanel" class="hidden"><div id="sourceEmpty" class="page-empty"><h1>Your recording</h1><p>Start a recording or upload a file in Studio.</p><button data-page="studio" type="button" class="primary-btn">Open Studio</button></div><div class="source-toolbar"><button data-page="studio" type="button" class="outline-btn">Back to Studio</button><button id="sourceToEditor" type="button" class="primary-btn" disabled>View process</button></div><section id="session" class="session hidden" aria-live="polite">
           <div class="section-head compact"><div><span class="section-kicker">02 / SOURCE</span><h2 id="sessionTitle">Your walkthrough</h2></div><span id="sessionBadge" class="source-badge">LIVE RECORDING</span></div>
           <div id="recordingControls" class="recording-controls hidden"><span class="live-dot"></span><strong>Recording your walkthrough</strong><button id="pauseBtn" type="button" class="outline-btn">Pause</button><button id="stopBtn" type="button" class="primary-btn">Stop and process</button><span>Short walkthroughs · stops near 22 MB; imports up to 25 MB.</span></div><div class="session-grid">
@@ -81,7 +86,8 @@
 
         <section id="settingsPanel" class="settings-panel hidden" aria-labelledby="settingsTitle">
           <span class="section-kicker">YOUR PREFERENCES</span><h1 id="settingsTitle">Settings</h1><p>Choose how your walkthrough is processed and how your camera moves.</p>
-          <div class="settings-card"><h2>AI processing</h2><label for="aiMode">Process generation</label><select id="aiMode"><option value="local">Local Qwen · offline, no API key</option><option value="chatgpt">ChatGPT plan · Plus / Pro sign-in</option><option value="hosted">OpenAI API · separate API billing</option></select>
+          <div class="settings-card appearance-card"><div><h2>Appearance</h2><p>Your workspace, in your preferred light.</p></div><label for="themeChoice">Theme<select id="themeChoice"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div>
+          <div class="settings-card ai-settings-card"><h2>AI processing</h2><label for="aiMode">Process generation</label><select id="aiMode"><option value="local">Local Qwen · offline, no API key</option><option value="chatgpt">ChatGPT plan · Plus / Pro sign-in</option><option value="hosted">OpenAI API · separate API billing</option></select>
             <p>Qwen keeps your words on this computer. ChatGPT uses your authorized subscription to analyze the transcript; Whisper still transcribes locally. OpenAI API uses the configured server key for transcription and generation. The studio never switches providers automatically.</p>
             <div class="engine-status"><strong>Local AI</strong><span id="localEngineStatus">Checking local engines…</span></div><div class="engine-status"><strong>Hosted AI</strong><span id="hostedEngineStatus">Checking hosted configuration…</span></div>
             <div class="engine-status"><strong>ChatGPT plan</strong><span id="chatgptEngineStatus">Checking connection…</span></div>

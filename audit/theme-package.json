@@ -1,0 +1,12 @@
+{
+  "archive": "C:\\Users\\Gideo\\Documents\\Codex\\2026-10-01\\ai-grandmaster-process-studio\\outputs\\process-studio-cloud\\release\\process-studio-blue-themes-2026-10-04.zip",
+  "bytes": 2769303,
+  "files": 158,
+  "sha256": "13302E818B783E079E06012011AAED04AA767A4BBF2AF63C4D8FE3F94EDCB21B",
+  "privateFilesExcluded": true,
+  "requiredEntriesVerified": true,
+  "sourceTestsPassed": 171,
+  "packagedTestsPassed": 171,
+  "compiledBrowserChecksPassed": 10,
+  "visualBrowserChecksPassed": 29
+}

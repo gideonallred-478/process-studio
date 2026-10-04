@@ -1,10 +1,10 @@
 import {discardRecordingCopies,releaseUploadedMedia} from '/browser-cache.js';
-import {setupCaptions,reconcileCaptionText} from '/captions.js';
+import {setupCaptions,reconcileCaptionText,validCaptionSegments,safeCaptionSegments} from '/captions.js';
 import {getPreferences,cameraTarget} from '/preferences.js';
 import {renderAutomation} from '/automation-ui.js';
 import {buildBlueprint} from '/blueprint.js';
 import {setupSettings,showEngineStatus} from '/settings.js';
-import { setupCloud, ensureRecording, resetRecording, adoptRecording, saveProcess, transcribeSaved, analyzeSaved, progress, recordingIdentity, recordingContext, restoreIdentity, queueAutosave, resumeLocalJob, cancelLocalJob } from '/cloud.js';
+import { setupCloud, ensureRecording, resetRecording, adoptRecording, saveProcess, transcribeSaved, analyzeSaved, progress, recordingIdentity, recordingContext, restoreIdentity, queueAutosave, resumeLocalJob, cancelLocalJob, hasPendingLocalJob } from '/cloud.js';
 import { assessStep, normalizeResult } from '/decision-policy.js';
 import { auditEvidence, makeDraft, makePastedDraft, moveStep, splitStep, mergeStep } from '/shared.js';
 import { createDesktopCamera } from '/desktop-camera.js';
@@ -13,7 +13,7 @@ import { cameraLayout } from '/camera-layout.js';
 import { nearbyPlacements, anchorFromWindow, anchorFromPreviewPointer, scorePlacements, choosePlacement } from '/camera-placement.js';
 
 const $ = id => document.getElementById(id);
-const desktop=createDesktopCamera({selectCapture:async surfaces=>new Promise(resolve=>{const dialog=$('captureDialog'),select=$('captureSurface');select.replaceChildren(...surfaces.map(surface=>{const option=document.createElement('option');option.value=surface.id;option.textContent=surface.title||surface.name||surface.id;return option}));dialog.showModal();const finish=value=>{dialog.close();$('captureConfirm').onclick=null;$('captureCancel').onclick=null;resolve(value)};$('captureConfirm').onclick=()=>finish(select.value);$('captureCancel').onclick=()=>finish(null);dialog.oncancel=()=>finish(null)})});
+const desktop=createDesktopCamera({selectCapture:async surfaces=>new Promise(resolve=>{const dialog=$('captureDialog'),select=$('captureSurface');select.replaceChildren(...surfaces.map(surface=>{const option=document.createElement('option');option.value=surface.id;option.textContent=surface.title||surface.name||surface.id;return option}));dialog.showModal();const finish=value=>{if(state.finishCaptureSelection===finish)state.finishCaptureSelection=null;dialog.oncancel=null;dialog.close();$('captureConfirm').onclick=null;$('captureCancel').onclick=null;resolve(value)};state.finishCaptureSelection=finish;$('captureConfirm').onclick=()=>finish(select.value);$('captureCancel').onclick=()=>finish(null);dialog.oncancel=()=>finish(null)})});
 const sampleTranscript = `First, open the new customer inquiry in the CRM and check the service they asked about. Then copy the customer's name, email, and requested date into our follow-up sheet. I read their message to decide whether it is a routine booking question or something the manager needs to review. For a routine question, choose the matching response template and personalize the opening line. If the customer mentions a complaint or a refund, flag it for the manager instead of sending a template. Next, send the reply from the shared inbox and add a note to the CRM. We need to follow up after two business days if the customer has not replied. Finally, review the sheet each Friday to check that no inquiries were missed.`;
 const sampleResult = {
   title: 'Respond to a new customer inquiry',
@@ -42,13 +42,14 @@ const recordingLabel = kind => ({ screen: 'screen', 'screen-camera': 'screen + c
 
 function toast(message) { const el = $('toast'); el.textContent = message; el.classList.add('show'); clearTimeout(toast.timer); toast.timer = setTimeout(() => el.classList.remove('show'), 4200); }
 function words(value) { return (value.trim().match(/\S+/g) || []).length; }
-function updateWords() { $('exportCurrentDraft').classList.toggle('hidden',!$('transcript').value.trim()&&!state.result); $('retryProcessing').classList.toggle('hidden',!state.blob&&!state.result);$('cancelProcessing').classList.toggle('hidden',getPreferences().aiMode==='hosted'||!state.transcribing&&!state.analyzing); $('wordCount').textContent = `${words($('transcript').value)} words`; const ready = $('transcript').value.trim().length >= 20 && $('transcript').value.trim().length <= 12000 && (['sample', 'paste'].includes(state.mode) || $('reviewCheck').checked); $('generateBtn').disabled = !ready || state.transcribing || state.analyzing; $('generateHint').textContent = $('transcript').value.trim().length>12000 ? 'Your full source is kept. AI analysis supports up to 12,000 characters; split this walkthrough before generating.' : state.mode === 'sample' ? 'Sample source. Edit it or explore the prepared process.' : state.mode === 'paste' ? 'Edit your notes above, then regenerate the draft at any time.' : $('reviewCheck').checked ? 'Transcript reviewed. Generated steps will show whether their source quotes match.' : 'Play the recording, correct the transcript, then check the review box.'; }
+function updateWords() { const captureBusy=state.starting||state.importing||state.finalizing||['recording','paused'].includes(state.recorder?.state);$('retryProcessing').disabled=Boolean(captureBusy||state.transcribing||state.analyzing);$('saveCloudBtn').disabled=Boolean(captureBusy);$('openResultBtn').setAttribute('aria-disabled',String(Boolean(captureBusy)));$('exportCurrentDraft').classList.toggle('hidden',!$('transcript').value.trim()&&!state.result); $('retryProcessing').classList.toggle('hidden',!state.blob&&!state.result);$('cancelProcessing').classList.toggle('hidden',getPreferences().aiMode==='hosted'||!state.transcribing&&!state.analyzing&&!hasPendingLocalJob()); $('wordCount').textContent = `${words($('transcript').value)} words`; const ready = $('transcript').value.trim().length >= 20 && $('transcript').value.trim().length <= 12000 && (['sample', 'paste'].includes(state.mode) || $('reviewCheck').checked); $('generateBtn').disabled = !ready || state.transcribing || state.analyzing||Boolean(captureBusy); $('generateHint').textContent = captureBusy?'Stop recording and wait for the video to save before creating a process.':$('transcript').value.trim().length>12000 ? 'Your full source is kept. AI analysis supports up to 12,000 characters; split this walkthrough before generating.' : state.mode === 'sample' ? 'Sample source. Edit it or explore the prepared process.' : state.mode === 'paste' ? 'Edit your notes above, then regenerate the draft at any time.' : $('reviewCheck').checked ? 'Transcript reviewed. Generated steps will show whether their source quotes match.' : 'Play the recording, correct the transcript, then check the review box.'; }
 function setTranscript(value, source, help) { const changed = $('transcript').value.trim() !== String(value).trim(); $('transcript').value = value; state.transcriptSource = source; $('transcriptSource').textContent = source; if (help) $('transcriptHelp').textContent = help; if (state.mode !== 'sample') $('reviewCheck').checked = false; if (changed && state.result && !$('results').classList.contains('hidden')) { state.method = 'stale'; $('resultNotice').textContent = 'Transcript changed after this process was generated. Regenerate before using or exporting it.'; updateEvidenceUI(); } updateWords(); lastCaptionTranscript=$('transcript').value;captions.refresh(); persistMetadata(); }
 $('transcriptCues').addEventListener('input',event=>{const cue=event.target.closest('.cue');if(!cue||!event.target.matches('textarea'))return;const part=state.segments[Number(cue.dataset.index)];if(!part)return;const previous=state.segments.map(part=>part.text).join(' ').replace(/\s+/g,' ').trim();part.text=event.target.value;const transcript=$('transcript').value.replace(/\s+/g,' ').trim();if(transcript===previous)setTranscript(state.segments.map(part=>part.text).join(' '),state.transcriptSource,'Caption correction saved with its original timing. Check against playback.');else{captions.refresh();persistMetadata();}lastCaptionTranscript=$('transcript').value;});
 function timeLabel(seconds) { const value = Math.floor(seconds); return `${Math.floor(value / 60)}:${String(value % 60).padStart(2, '0')}`; }
 const captions = setupCaptions($('video'), $('captionControls'), () => ({segments:state.segments,transcript:$('transcript').value}));
 let lastCaptionTranscript=$('transcript').value;
 function renderCues() {
+  if(!validCaptionSegments(state.segments)){state.segments=safeCaptionSegments(state.segments);$('transcriptHelp').textContent='Damaged caption entries were skipped. Your transcript and recording are kept; retranscribe or correct replay points to restore captions.';}
   lastCaptionTranscript=$('transcript').value;captions.refresh();
   const host = $('transcriptCues'); host.classList.toggle('hidden', !state.segments.length);
   if (!state.segments.length) { host.innerHTML = ''; return; }
@@ -252,6 +253,7 @@ function dragRecordingBubble(event) {
   state.anchorSource = 'preview';
 }
 function releaseMedia() {
+  state.captureOperation=null;state.starting=false;state.finishCaptureSelection?.(null);
   void desktop.stop();$('floatCameraBtn').disabled=false;
   state.compositor?.stop(); state.compositor = null;
   state.stream?.getTracks().forEach(track => track.stop()); state.stream = null; stopCamera();
@@ -264,9 +266,10 @@ async function decodeWav(blob){
  const context=new AudioContext();try{const audio=await context.decodeAudioData(await blob.arrayBuffer());const rate=16000,length=Math.floor(audio.duration*rate);if(length>rate*360)throw Error('Use a walkthrough under six minutes.');const bytes=new ArrayBuffer(44+length*2),view=new DataView(bytes);const tag=(offset,text)=>{for(let i=0;i<text.length;i++)view.setUint8(offset+i,text.charCodeAt(i))};tag(0,'RIFF');view.setUint32(4,36+length*2,true);tag(8,'WAVE');tag(12,'fmt ');view.setUint32(16,16,true);view.setUint16(20,1,true);view.setUint16(22,1,true);view.setUint32(24,rate,true);view.setUint32(28,rate*2,true);view.setUint16(32,2,true);view.setUint16(34,16,true);tag(36,'data');view.setUint32(40,length*2,true);const channels=Array.from({length:audio.numberOfChannels},(_,i)=>audio.getChannelData(i));let peak=0;for(let i=0;i<length;i++){const index=Math.min(audio.length-1,Math.floor(i*audio.sampleRate/rate));let value=channels.reduce((sum,data)=>sum+data[index],0)/channels.length;peak=Math.max(peak,Math.abs(value));value=Math.max(-1,Math.min(1,value));view.setInt16(44+i*2,value<0?value*32768:value*32767,true)}if(peak<0.0005)throw Error('No audible speech found.');return new Blob([bytes],{type:'audio/wav'})}finally{await context.close()}
 }
 
-async function wavFromMedia(blob) {
+async function wavFromMedia(blob,signal=state.processingAbort?.signal) {
   if (!window.AudioContext) throw new Error('This browser cannot extract an audio track from the recording.');
-  try { return await decodeWav(blob); } catch(error) { if(state.processingAbort?.signal.aborted)throw Error('Audio preparation cancelled.');if(error.message.includes('under six minutes'))throw error; progress('Preparing audio by replaying the recording. This stage takes the recording duration.'); }
+  signal?.throwIfAborted();
+  try { const wav=await decodeWav(blob);signal?.throwIfAborted();return wav; } catch(error) { signal?.throwIfAborted();if(error.message.includes('under six minutes'))throw error; progress('Preparing audio by replaying the recording. This stage takes the recording duration.'); }
   const url = URL.createObjectURL(blob);
   const media = document.createElement('video'); media.src = url; media.preload = 'auto'; media.playsInline = true;
   media.style.cssText = 'position:fixed;left:-9999px;width:1px;height:1px'; document.body.appendChild(media);
@@ -286,15 +289,18 @@ async function wavFromMedia(blob) {
     }
     chunks.push(mono); total += mono.length;
   };
-  let timer;
+  let timer,abort;
   try {
     const finished = new Promise((resolve, reject) => {
+      abort=()=>reject(new DOMException('Audio preparation cancelled.','AbortError'));
+      signal?.addEventListener('abort',abort,{once:true});
+      if(signal?.aborted){abort();return;}
       timer = setTimeout(() => reject(new Error('Audio extraction took too long.')), 360000);
       media.onended = () => resolve();
-      media.onerror = () => reject(new Error('The browser could not play this recording.'));state.processingAbort?.signal.addEventListener('abort',()=>reject(new Error('Audio preparation cancelled.')),{once:true});
+      media.onerror = () => reject(new Error('The browser could not play this recording.'));
     });
-    await Promise.all([context.resume(), media.play()]);
-    await finished;
+    await Promise.all([context.resume(), media.play(),finished]);
+    signal?.throwIfAborted();
     if (!total || peak < 0.0005) throw new Error('No audible speech track was found in this recording.');
     const combined = new Float32Array(total); let offset = 0;
     for (const chunk of chunks) { combined.set(chunk, offset); offset += chunk.length; }
@@ -310,14 +316,15 @@ async function wavFromMedia(blob) {
       view.setInt16(44 + i * 2, sample < 0 ? sample * 32768 : sample * 32767, true);
     }
     return new Blob([buffer], { type: 'audio/wav' });
-  } finally { clearTimeout(timer); processor.disconnect(); source.disconnect(); silent.disconnect(); media.pause(); media.removeAttribute('src'); media.load(); media.remove(); await context.close().catch(() => {}); URL.revokeObjectURL(url); }
+  } finally { clearTimeout(timer);signal?.removeEventListener('abort',abort); processor.disconnect(); source.disconnect(); silent.disconnect(); media.pause(); media.removeAttribute('src'); media.load(); media.remove(); await context.close().catch(() => {}); URL.revokeObjectURL(url); }
 }
 
 async function transcribeLocally(blob) {
-  const local=getPreferences().aiMode!=='hosted';
+  const local=getPreferences().aiMode!=='hosted',context=recordingContext(),signal=state.processingAbort?.signal,kind=state.recordingKind,name=state.fileName;
   if(local)progress('Preparing audio for local transcription.');
-  const wav=local?await wavFromMedia(blob):null;
-  return transcribeSaved(blob,state.recordingKind,state.fileName,wav);
+  const wav=local?await wavFromMedia(blob,signal):null;
+  signal?.throwIfAborted();
+  return transcribeSaved(blob,kind,name,wav,{context,signal});
 }
 
 async function importRecording(file, sample = false) {
@@ -378,6 +385,7 @@ async function startRecording(kind = 'screen') {
   if (state.transcribing || state.analyzing) return toast('Wait for the current process to finish before recording.');
   if (state.starting) return;
   state.starting = true;
+  const captureOperation=Symbol('capture');state.captureOperation=captureOperation;updateWords();
   try {
   if (!window.MediaRecorder || (kind === 'screen' && !navigator.mediaDevices?.getDisplayMedia)) return toast('Recording is unavailable in this browser. Try Chrome or Edge.');
   let screen = null, camera = null, mic = null;
@@ -462,19 +470,26 @@ async function startRecording(kind = 'screen') {
   };
   (screen || camera).getVideoTracks()[0].addEventListener('ended', () => { if (['recording','paused'].includes(recorder.state)){state.finalizing=true;recorder.stop();} }, { once: true });
   if(screen&&camera&&screen.getVideoTracks()[0].getSettings().displaySurface==='monitor'){if(state.floatWindow&&!state.floatWindow.closed)state.floatWindow.close();if(document.pictureInPictureElement)await document.exitPictureInPicture().catch(()=>{});}
+  if((screen||camera).getVideoTracks()[0].readyState!=='live'||state.captureOperation!==captureOperation){releaseMedia();return toast('The capture ended before recording could start.');}
+  state.recordingStarted=Date.now();state.pausedMs=0;state.pausedAt=null;
   try { recorder.start(1000); } catch (error) { releaseMedia(); const live = $('video'); live.pause(); live.srcObject = null; live.controls = true; live.muted = false; live.classList.remove('live-source', 'camera-full'); return toast(`Recording could not start: ${error.message}`); }
-  if(camera&&(state.compositor||kind==='camera')){const active=await desktop.start({recording:true,video:$('cameraPreview'),track:screen?.getVideoTracks()[0]||{getSettings:()=>({displaySurface:'monitor'})},layout:state.compositor?.layout||cameraLayout(window.screen.width,window.screen.height,$('cameraPreview').videoWidth,$('cameraPreview').videoHeight),anchor:state.cameraAnchor||undefined,onAnchor:anchor=>{state.cameraAnchor=anchor;state.anchorSource='preview'},onStatus:message=>{$('cameraHelp').textContent=message}});if(active){$('floatCameraBtn').disabled=true;$('floatCameraBtn').textContent='Camera on screen';if(state.floatWindow&&!state.floatWindow.closed)state.floatWindow.close();$('cameraHelp').textContent='Drag the circle itself. Space-aware movement stays close to your chosen position.';}else if(screen?.getVideoTracks()[0].getSettings().displaySurface==='monitor'&&state.floatWindow){state.floatWindow.close();$('cameraHelp').textContent='Desktop overlay unavailable. Use the camera circle in the recording preview.';}}
+  if(camera&&(state.compositor||kind==='camera')){
+    const active=await desktop.start({recording:true,video:$('cameraPreview'),track:screen?.getVideoTracks()[0]||{getSettings:()=>({displaySurface:'monitor'})},layout:state.compositor?.layout||cameraLayout(window.screen.width,window.screen.height,$('cameraPreview').videoWidth,$('cameraPreview').videoHeight),anchor:state.cameraAnchor||undefined,onAnchor:anchor=>{state.cameraAnchor=anchor;state.anchorSource='preview'},onStatus:message=>{$('cameraHelp').textContent=message}});
+    if(state.captureOperation!==captureOperation||!['recording','paused'].includes(recorder.state))return;
+    if(active){$('floatCameraBtn').disabled=true;$('floatCameraBtn').textContent='Camera on screen';if(state.floatWindow&&!state.floatWindow.closed)state.floatWindow.close();$('cameraHelp').textContent='Drag the circle itself. Space-aware movement stays close to your chosen position.';}else if(screen?.getVideoTracks()[0].getSettings().displaySurface==='monitor'&&state.floatWindow){state.floatWindow.close();$('cameraHelp').textContent='Desktop overlay unavailable. Use the camera circle in the recording preview.';}
+  }
+  if(state.captureOperation!==captureOperation||!['recording','paused'].includes(recorder.state))return;
   if(screen&&screen.getVideoTracks()[0].getSettings().displaySurface==='monitor')$('floatCameraBtn').disabled=true;
-  state.recordingStarted = Date.now(); state.pausedMs = 0; state.pausedAt = null; $('recordingControls').classList.remove('hidden'); $('pauseBtn').textContent = 'Pause'; $('cameraToggle').disabled = true;
+  $('recordingControls').classList.remove('hidden'); $('pauseBtn').textContent = 'Pause'; $('cameraToggle').disabled = true;
   if (kind === 'camera') { $('recordBtn').disabled = true; $('cameraOnlyBtn').textContent = '■ Stop camera recording'; }
   else { $('cameraOnlyBtn').disabled = true; $('recordBtn').innerHTML = '<span class="button-icon">■</span> Stop recording'; }
   state.timer = setInterval(() => { $('videoStatus').textContent = `Recording ${recordingLabel(state.recordingKind)} · ${Math.floor(((state.pausedAt || Date.now()) - state.recordingStarted - state.pausedMs) / 1000)}s`; }, 1000);
   $('videoStatus').textContent = `Recording ${recordingLabel(state.recordingKind)} · 0s`;
-  } finally { state.starting = false; }
+  } finally { if(state.captureOperation===captureOperation)state.starting = false;updateWords(); }
 }
 
 async function transcribeVideo() {
-  if (!state.blob || state.transcribing) return;
+  if (!state.blob || state.transcribing||state.analyzing||state.starting||['recording','paused'].includes(state.recorder?.state)) return;
   const previous = $('transcript').value, previousSource = state.transcriptSource, sourceBlob = state.blob, sourceKey=recordingIdentity().key;
   state.cancelRequested=false;state.processingAbort=new AbortController();state.transcribing = true; updateWords();
   $('transcribeBtn').disabled = true; $('transcribeBtn').textContent = 'Transcribing recording…';
@@ -488,6 +503,7 @@ async function transcribeVideo() {
     setTranscript(data.transcript.trim(), data.source || 'Hosted transcription', 'Play the recording and check these words. AI drafts still require review.');
       return true;
   } catch (error) {
+    if(state.cancelRequested||state.processingAbort?.signal.aborted||recordingIdentity().key!==sourceKey||state.blob!==sourceBlob){if(recordingIdentity().key===sourceKey)progress(error.cancellationUnconfirmed?'Cancellation is not confirmed. Your source and job reference are kept. Retry Cancel local processing.':'Processing cancelled. Your last saved source is retained.',error.cancellationUnconfirmed?'error':'done');return false;}
     if(recordingIdentity().key===sourceKey && state.blob===sourceBlob && $('transcript').value===previous)setTranscript(previous, previous.trim() ? previousSource : 'Manual entry needed', 'Transcription could not complete: ' + error.message + ' You can paste a transcript instead.');
     toast(error.message); return false;
   } finally {
@@ -495,20 +511,34 @@ async function transcribeVideo() {
   }
 }
 
+function processSnapshot(result){
+ if(!result)return 'null';
+ const fields=(item,names)=>Object.fromEntries(names.map(name=>[name,item?.[name]??'']));
+ return JSON.stringify({...fields(result,['title','summary','owner','trigger','outcome','exception']),steps:(result.steps||[]).map(step=>({...fields(step,['title','instruction','reason','evidence','automation','integration','approval']),decisionReviewed:Boolean(step.decisionReviewed)})),actions:(result.actions||[]).map(action=>({...fields(action,['text','evidence']),done:Boolean(action.done)}))});
+}
+function clearGeneratedDraft(){if(state.generatedDraftUrl)URL.revokeObjectURL(state.generatedDraftUrl);state.generatedDraftUrl=null;$('downloadGeneratedDraft')?.remove();}
+function keepGeneratedDraft(result,transcript){
+ clearGeneratedDraft();const link=document.createElement('a');link.id='downloadGeneratedDraft';link.className='outline-btn';link.textContent='Download separate AI draft';link.download='process-studio-separate-ai-draft.json';
+ state.generatedDraftUrl=URL.createObjectURL(new Blob([JSON.stringify({transcript,result,note:'Separate AI draft. Newer edits in the saved process were preserved. Review this draft before using it.'},null,2)],{type:'application/json'}));link.href=state.generatedDraftUrl;$('processProgress').after(link);
+ progress('Your process was edited during generation. Your edits were kept. Download the separate AI draft to review its output.','done');
+}
 async function generate(auto = false) {
+  if(state.starting||['recording','paused'].includes(state.recorder?.state)||!auto&&(state.finalizing||state.importing))return toast('Stop recording and wait for its video to save before creating a process.');
   if(state.analyzing) return;
   const transcript = $('transcript').value.trim(), sourceBlob=state.blob, sourceKey=recordingIdentity().key;
   if (transcript.length < 20) return toast('Add at least a short transcript first.');
   if(getPreferences().aiMode==='chatgpt'&&state.blob&&!$('reviewCheck').checked)return progress('Transcript ready. Check the words against your recording before sending them to ChatGPT.','done');
   if(getPreferences().aiMode==='chatgpt'&&!$('chatgptOnlineConsent').checked)return progress('Open Settings and allow sending this transcript to OpenAI, or select Local Qwen.','error');
   if (!auto && state.mode !== 'sample' && state.mode !== 'paste' && !$('reviewCheck').checked) return toast('Review the transcript against the recording first.');
+  state.generationCheckpoint=processSnapshot(state.result);const processBefore=state.generationCheckpoint;
   $('generateBtn').disabled = true; $('generateBtn').textContent = 'Analyzing locally…';
   try {
-    state.cancelRequested=false;state.analyzing = true;
+    state.cancelRequested=false;state.processingAbort=new AbortController();state.analyzing = true;
     updateWords();
     $('generateBtn').textContent = 'Creating process…';
     const data = await analyzeSaved(state, transcript);
     if(state.cancelRequested || recordingIdentity().key!==sourceKey || state.blob!==sourceBlob || $('transcript').value.trim()!==transcript){progress('Processing cancelled or source changed. Your last saved work was kept.','done');return}
+    if(processSnapshot(state.result)!==processBefore){keepGeneratedDraft(data,transcript);return;}
     state.result = data; state.method = data.method;
   } catch (error) {
     if(state.cancelRequested || recordingIdentity().key!==sourceKey || state.blob!==sourceBlob || $('transcript').value.trim()!==transcript)return;
@@ -637,10 +667,11 @@ async function restoreLatest() {
     if(requestedId){
       const response = await fetch('/api/recordings/'+encodeURIComponent(requestedId));
       let saved = await response.json();let browserDraft;try{browserDraft=JSON.parse(localStorage.getItem('process-studio-record-'+requestedId)||localStorage.getItem('process-studio-latest')||'null')}catch{}if(!response.ok){if(saved.deletedPermanently){await discardRecordingCopies(requestedId,{cacheKeys:[browserDraft?.identity?.key]});resetRecording();state.mode=null;}throw new Error(saved.error);}const recovery=chooseRecoveryDraft(saved,browserDraft);saved=recovery.saved;if(recovery.conflict){state.recoveryConflict||={};state.recoveryConflict[requestedId]=true;}
-      state.recordingKind=saved.kind; state.fileName=saved.filename; state.blob=saved.videoUrl?await fetch(saved.videoUrl).then(r=>r.blob()):null;
-      state.blobUrl=state.blob?URL.createObjectURL(state.blob):null; adoptRecording(requestedId,state.blob,saved.revision,browserDraft?.identity?.id===requestedId?browserDraft.identity.key:null);
-      showSession(['notes','paste'].includes(saved.kind)?'paste':saved.kind==='sample'?'sample':'import');videoStatus.textContent=state.blob?'Saved recording · '+state.fileName:'Written source · no recording needed';if(['notes','paste'].includes(saved.kind))pasteInput.value=saved.transcript||'';
-      if(state.blobUrl){$('video').src=state.blobUrl;$('video').classList.remove('hidden');$('videoPlaceholder').classList.add('hidden');$('downloadVideo').href=state.blobUrl;$('downloadVideo').download=state.fileName;$('downloadVideo').classList.remove('hidden');$('transcribeBtn').classList.remove('hidden');}else{$('video').classList.add('hidden');$('videoPlaceholder').innerHTML='<strong>Written walkthrough</strong><small>Saved source material</small>';}
+      state.recordingKind=saved.kind; state.fileName=saved.filename; state.blob=null;
+      if(saved.videoUrl){try{const media=await fetch(saved.videoUrl);if(!media.ok)throw Error('Recording unavailable.');state.blob=await media.blob();}catch{state.blob=null;}}
+      state.blobUrl=state.blob?URL.createObjectURL(state.blob):null; adoptRecording(requestedId,state.blob,saved.revision,saved.cacheKey||(browserDraft?.identity?.id===requestedId?browserDraft.identity.key:null));
+      showSession(['notes','paste'].includes(saved.kind)?'paste':saved.kind==='sample'?'sample':'import');videoStatus.textContent=state.blob?'Saved recording · '+state.fileName:saved.videoUrl?'Recording unavailable · Your transcript and process are kept. Reopen this walkthrough to retry.':'Written source · no recording needed';if(['notes','paste'].includes(saved.kind))pasteInput.value=saved.transcript||'';
+      if(state.blobUrl){$('video').src=state.blobUrl;$('video').classList.remove('hidden');$('videoPlaceholder').classList.add('hidden');$('downloadVideo').href=state.blobUrl;$('downloadVideo').download=state.fileName;$('downloadVideo').classList.remove('hidden');$('transcribeBtn').classList.remove('hidden');}else{$('video').classList.add('hidden');$('videoPlaceholder').innerHTML=saved.videoUrl?'<strong>Recording unavailable</strong><small>Your saved transcript and process are kept. Reopen this walkthrough to retry playback.</small>':'<strong>Written walkthrough</strong><small>Saved source material</small>';$('videoPlaceholder').classList.remove('hidden');$('downloadVideo').classList.add('hidden');$('transcribeBtn').classList.add('hidden');}
       setTranscript(saved.transcript||'',saved.transcriptSource||'Pending','Recovered from your saved workspace.');$('reviewCheck').checked=Boolean(saved.reviewed);state.segments=saved.segments||[];renderCues();state.result=saved.result;state.method=saved.method;if(state.result)renderResult();updateWords();if(recovery.conflict)offerDraftRecovery(recovery.conflict,saved);return;
     }
     const saved = JSON.parse(localStorage.getItem('process-studio-latest') || '{}');
@@ -753,13 +784,16 @@ $('downloadReviews').addEventListener('click', event => {
   if (!examples.length) { event.preventDefault(); return toast('Save a reviewed example first.'); }
   prepareDownload(event.currentTarget, 'reviewed-workflows.jsonl', examples.map(item => JSON.stringify(item)).join('\n') + '\n', 'application/x-ndjson');
 });
-$('retryProcessing').addEventListener('click',()=>processRecording(true));$('cancelProcessing').addEventListener('click',()=>{state.cancelRequested=true;state.processingAbort?.abort();cancelLocalJob().catch(error=>progress(error.message,'error'))});
+$('retryProcessing').addEventListener('click',()=>processRecording(true));$('cancelProcessing').addEventListener('click',()=>{state.cancelRequested=true;state.processingAbort?.abort();cancelLocalJob().then(()=>updateWords()).catch(error=>{progress(error.message,'error');updateWords()})});
 setupRecovery();
 setupSettings({refreshStatus:status,isBusy:()=>state.starting||state.importing||state.finalizing||state.analyzing||state.transcribing||['recording','paused'].includes(state.recorder?.state)});
 setupCloud(() => { if(state.result) collectEdits(false); return {state,transcript:$('transcript').value.trim(),reviewed:$('reviewCheck').checked || ['sample','paste'].includes(state.mode)}; });
+window.addEventListener('studio-session-opened',clearGeneratedDraft);
 await status(); updateWords(); await restoreLatest();document.body.dataset.studioReady='true';window.dispatchEvent(new Event('studio-ready'));
 window.addEventListener('recording-saved',()=>{if(persistMetadata(false))progress('Workspace saved. Browser recovery storage is unavailable.','done');releaseUploadedMedia(recordingIdentity()).catch(()=>progress('Workspace saved; browser media cache could not be released.','error'))});
-window.addEventListener('recording-deleted',event=>{if(recordingIdentity().id!==event.detail.id)return;resetRecording();state.mode=null;state.blob=null;state.result=null;state.segments=[];if(state.blobUrl)URL.revokeObjectURL(state.blobUrl);state.blobUrl=null;$('video').pause();$('video').removeAttribute('src');$('video').load();$('transcript').value='';$('session').classList.add('hidden');$('results').classList.add('hidden');updateWords();});
-try { const job=await resumeLocalJob(); if(job?.status==='complete' && job.stage==='analyze' && job.input===$('transcript').value.trim()){state.result=job.result;state.method=job.result.method;renderResult();persistMetadata();}else if(job?.status==='complete' && job.stage==='transcribe' && $('transcript').value===job.previousTranscript){setTranscript(job.result.transcript,job.result.source,'Recovered local transcription. Check these words.');state.segments=job.result.segments||[];renderCues();persistMetadata();if($('autoProcess').checked&&state.ai)await generate(true);}else if(job?.status==='failed')progress(job.error,'error'); }catch(error){progress(error.message,'error')}
+window.addEventListener('recording-deleted',event=>{if(recordingIdentity().id!==event.detail.id)return;state.cancelRequested=true;state.processingAbort?.abort();const removed=recordingContext();removed.removed=true;cancelLocalJob(removed).catch(error=>progress(error.message,'error'));resetRecording();state.mode=null;state.blob=null;state.result=null;state.segments=[];if(state.blobUrl)URL.revokeObjectURL(state.blobUrl);state.blobUrl=null;$('video').pause();$('video').removeAttribute('src');$('video').load();$('transcript').value='';$('session').classList.add('hidden');$('results').classList.add('hidden');updateWords();});
+window.addEventListener('processing-resumed',event=>{state.transcribing=event.detail.stage==='transcribe';state.analyzing=event.detail.stage==='analyze';updateWords()});
+state.processingAbort=new AbortController();if(state.cancelRequested)state.processingAbort.abort();
+try { const job=await resumeLocalJob({signal:state.processingAbort?.signal}); if(!state.cancelRequested&&job?.status==='complete' && job.stage==='analyze' && job.input===$('transcript').value.trim()){if(state.result&&job.processSnapshot!==processSnapshot(state.result))keepGeneratedDraft(job.result,job.input);else{state.result=job.result;state.method=job.result.method;renderResult();persistMetadata();}}else if(!state.cancelRequested&&job?.status==='complete' && job.stage==='transcribe' && $('transcript').value===job.previousTranscript){setTranscript(job.result.transcript,job.result.source,'Recovered local transcription. Check these words.');state.segments=job.result.segments||[];renderCues();persistMetadata();if($('autoProcess').checked&&state.ai)await generate(true);}else if(!state.cancelRequested&&job?.status==='failed')progress(job.error,'error'); }catch(error){if(!state.cancelRequested)progress(error.message,'error')}finally{state.transcribing=false;state.analyzing=false;updateWords()}
 setInterval(status, 20000);
 

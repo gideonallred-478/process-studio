@@ -6,6 +6,9 @@ const $=id=>document.getElementById(id);
 export function setupSettings({refreshStatus,isBusy}) {
   setupSharingSettings();
   setupChatGPTSettings({refreshStatus,isBusy});
+  const themeChoice=$('themeChoice');themeChoice.value=window.studioTheme.get();
+  themeChoice.addEventListener('change',()=>{window.studioTheme.set(themeChoice.value);$('settingsNotice').textContent='Appearance saved for this browser.';});
+  window.addEventListener('studio-theme-changed',()=>{themeChoice.value=window.studioTheme.get();});
   function openSettings(){navigate('settings');refreshStatus()}
   $('quickSettings').addEventListener('click',openSettings);
   $('navSettings').addEventListener('click',refreshStatus);

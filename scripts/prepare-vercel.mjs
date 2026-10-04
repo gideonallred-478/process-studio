@@ -22,7 +22,7 @@ const files = [
 ];
 for (const [source, target] of files) await fs.copyFile(source,path.join(destination,target));
 const home = path.join(destination,'public','index.html');
-await fs.writeFile(home,(await fs.readFile(home,'utf8')).replace('<body>','<body><aside role="status" style="padding:10px 18px;background:#eaf2ff;color:#1746a2;font:13px system-ui;text-align:center">Record and process locally, share online. ChatGPT is signed out here. <a href="/local.html">Get the local edition</a>.</aside>'));
+await fs.writeFile(home,(await fs.readFile(home,'utf8')).replace('<body>','<body><aside class="hosted-notice" role="status" style="padding:10px 18px;background:#eaf2ff;color:#1746a2;font:13px system-ui;text-align:center">Record and process locally, share online. ChatGPT is signed out here. <a href="/local.html">Get the local edition</a>.</aside>'));
 await fs.writeFile(path.join(destination,'package.json'), JSON.stringify({name:'process-studio-logged-out',private:true,type:'module',engines:{node:'22.x'}},null,2));
 await fs.writeFile(path.join(destination,'vercel.json'), JSON.stringify({version:2,framework:null,buildCommand:'',outputDirectory:'public',functions:{'api/index.mjs':{includeFiles:'lib/**'}},headers:[{source:'/',headers:[{key:'Cache-Control',value:'no-store'},{key:'X-Content-Type-Options',value:'nosniff'},{key:'Referrer-Policy',value:'no-referrer'},{key:'Content-Security-Policy',value:csp}]}],rewrites:[{source:'/',destination:'/index.html'},{source:'/:path*',destination:'/api/index'}]},null,2));
 await fs.writeFile(path.join(destination,'.vercelignore'), '*\n!api\n!api/index.mjs\n!lib\n!lib/studio-worker.mjs\n!lib/hosted-relay.mjs\n!public\n!public/robots.txt\n!public/index.html\n!public/local-release.zip\n!package.json\n!vercel.json\n');

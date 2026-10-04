@@ -1,0 +1,305 @@
+{
+  "at": "2026-10-04T03:57:49.534Z",
+  "synthetic": true,
+  "checks": [
+    {
+      "name": "studio-desktop",
+      "passed": true,
+      "metrics": {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [],
+        "polished": true,
+        "background": "rgb(246, 248, 252)"
+      }
+    },
+    {
+      "name": "library-empty-desktop",
+      "passed": true,
+      "metrics": {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [],
+        "polished": true,
+        "background": "rgb(246, 248, 252)"
+      }
+    },
+    {
+      "name": "library-desktop",
+      "passed": true,
+      "metrics": {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [],
+        "polished": true,
+        "background": "rgb(246, 248, 252)"
+      }
+    },
+    {
+      "name": "recording-desktop",
+      "passed": true,
+      "metrics": {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [],
+        "polished": true,
+        "background": "rgb(246, 248, 252)"
+      }
+    },
+    {
+      "name": "editor-desktop",
+      "passed": true,
+      "metrics": {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [],
+        "polished": true,
+        "background": "rgb(246, 248, 252)"
+      }
+    },
+    {
+      "name": "automation-desktop",
+      "passed": true,
+      "metrics": {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [],
+        "polished": true,
+        "background": "rgb(246, 248, 252)"
+      }
+    },
+    {
+      "name": "settings-desktop",
+      "passed": true,
+      "metrics": {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [],
+        "polished": true,
+        "background": "rgb(246, 248, 252)"
+      }
+    },
+    {
+      "name": "studio-example-desktop",
+      "passed": true,
+      "metrics": {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [],
+        "polished": true,
+        "background": "rgb(246, 248, 252)"
+      }
+    },
+    {
+      "name": "result-desktop",
+      "passed": true,
+      "metrics": {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [],
+        "polished": true,
+        "background": "rgb(246, 248, 252)"
+      }
+    },
+    {
+      "name": "studio-mobile",
+      "passed": true,
+      "metrics": {
+        "width": 390,
+        "scroll": 390,
+        "images": [],
+        "polished": true,
+        "background": "rgb(246, 248, 252)"
+      }
+    },
+    {
+      "name": "library-mobile",
+      "passed": true,
+      "metrics": {
+        "width": 390,
+        "scroll": 390,
+        "images": [],
+        "polished": true,
+        "background": "rgb(246, 248, 252)"
+      }
+    },
+    {
+      "name": "recording-mobile",
+      "passed": true,
+      "metrics": {
+        "width": 390,
+        "scroll": 390,
+        "images": [],
+        "polished": true,
+        "background": "rgb(246, 248, 252)"
+      }
+    },
+    {
+      "name": "editor-mobile",
+      "passed": true,
+      "metrics": {
+        "width": 390,
+        "scroll": 390,
+        "images": [],
+        "polished": true,
+        "background": "rgb(246, 248, 252)"
+      }
+    },
+    {
+      "name": "settings-mobile",
+      "passed": true,
+      "metrics": {
+        "width": 390,
+        "scroll": 390,
+        "images": [],
+        "polished": true,
+        "background": "rgb(246, 248, 252)"
+      }
+    },
+    {
+      "name": "result-mobile",
+      "passed": true,
+      "metrics": {
+        "width": 390,
+        "scroll": 390,
+        "images": [],
+        "polished": true,
+        "background": "rgb(246, 248, 252)"
+      }
+    },
+    {
+      "name": "Explicit dark preference survives reload",
+      "passed": true
+    },
+    {
+      "name": "studio-dark",
+      "passed": true,
+      "metrics": {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [],
+        "polished": true,
+        "background": "rgb(12, 23, 40)"
+      }
+    },
+    {
+      "name": "library-dark",
+      "passed": true,
+      "metrics": {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [],
+        "polished": true,
+        "background": "rgb(12, 23, 40)"
+      }
+    },
+    {
+      "name": "recording-dark",
+      "passed": true,
+      "metrics": {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [],
+        "polished": true,
+        "background": "rgb(12, 23, 40)"
+      }
+    },
+    {
+      "name": "editor-dark",
+      "passed": true,
+      "metrics": {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [],
+        "polished": true,
+        "background": "rgb(12, 23, 40)"
+      }
+    },
+    {
+      "name": "automation-dark",
+      "passed": true,
+      "metrics": {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [],
+        "polished": true,
+        "background": "rgb(12, 23, 40)"
+      }
+    },
+    {
+      "name": "settings-dark",
+      "passed": true,
+      "metrics": {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [],
+        "polished": true,
+        "background": "rgb(12, 23, 40)"
+      }
+    },
+    {
+      "name": "result-dark",
+      "passed": true,
+      "metrics": {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [],
+        "polished": true,
+        "background": "rgb(12, 23, 40)"
+      }
+    },
+    {
+      "name": "studio-dark-mobile",
+      "passed": true,
+      "metrics": {
+        "width": 390,
+        "scroll": 390,
+        "images": [],
+        "polished": true,
+        "background": "rgb(12, 23, 40)"
+      }
+    },
+    {
+      "name": "editor-dark-mobile",
+      "passed": true,
+      "metrics": {
+        "width": 390,
+        "scroll": 390,
+        "images": [],
+        "polished": true,
+        "background": "rgb(12, 23, 40)"
+      }
+    },
+    {
+      "name": "settings-dark-mobile",
+      "passed": true,
+      "metrics": {
+        "width": 390,
+        "scroll": 390,
+        "images": [],
+        "polished": true,
+        "background": "rgb(12, 23, 40)"
+      }
+    },
+    {
+      "name": "result-dark-mobile",
+      "passed": true,
+      "metrics": {
+        "width": 390,
+        "scroll": 390,
+        "images": [],
+        "polished": true,
+        "background": "rgb(12, 23, 40)"
+      }
+    },
+    {
+      "name": "System follows appearance changes and explicit choice takes precedence",
+      "passed": true
+    },
+    {
+      "name": "No uncaught errors",
+      "passed": true,
+      "errors": []
+    }
+  ]
+}

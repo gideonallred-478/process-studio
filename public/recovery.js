@@ -1,5 +1,6 @@
 import {api,refreshHistory,progress} from '/cloud.js';
 import {uploadRecording} from '/uploads.js';
+import {validCaptionSegments} from '/caption-data.js';
 const $=id=>document.getElementById(id);
 function download(data,name){const url=URL.createObjectURL(new Blob([JSON.stringify(data)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(url),10000)}
 async function encode(blob){const bytes=new Uint8Array(await blob.arrayBuffer());let text='';for(let i=0;i<bytes.length;i+=32768)text+=String.fromCharCode(...bytes.subarray(i,i+32768));return btoa(text)}
@@ -7,7 +8,7 @@ function validateBackup(backup){
  if(backup.format!=='process-studio-backup'||backup.version!==1||!Array.isArray(backup.records)||backup.records.length>200)throw Error('Choose a Process Studio backup or private workspace key.');
  let total=0;for(const [index,record] of backup.records.entries()){
   const invalid=()=>{throw Error('Backup entry '+(index+1)+' is invalid. No recordings were restored.');};
-  if(!record||typeof record!=='object'||!Array.isArray(record.segments||[])||(record.segments||[]).length>10000||typeof record.transcript!=='string'||record.transcript.length>200000)invalid();
+  if(!record||typeof record!=='object'||!validCaptionSegments(record.segments===undefined?[]:record.segments)||typeof record.transcript!=='string'||record.transcript.length>200000)invalid();
   if(record.result!=null&&(!Array.isArray(record.result.steps)||record.result.steps.length>200||!Array.isArray(record.result.actions)||record.result.actions.length>200||record.result.steps.some(step=>!step||typeof step!=='object')||record.result.actions.some(action=>!action||typeof action!=='object')))invalid();
   if(record.media){if(typeof record.media!=='string'||record.media.length%4!==0||!/^[A-Za-z0-9+/]*={0,2}$/.test(record.media)||!['video/webm','video/mp4','audio/webm','audio/mp4','audio/mpeg','audio/wav','audio/x-wav','audio/ogg'].includes(record.mime))invalid();const size=atob(record.media).length;if(size>25*1024*1024)invalid();total+=size;if(total>150*1024*1024)invalid();}
   if(JSON.stringify({...record,media:undefined}).length>4*1024*1024)invalid();

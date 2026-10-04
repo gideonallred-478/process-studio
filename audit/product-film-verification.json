@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-04",
+  "source": "https://vercel-logged-out.vercel.app",
+  "durationSeconds": 70.016,
+  "width": 1920,
+  "height": 1080,
+  "fps": 24,
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "music": "Original instrumental",
+  "narration": "On-screen text; no spoken voiceover",
+  "demo": "Real captured built-in prepared example, not a live AI generation or real recording",
+  "authorAccountsUsed": false,
+  "privateRecordingsUsed": false,
+  "confirmedDeliverables": [
+    {
+      "id": "65c2228d-6dbb-4d21-81f3-a8406015a2d6",
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3UApXZGqJW0zEhxSv3OTYNwcO/65c2228d-6dbb-4d21-81f3-a8406015a2d6.mp4",
+      "type": "video/mp4"
+    },
+    {
+      "id": "2cbb8afe-a034-4131-893e-cc4f33293d14",
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3UApXZGqJW0zEhxSv3OTYNwcO/2cbb8afe-a034-4131-893e-cc4f33293d14.zip",
+      "type": "application/octet-stream"
+    },
+    {
+      "id": "e08955b0-40ec-496c-9fee-537dc6617512",
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3UApXZGqJW0zEhxSv3OTYNwcO/e08955b0-40ec-496c-9fee-537dc6617512.jpg",
+      "type": "image/jpeg"
+    }
+  ],
+  "socialPublishing": false
+}
